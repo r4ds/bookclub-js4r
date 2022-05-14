@@ -1,4 +1,4 @@
-# Overview
+# Widgets with Shiny
 
 **Learning objectives:**
 

@@ -1,4 +1,4 @@
-# Overview
+# Managing JavaScript
 
 **Learning objectives:**
 

@@ -1,4 +1,4 @@
-# Overview
+# Webpack Advanced
 
 **Learning objectives:**
 
