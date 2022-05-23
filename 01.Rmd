@@ -28,11 +28,42 @@
   - [{plotly}](https://github.com/plotly/plotly.R) uses
   [plotly](https://github.com/plotly/plotly.js)
   - [{waiter}](https://github.com/JohnCoene/waiter) based on various JS libraries
-  
 
 ## Methods
 
+Many ways to integrate JS with R
+
+- Run JS code from R
+  - {V8}
+  - [V8 on CRAN](https://cran.r-project.org/web/packages/V8/index.html)
+  - Used by {rmapshaper}
+  - V8 is a JavaScript engine (used in Chrome and Node.js)
+
+- Send data from R to JS, for viewing in the browser
+  - {htmlwidgets}
+  - [htmlwidgets on CRAN](https://cran.r-project.org/web/packages/htmlwidgets/index.html)
+  - Send data from R to JS for viewing in the browser
+  - Used to wrap JS visualisation libraries
+  - Used by {plotly}, {DT}, {highcharter}
+
+- Pass data back & forth between R and the browser
+  - {shiny}
+  - e.g., {waiter}
+
 ## Methods Amiss
+
+Things that aren't covered by the book
+
+- Send data from R to a specific front-end JS framework
+  - React
+    - See [{reactR}](https://cran.r-project.org/web/packages/reactR/index.html)
+    - ... and its use in[{reactable}](https://cran.r-project.org/web/packages/reactable/index.html)
+  - Vue
+    - See [{vueR}](https://vue-r.github.io/vueR/)
+
+- Use existing R packages to send data to a JS data visualisation library
+  - D3
+    - See [{r2d3}](https://rstudio.github.io/r2d3/)
 
 ## Meeting Videos
 
