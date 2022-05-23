@@ -2,12 +2,37 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Book-club admin
+  - Introductions
+  - Repository
+  - Set-up for contributors
 
-## SLIDE 1
+- Explain why JavaScript may be a useful tool for an R developer
+- Introduce some
+  - JavaScript libraries
+  - R packages that use JavaScript
+  - JavaScript training material / tutorials
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+## Rationale
+
+- R & JS have quite different responsibilities
+
+- Why use JavaScript as an R dev
+  - JS might have solved your problem
+  - JS can do things that R cannot
+  - To improve communication of insights
+
+- R packages that use JavaScript
+  - [{rmapshaper}](https://github.com/ateucher/rmapshaper) integrates the
+  [mapshaper](https://github.com/mbloch/mapshaper/) library
+  - [{plotly}](https://github.com/plotly/plotly.R) uses
+  [plotly](https://github.com/plotly/plotly.js)
+  - [{waiter}](https://github.com/JohnCoene/waiter) based on various JS libraries
+  
+
+## Methods
+
+## Methods Amiss
 
 ## Meeting Videos
 
