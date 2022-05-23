@@ -88,8 +88,6 @@ plot_ly(
 )
 ```
 
-## R to JS translation
-
 ## Resources
 
 - Awesome-JavaScript
