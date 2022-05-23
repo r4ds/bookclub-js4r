@@ -65,6 +65,31 @@ Things that aren't covered by the book
   - D3
     - See [{r2d3}](https://rstudio.github.io/r2d3/)
 
+## Some code
+
+Plotly example
+
+- Run the following
+- Investigate the plot
+- Look at the HTML in DevTools (id="htmlwidget-<randomstring>")
+- See where the htmlwidget script is read in
+
+```{r ch1-plotly-example}
+suppressPackageStartupMessages({
+  library(plotly)
+})
+
+plot_ly(
+  diamonds,
+  x = ~cut,
+  color = ~clarity,
+  type = "histogram",
+  width = "100%"
+)
+```
+
+## R to JS translation
+
 ## Meeting Videos
 
 ### Cohort 1
