@@ -2,12 +2,103 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Book-club admin
+  - Introductions
+  - Repository
+  - Set-up for contributors
 
-## SLIDE 1
+- Explain why JavaScript may be a useful tool for an R developer
+- Introduce some
+  - JavaScript libraries
+  - R packages that use JavaScript
+  - JavaScript training material / tutorials
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+## Rationale
+
+- R & JS have quite different responsibilities
+
+- Why use JavaScript as an R dev
+  - JS might have solved your problem
+  - JS can do things that R cannot
+  - To improve communication of insights
+
+- R packages that use JavaScript
+  - [{rmapshaper}](https://github.com/ateucher/rmapshaper) integrates the
+  [mapshaper](https://github.com/mbloch/mapshaper/) library
+  - [{plotly}](https://github.com/plotly/plotly.R) uses
+  [plotly](https://github.com/plotly/plotly.js)
+  - [{waiter}](https://github.com/JohnCoene/waiter) based on various JS libraries
+
+## Methods
+
+Many ways to integrate JS with R
+
+- Run JS code from R
+  - {V8}
+  - [V8 on CRAN](https://cran.r-project.org/web/packages/V8/index.html)
+  - Used by {rmapshaper}
+  - V8 is a JavaScript engine (used in Chrome and Node.js)
+
+- Send data from R to JS, for viewing in the browser
+  - {htmlwidgets}
+  - [htmlwidgets on CRAN](https://cran.r-project.org/web/packages/htmlwidgets/index.html)
+  - Send data from R to JS for viewing in the browser
+  - Used to wrap JS visualisation libraries
+  - Used by {plotly}, {DT}, {highcharter}
+
+- Pass data back & forth between R and the browser
+  - {shiny}
+  - e.g., {waiter}
+
+## Methods Amiss
+
+Things that aren't covered by the book
+
+- Send data from R to a specific front-end JS framework
+  - React
+    - See [{reactR}](https://cran.r-project.org/web/packages/reactR/index.html)
+    - ... and its use in[{reactable}](https://cran.r-project.org/web/packages/reactable/index.html)
+  - Vue
+    - See [{vueR}](https://vue-r.github.io/vueR/)
+
+- Use existing R packages to send data to a JS data visualisation library
+  - D3
+    - See [{r2d3}](https://rstudio.github.io/r2d3/)
+
+## Some code
+
+Plotly example
+
+- Run the following
+- Investigate the plot
+- Look at the HTML in DevTools (id="htmlwidget-<randomstring>")
+- See where the htmlwidget script is read in
+
+```{r ch1-plotly-example}
+suppressPackageStartupMessages({
+  library(plotly)
+})
+
+plot_ly(
+  diamonds,
+  x = ~cut,
+  color = ~clarity,
+  type = "histogram",
+  width = "100%"
+)
+```
+
+## Resources
+
+- Awesome-JavaScript
+  - [Data visualisation section](https://github.com/sorrycc/awesome-javascript#data-visualization)
+
+- MDN
+  - [JavaScript guides / tutorials](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+- [JavaScript 4 Shiny Field Notes](https://connect.thinkr.fr/js4shinyfieldnotes/)
+
+- [Using htmlwidgets in Rmarkdown](https://bookdown.org/yihui/rmarkdown/html-widgets.html)
 
 ## Meeting Videos
 
