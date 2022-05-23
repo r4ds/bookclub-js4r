@@ -90,6 +90,18 @@ plot_ly(
 
 ## R to JS translation
 
+## Resources
+
+- Awesome-JavaScript
+  - [Data visualisation section](https://github.com/sorrycc/awesome-javascript#data-visualization)
+
+- MDN
+  - [JavaScript guides / tutorials](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+- [JavaScript 4 Shiny Field Notes](https://connect.thinkr.fr/js4shinyfieldnotes/)
+
+- [Using htmlwidgets in Rmarkdown](https://bookdown.org/yihui/rmarkdown/html-widgets.html)
+
 ## Meeting Videos
 
 ### Cohort 1
