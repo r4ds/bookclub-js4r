@@ -10,7 +10,7 @@ As we read, we are producing [notes about the book](https://r4ds.io/js4r).
 
 If you would like to present, please see the sign-up sheet for your cohort (linked below, and pinned in the [#book_club-js4r](https://rfordatascience.slack.com/archives/C03EX4LH62V) channel on Slack)!
 
-- [Cohort 1](https://docs.google.com/spreadsheets/d/18erZTkeLPk1vwpGGTeIqvoXH26blySNWFVQJ6cRq_P4/edit#gid=0) (started 2022-05-24): [Tuesdays, 11:00am CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20220524T160000&p1=24)
+- [Cohort 1](https://docs.google.com/spreadsheets/d/18erZTkeLPk1vwpGGTeIqvoXH26blySNWFVQJ6cRq_P4/edit#gid=0) (started 2022-05-24): [Tuesdays, 11:00am CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20220524T160000&p1=24) | [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGh1G-Jw5SriV2WPjLNXba2I)
 
 <hr>
 
