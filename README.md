@@ -3,45 +3,14 @@
 Welcome to the R4DS JavaScript for R Book Club!
 
 We are working together to read [_JavaScript for R_](https://book.javascript-for-r.com/) by John Coene (Chapman & Hall/CRC, copyright July 16, 2021, [9780367680633](https://www.routledge.com/Javascript-for-R/Coene/p/book/9780367680633)).
-Join the #book_club-js4r channel on the [R4DS Slack](https://r4ds.io/join) to participate.
+Join the [#book_club-js4r](https://rfordatascience.slack.com/archives/C03EX4LH62V) channel on the [R4DS Slack](https://r4ds.io/join) to participate.
 As we read, we are producing [notes about the book](https://r4ds.io/js4r).
 
 ## Meeting Schedule
 
-If you would like to present, please add your name next to a chapter using the [GitHub Web Editor](https://youtu.be/d41oc2OMAuI)!
+If you would like to present, please see the sign-up sheet for your cohort (linked below, and pinned in the [#book_club-js4r](https://rfordatascience.slack.com/archives/C03EX4LH62V) channel on Slack)!
 
-*Cohort 1: Tuesdays, 11:00am CST/CDT*
-
-<details>
-  <summary> Past Meetings </summary>
-  
-(none yet)
-</details>
-
-- 2022-05-24: Chapter 1 (Overview) - Russ Hyde
-- 2022-05-31: Chapter 2 (Prerequisites) - Presenter TBD
-- 2022-06-07: Chapter 3 (Introduction to Widgets) - Presenter TBD
-- 2022-06-14: Chapter 4 (Basics of Building Widgets) - Presenter TBD
-- 2022-06-21: Chapter 5 (Your First Widget) - Presenter TBD
-- 2022-06-28: Chapter 6 (A Realistic Widget) - Presenter TBD
-- 2022-07-05: Chapter 7 (The Full Monty) - Presenter TBD
-- 2022-07-12: Chapter 8 (Advanced Topics) - Presenter TBD
-- 2022-07-19: Chapter 9 (Linking Widgets) - Presenter TBD
-- 2022-07-26: Chapter 10 (Final Revisions) - Presenter TBD
-- 2022-08-02: Chapter 11 (Bidirectional Communication) - Presenter TBD
-- 2022-08-09: Chapter 12 (A Complete Integration) - Presenter TBD
-- 2022-08-16: Chapter 13 (Tips & Tricks) - Presenter TBD
-- 2022-08-23: Chapter 14 (Custom Outputs ) - Presenter TBD
-- 2022-08-30: Chapter 15 (Custom Inputs) - Presenter TBD
-- 2022-09-06: Chapter 16 (Cookies) - Presenter TBD
-- 2022-09-13: Chapter 17 (Widgets with Shiny) - Presenter TBD
-- 2022-09-20: Chapter 18 (The V8 Engine) - Presenter TBD
-- 2022-09-27: Chapter 19 (Machine Learning) - Presenter TBD
-- 2022-10-04: Chapter 20 (Managing JavaScript) - Presenter TBD
-- 2022-10-11: Chapter 21 (Discover Webpack and NPM) - Presenter TBD
-- 2022-10-18: Chapter 22 (Webpack with R) - Presenter TBD
-- 2022-10-25: Chapter 23 (Webpack Advanced) - Presenter TBD
-- 2022-11-01: Chapter 24 (Conclusion) - Presenter TBD
+- [Cohort 1](https://docs.google.com/spreadsheets/d/18erZTkeLPk1vwpGGTeIqvoXH26blySNWFVQJ6cRq_P4/edit#gid=0): [Tuesdays, 11:00am CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20220524T160000&p1=24)
 
 <hr>
 
@@ -51,7 +20,7 @@ If you would like to present, please add your name next to a chapter using the [
 This repository is structured as a [{bookdown}](https://CRAN.R-project.org/package=bookdown) site.
 To present, follow these instructions:
 
-1. [Setup Github Locally](https://www.youtube.com/watch?v=hNUNPkoledI) (also see [_HappyHappy Git and GitHub for the useR_](https://happygitwithr.com/github-acct.html))
+1. [Setup Github Locally](https://www.youtube.com/watch?v=hNUNPkoledI) (also see [_Happy Git and GitHub for the useR_](https://happygitwithr.com/github-acct.html))
 2. Install {usethis} `install.packages("usethis")`
 3. `usethis::create_from_github("r4ds/bookclub-js4r")` (cleanly creates your own copy of this repository).
 4. `usethis::pr_init("my-chapter")` (creates a branch for your work, to avoid confusion).
