@@ -44,7 +44,7 @@ The very short version:
     - Add scripts/functions `usethis::use_r("MyScript")`
     - Document
     - Add R dependencies (`usethis::use_package("SomePackage")`)
-    - Write tests ``
+    - Write tests `usethis::use_test("MyScript") # makes ./tests/testthat/test-MyScript.R`
 - Test content
     - interactively, load package and tinker (`devtools::load_all()`)
     - formally, run tests (`devtools::check()`)
