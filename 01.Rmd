@@ -29,7 +29,7 @@
   [plotly](https://github.com/plotly/plotly.js)
   - [{waiter}](https://github.com/JohnCoene/waiter) based on various JS libraries
 
-## Methods
+## Methods {#integration-methods}
 
 Many ways to integrate JS with R
 
