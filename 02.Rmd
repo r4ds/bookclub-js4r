@@ -121,7 +121,7 @@ Examples found in the wild:
 
 - Pop the hood by inspecting page
     - In browser, see [here](https://developer.chrome.com/docs/devtools/overview/) for Chrome, for example.
-    - In RStudio ID, which is built on Chromium, can use similar tools.
+    - In RStudio IDE, which is built on Chromium, can use similar tools.
 - Views of interest
     - `Elements`. Shows the DOM, which could help inspect HTML produced by R (e.g., Shiny app).
     - `Console`. Much like the R console, shows messages, warnings, and errors, which could be helpful in understanding and debugging issues.
