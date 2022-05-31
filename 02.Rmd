@@ -11,7 +11,7 @@
 
 ## Why prerequisites are requisite
 
-In the last chapter, we were introduced to a few [methods for integrating R and JS](#methods):
+In the last chapter, we were introduced to a few [methods for integrating R and JS](#integration-methods):
 
 - Running RS from R
 - Sending data from R to JS, for use in the browser
