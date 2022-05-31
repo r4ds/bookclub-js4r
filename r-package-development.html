@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>24.1 SLIDE 1 | JavaScript for R Book Club</title>
+  <title>2.2 R package development | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta property="og:title" content="2.2 R package development | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="2.2 R package development | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="conclusion.html"/>
-<link rel="next" href="meeting-videos-23.html"/>
+<link rel="prev" href="why-prerequisites-are-requisite.html"/>
+<link rel="next" href="json.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -386,20 +386,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-1-21" class="section level2 hasAnchor" number="24.1">
-<h2><span class="header-section-number">24.1</span> SLIDE 1<a href="slide-1-21.html#slide-1-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="r-package-development" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> R package development<a href="r-package-development.html#r-package-development" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="how-to-create-packages" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> How to create packages<a href="r-package-development.html#how-to-create-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Create:</strong></p>
 <ul>
-<li>ADD SLIDES AS SECTIONS (<code>##</code>).</li>
-<li>TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.</li>
+<li>From the RStudio GUI, <code>File &gt; New Project &gt; New Directory &gt; R Package</code></li>
+<li>From the console, <code>usethis::create_package("mypackage")</code></li>
 </ul>
+<p><strong>Develop:</strong></p>
+<p>The very short version:</p>
+<ul>
+<li>Create content
+<ul>
+<li>Add scripts/functions <code>usethis::use_r("MyScript")</code></li>
+<li>Document</li>
+<li>Add R dependencies (<code>usethis::use_package("SomePackage")</code>)</li>
+<li>Write tests <code>usethis::use_test("MyScript") # makes ./tests/testthat/test-MyScript.R</code></li>
+</ul></li>
+<li>Test content
+<ul>
+<li>interactively, load package and tinker (<code>devtools::load_all()</code>)</li>
+<li>formally, run tests (<code>devtools::check()</code>)</li>
+</ul></li>
+<li>Fix issues</li>
+<li>Rinse and repeat</li>
+</ul>
+<p>The longer and more helpful version can be found in “The Whole Game” chapter of <a href="https://r-pkgs.org/whole-game.html">R Packages</a>.</p>
+</div>
+<div id="what-constitutes-a-package" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> What constitutes a package<a href="r-package-development.html#what-constitutes-a-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="metadata" class="section level4 hasAnchor" number="2.2.2.1">
+<h4><span class="header-section-number">2.2.2.1</span> Metadata<a href="r-package-development.html#metadata" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Two main files: <code>DESCRIPTION</code> and <code>NAMESPACE</code>.</li>
+<li><code>DESCRIPTION</code>, among other things, provides a list what needs to be installed in order for the package to work (i.e., “imports”).</li>
+<li><code>NAMESPACE</code> dictates which functions, of those defined in the package, are made available for use (i.e., “exports”).</li>
+</ul>
+</div>
+<div id="r-code" class="section level4 hasAnchor" number="2.2.2.2">
+<h4><span class="header-section-number">2.2.2.2</span> R code<a href="r-package-development.html#r-code" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>What:</strong> functions defined by the package</li>
+<li><strong>How:</strong> write one or more <code>.R</code> script, where each script defines one or more function.</li>
+<li><strong>Where:</strong> in <code>R/</code></li>
+</ul>
+</div>
+<div id="documentation" class="section level4 hasAnchor" number="2.2.2.3">
+<h4><span class="header-section-number">2.2.2.3</span> Documentation<a href="r-package-development.html#documentation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>What:</strong> documentation for functions
+<ul>
+<li>What the function does</li>
+<li>What the parameters are</li>
+<li>Details, examples, etc.</li>
+</ul></li>
+<li><strong>Where:</strong> just above each function definition in the <code>.R</code> scripts in <code>R/</code>.</li>
+<li><strong>How:</strong>
+<ul>
+<li>When writing functions, use special comments <code>#'</code> and tags (e.g., <code>#' @param</code>) provided by the <code>{roxygen}</code> package</li>
+<li>When building the package, <code>devtools::document()</code> creates separate documentation files for end users and stores them in <code>man/</code>.</li>
+</ul></li>
+</ul>
+</div>
+<div id="installed-files" class="section level4 hasAnchor" number="2.2.2.4">
+<h4><span class="header-section-number">2.2.2.4</span> Installed files<a href="r-package-development.html#installed-files" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>What:</strong>
+<ul>
+<li>In general, files that are downloaded as-is into the top level package directory when the package is installed.</li>
+<li>For our purposes, JS scripts or libraries.</li>
+</ul></li>
+<li><strong>Where:</strong>
+<ul>
+<li>When developing, located in <code>inst/</code></li>
+<li>After installing, located in the root of the package directory.</li>
+</ul></li>
+<li><strong>How:</strong>
+<ul>
+<li>Copy files in <code>inst/</code></li>
+<li>Write code to link R and JS.</li>
+<li>Add the programming language to the <code>SystemRequirements</code> field of <code>DESCRIPTION</code>. See (slightly) more <a href="https://r-pkgs.org/inst.html#inst-other-langs">here</a></li>
+</ul></li>
+</ul>
+<p>Examples found in the wild:</p>
+<ul>
+<li><a href="https://github.com/JohnCoene/echarts4r/tree/master/inst">{echarts4r}</a> wraps <a href="https://echarts.apache.org/en/index.html">echarts.js</a></li>
+<li><a href="https://github.com/glin/reactable/tree/main/inst">{reactable}</a> wraps <a href="https://tanstack.com/table/v8">React Table</a></li>
+<li><a href="https://github.com/timelyportfolio/dataui/tree/master/inst">{dataui}</a> wraps <a href="https://williaster.github.io/data-ui/">data-ui</a></li>
+</ul>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="conclusion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="meeting-videos-23.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="why-prerequisites-are-requisite.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="json.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -430,7 +516,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/24.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/02.Rmd",
 "text": "Edit"
 },
 "history": {

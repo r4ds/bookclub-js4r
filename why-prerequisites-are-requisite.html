@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>24.1 SLIDE 1 | JavaScript for R Book Club</title>
+  <title>2.1 Why prerequisites are requisite | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta property="og:title" content="2.1 Why prerequisites are requisite | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="2.1 Why prerequisites are requisite | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="conclusion.html"/>
-<link rel="next" href="meeting-videos-23.html"/>
+<link rel="prev" href="prerequisites.html"/>
+<link rel="next" href="r-package-development.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -386,11 +386,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-1-21" class="section level2 hasAnchor" number="24.1">
-<h2><span class="header-section-number">24.1</span> SLIDE 1<a href="slide-1-21.html#slide-1-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="why-prerequisites-are-requisite" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Why prerequisites are requisite<a href="why-prerequisites-are-requisite.html#why-prerequisites-are-requisite" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the last chapter, we were introduced to a few <a href="integration-methods.html#integration-methods">methods for integrating R and JS</a>:</p>
 <ul>
-<li>ADD SLIDES AS SECTIONS (<code>##</code>).</li>
-<li>TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.</li>
+<li>Running JS from R</li>
+<li>Sending data from R to JS, for use in the browser</li>
+<li>Passing data back and forth between R and the browser</li>
+</ul>
+<p>In this chapter, we will dive into a few of the prerequisites for exploring these methods in further detail:</p>
+<ul>
+<li><strong>R package development.</strong> If one wants to integrate R and JS code, packages provide a way to share both JS code (or library) and R code for making JS available through R.</li>
+<li><strong>JSON.</strong> If want to share/pass data between R and JS, JSON is the <em>lingua franca</em>.</li>
+<li><strong>JavaScript.</strong> If one wants to work with JS (in the browser), it is good to know some basics:
+<ul>
+<li>How to see where JS works</li>
+<li>How variables work</li>
+<li>How JS interacts with the DOM</li>
+</ul></li>
+<li><strong>Shiny.</strong> If one wants to use JS in Shiny, one needs to know a few main mechanisms for bringing JS into Shiny apps.</li>
 </ul>
 </div>
             </section>
@@ -398,8 +412,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="conclusion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="meeting-videos-23.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="prerequisites.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-package-development.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -430,7 +444,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/24.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/02.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>24.1 SLIDE 1 | JavaScript for R Book Club</title>
+  <title>2.6 Serving files v. htmltools | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta property="og:title" content="2.6 Serving files v. htmltools | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="2.6 Serving files v. htmltools | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="conclusion.html"/>
-<link rel="next" href="meeting-videos-23.html"/>
+<link rel="prev" href="shiny.html"/>
+<link rel="next" href="meeting-videos-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -386,11 +386,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-1-21" class="section level2 hasAnchor" number="24.1">
-<h2><span class="header-section-number">24.1</span> SLIDE 1<a href="slide-1-21.html#slide-1-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="serving-files-v.-htmltools" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Serving files v. htmltools<a href="serving-files-v.-htmltools.html#serving-files-v.-htmltools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Why prefer htmltools?</strong></p>
+<ol style="list-style-type: decimal">
+<li>Available in both Shiny and RMarkdown, while serving files only works for Shiny.</li>
+<li>Allows one to assess a package’s dependencies, which helps in cases where dependencies of two packages may conflict.</li>
+</ol>
+<p><strong>Why use <code>shiny::addResourcePath</code>?</strong></p>
 <ul>
-<li>ADD SLIDES AS SECTIONS (<code>##</code>).</li>
-<li>TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.</li>
+<li>Certainly, useful for loading JS and CSS.</li>
+<li>But also useful for other file types that an app may need, such as images or JSON data.</li>
 </ul>
 </div>
             </section>
@@ -398,8 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="conclusion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="meeting-videos-23.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="shiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -430,7 +436,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/24.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/02.Rmd",
 "text": "Edit"
 },
 "history": {

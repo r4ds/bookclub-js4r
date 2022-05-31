@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>24.1 SLIDE 1 | JavaScript for R Book Club</title>
+  <title>2.4 JavaScript | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta property="og:title" content="2.4 JavaScript | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="24.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="2.4 JavaScript | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="conclusion.html"/>
-<link rel="next" href="meeting-videos-23.html"/>
+<link rel="prev" href="json.html"/>
+<link rel="next" href="shiny.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -386,20 +386,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-1-21" class="section level2 hasAnchor" number="24.1">
-<h2><span class="header-section-number">24.1</span> SLIDE 1<a href="slide-1-21.html#slide-1-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="javascript" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> JavaScript<a href="javascript.html#javascript" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="developer-tools" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Developer tools<a href="javascript.html#developer-tools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>ADD SLIDES AS SECTIONS (<code>##</code>).</li>
-<li>TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.</li>
+<li>Pop the hood by inspecting page
+<ul>
+<li>In browser, see <a href="https://developer.chrome.com/docs/devtools/overview/">here</a> for Chrome, for example.</li>
+<li>In RStudio IDE, which is built on Chromium, can use similar tools.</li>
+</ul></li>
+<li>Views of interest
+<ul>
+<li><code>Elements</code>. Shows the DOM, which could help inspect HTML produced by R (e.g., Shiny app).</li>
+<li><code>Console</code>. Much like the R console, shows messages, warnings, and errors, which could be helpful in understanding and debugging issues.</li>
+</ul></li>
 </ul>
+</div>
+<div id="how-js-variables-differ-from-r" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> How JS variables differ from R<a href="javascript.html#how-js-variables-differ-from-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Declaration
+<ul>
+<li>Can declare variable without assigning a value</li>
+<li>Can declare variables in three ways:
+<ul>
+<li><code>var</code>. Define a variable of global scope.</li>
+<li><code>let</code>. Define a variable of restricted scope.</li>
+<li><code>const</code>. Define a variable whose value cannot be changed.</li>
+</ul></li>
+</ul></li>
+<li>Scope
+<ul>
+<li>What is scope. In effect, the accessibility of an object.</li>
+<li>Which scopes in JS; how compare to R.
+<ul>
+<li>Global. Like objects in R’s global environment.</li>
+<li>Function. Like variables inside an R function.</li>
+<li>Block. No direct R equivalent. Accessible within a block between <code>{</code> <code>}</code>.</li>
+</ul></li>
+<li>See more <a href="https://www.w3schools.com/js/js_scope.asp">here</a>.</li>
+</ul></li>
+</ul>
+</div>
+<div id="document-object-model-dom" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Document Object Model (DOM)<a href="javascript.html#document-object-model-dom" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>What is the DOM</strong>
+<ul>
+<li>Description of an HTML page as a tree of the elements and attributes that comprise the page.</li>
+<li>Elements are characterized by one or more of:
+<ul>
+<li>ID</li>
+<li>Tag</li>
+<li>Class(es)</li>
+<li>Etc</li>
+</ul></li>
+<li>See visual explanation <a href="https://book.javascript-for-r.com/prerequisites.html#basics-object-model">here</a>.</li>
+</ul></li>
+<li><strong>How JS interacts with the DOM</strong>
+<ul>
+<li>Select/query by:
+<ul>
+<li>ID</li>
+<li>Tag</li>
+<li>Class</li>
+</ul></li>
+<li>Change content and/or attributes of the element</li>
+<li>See nice summary <a href="https://www.w3schools.com/whatis/whatis_htmldom.asp">here</a>.</li>
+</ul></li>
+</ul>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="conclusion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="meeting-videos-23.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="json.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="shiny.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -430,7 +495,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/24.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/02.Rmd",
 "text": "Edit"
 },
 "history": {
