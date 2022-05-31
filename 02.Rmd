@@ -2,12 +2,217 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Know what you need to know
+    - R package development
+    - JSON
+    - JavaScript
+    - Shiny
+- Learn just enough about each topic
 
-## SLIDE 1
+## Why prerequisites are requisite
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+In the last chapter, we were introduced to a few [methods for integrating R and JS](#methods):
+
+- Running RS from R
+- Sending data from R to JS, for use in the browser
+- Passing data back and forth between R and the browser
+
+In this chapter, we will dive into a few of the prerequisites for exploring these methods in further detail:
+
+- **R package development.** If one wants to integrate R and JS code, packages provide a way to share both JS code (or library) and R code for making JS available through R.
+- **JSON.** If want to share/pass data between R and JS, JSON is the _lingua franca_.
+- **JavaScript.** If one wants to work with JS (in the browser), it is good to know some basics:
+    - How to see where JS works
+    - How variables work
+    - How JS interacts with the DOM
+- **Shiny.** If one wants to use JS in Shiny, one needs to know a few main mechanisms for bringing JS into Shiny apps.
+
+## R package development
+
+### How to create packages
+
+**Create:**
+
+- From the RStudio GUI, `File > New Project > New Directory > R Package`
+- From the console, `usethis::create_package("mypackage")`
+
+**Develop:**
+
+The very short version:
+
+- Create content
+    - Add scripts/functions `usethis::use_r("MyScript")`
+    - Document
+    - Add R dependencies (`usethis::use_package("SomePackage")`)
+    - Write tests ``
+- Test content
+    - interactively, load package and tinker (`devtools::load_all()`)
+    - formally, run tests (`devtools::check()`)
+- Fix issues
+- Rinse and repeat
+
+The longer and more helpful version can be found in "The Whole Game" chapter of [R Packages](https://r-pkgs.org/whole-game.html).
+
+### What constitutes a package
+
+#### Metadata
+
+- Two main files: `DESCRIPTION` and `NAMESPACE`.
+- `DESCRIPTION`, among other things, provides a list what needs to be installed in order for the package to work (i.e., "imports").
+- `NAMESPACE` dictates which functions, of those defined in the package, are made available for use (i.e., "exports").
+
+#### R code
+
+- **What:** functions defined by the package
+- **How:** write one or more `.R` script, where each script defines one or more function. 
+- **Where:** in `R/`
+
+#### Documentation
+
+- **What:** documentation for functions
+    - What the function does
+    - What the parameters are
+    - Details, examples, etc.
+- **Where:** just above each function definition in the `.R` scripts in `R/`.
+- **How:** 
+    - When writing functions, use special comments `#'` and tags (e.g., `#' @param`) provided by the `{roxygen}` package
+    - When building the package, `devtools::document()` creates separate documentation files for end users and stores them in `man/`.
+
+#### Installed files
+
+- **What:** 
+    - In general, files that are downloaded as-is into the top level package directory when the package is installed.
+    - For our purposes, JS scripts or libraries.
+- **Where:** 
+    - When developing, located in `inst/`
+    - After installing, located in the root of the package directory.
+- **How:**
+    - Copy files in `inst/`
+    - Write code to link R and JS.
+    - Add the programming language to the `SystemRequirements` field of `DESCRIPTION`. See (slightly) more [here](https://r-pkgs.org/inst.html#inst-other-langs)
+
+Examples found in the wild:
+
+- [{echarts4r}](https://github.com/JohnCoene/echarts4r/tree/master/inst) wraps [echarts.js](https://echarts.apache.org/en/index.html)
+- [{reactable}](https://github.com/glin/reactable/tree/main/inst) wraps [React Table](https://tanstack.com/table/v8)
+- [{dataui}](https://github.com/timelyportfolio/dataui/tree/master/inst) wraps [data-ui](https://williaster.github.io/data-ui/)
+
+## JSON
+
+### Serializing
+
+- "Serializing" means converting data to JSON format
+- JSON format is the equivalent of a list in R. See example [here](https://book.javascript-for-r.com/prerequisites.html#serialising)
+- [{jsonlite}](https://arxiv.org/abs/1403.2805) provides a Rosetta stone for translating data bi-directionally between R and JSON:
+    - From R to JSON `jsonlite::toJSON()`
+    - From JSON to R `jsonlite::fromJSON()`
+
+### Tablular data
+
+- How JSON represents a data frame
+    - In R, a data frame is a list of columns
+    - In JSON, which has no such concept, a data frame is "translated" as a list of rows, where each row is itself a JSON object. See [this nice graphical example](https://book.javascript-for-r.com/prerequisites.html#fig:console-table).
+- How R handles rectangular data from JSON
+    - See code examples below [table example](https://book.javascript-for-r.com/prerequisites.html#fig:console-table).
+
+## JavaScript
+
+### Developer tools
+
+- Pop the hood by inspecting page
+    - In browser, see [here](https://developer.chrome.com/docs/devtools/overview/) for Chrome, for example.
+    - In RStudio ID, which is built on Chromium, can use similar tools.
+- Views of interest
+    - `Elements`. Shows the DOM, which could help inspect HTML produced by R (e.g., Shiny app).
+    - `Console`. Much like the R console, shows messages, warnings, and errors, which could be helpful in understanding and debugging issues.
+
+### How JS variables differ from R
+
+- Declaration
+    - Can declare variable without assigning a value
+    - Can declare variables in three ways:
+        - `var`. Define a variable of global scope.
+        - `let`. Define a variable of restricted scope.
+        - `const`. Define a variable whose value cannot be changed.
+- Scope
+    - What is scope. In effect, the accessibility of an object.
+    - Which scopes in JS; how compare to R.
+        - Global. Like objects in R's global environment.
+        - Function. Like variables inside an R function.
+        - Block. No direct R equivalent. Accessible within a block between `{` `}`.
+    - See more [here](https://www.w3schools.com/js/js_scope.asp).
+
+### Document Object Model (DOM)
+
+- **What is the DOM**
+    - Description of an HTML page as a tree of the elements and attributes that comprise the page.
+    - Elements are characterized by one or more of:
+        - ID
+        - Tag
+        - Class(es)
+        - Etc
+    - See visual explanation [here](https://book.javascript-for-r.com/prerequisites.html#basics-object-model).
+- **How JS interacts with the DOM**
+    - Select/query by:
+        - ID
+        - Tag
+        - Class
+    - Change content and/or attributes of the element
+    - See nice summary [here](https://www.w3schools.com/whatis/whatis_htmldom.asp).
+
+## Shiny
+
+Two ways to import JS dependences in Shiny:
+
+1. Serving files (e.g., JS script)
+1. Using `{htmltools}`
+
+### Serving static files
+
+- **Types of static files**
+    - Images
+    - CSS stylesheets
+    - JS scripts
+- **How to serve files to Shiny**
+    - _**Option 1:**_ when `shiny::runApp` is run, load everything in `www/` directory.
+    - _**Option 2:**_ specify path via `shiny::addResourcePath` and load those resources. 
+- **How to use `shiny::addResourcePath`**
+    - Parameters
+        - `directoryPath`. Where in file system to find file(s).
+        - `prefix`. Where in URL to make file(s) available.
+    - Placement
+        - In raw HTML, inside the `<head>`, with a `<script>` tag that points to the source file.
+        - In Shiny, in a special place in the `ui`.
+            - Inside same tags as in raw HTML
+            - Inside [singleton](https://shiny.rstudio.com/reference/shiny/latest/singleton.html) so that the files are served only once.
+- **Best practices organizing static files**
+    - Unspoken recommendations; not hard rules
+    - Single folder to contain the collections of files (e.g., `assets/`, `static/`)
+    - Subfolder for each type of file (e.g., CSS, JS, image, etc.)
+
+### htmltools
+
+- **What does htmltools do?**
+    - Prosaically, helps create HTML tags
+    - More importantly for our purposes, helps with importing and managing external dependences
+- **How does htmltools help manage dependencies?**
+    - Provides an R interface. Creates a dependency object that R resolves as an actual HTML dependency.
+    - Points to a dependence in a package directory. If a package is the source of a dependency, can construct a relative path to package library's `inst/`, where dependency lives.
+- **Where to place htmltools in R scripts?**
+    - In Shiny, in the UI. Similar to serving files, but simpler.
+    - In RMarkdown, in an evaluated code chuck.
+
+## Serving files v. htmltools
+
+**Why prefer htmltools?**
+
+1. Available in both Shiny and RMarkdown, while serving files only works for Shiny.
+2. Allows one to assess a package's dependencies, which helps in cases where dependencies of two packages may conflict.
+
+**Why use `shiny::addResourcePath`?**
+
+- Certainly, useful for loading JS and CSS.
+- But also useful for other file types that an app may need, such as images or JSON data.
 
 ## Meeting Videos
 
