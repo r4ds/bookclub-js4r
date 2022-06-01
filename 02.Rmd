@@ -218,12 +218,15 @@ Two ways to import JS dependences in Shiny:
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/PK9UVd-vk5Y")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:26:37	Russ Hyde:	Do javascript libraries have a defined structure, like R packages, or are they more freeform?
+00:32:37	Russ Hyde:	https://cran.r-project.org/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html
+00:44:15	Ryan Metcalf:	I've watched this video multiple times and IMHO does a great job of working through API calls and/or uses `jsonlite()` to manipulate to a dataframe. https://youtu.be/tlaJf0CHbFE
+01:15:59	Ryan S:	sorry, need to drop off.  but thanks to all for the effort and to Arthur for preparation!
 ```
 </details>
