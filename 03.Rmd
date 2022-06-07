@@ -2,12 +2,131 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Review alternative packages for interaction between JavaScript and R
+- Dive into using Plotly for Graphics
+- Expand on using DT for Data Tables
+- Understand what *is* `{crosstalk}` and how to deploy it to `{shiny}`
 
-## SLIDE 1
+`{htmlwidgets}` is an a succsseor to `{rCharts}`. 
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+HTML Widgets can be:
+
+- Used at the R console for data analysis just like conventional R plots.
+- Embedded within R Markdown documents
+- Incorporated into Shiny web applications.
+- Saved as standalone web pages for ad-hoc sharing via email, Dropbox, etc.
+  - (My personal favorite!!!)
+
+There are currently 127 registered widgets on [gallery.htmlwidgets.org](http://gallery.htmlwidgets.org/)
+
+## Plotly Package
+Often, the first graphing example a new user experiences is found in [R for Data Science by Hadley Wickham and Garrett Grolemund](https://r4ds.had.co.nz/index.html). In this example, the author describes the *grammer of graphics* and the `{ggplot2}` package.
+
+```{r, first plot}
+library(ggplot2)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+Technically, there is nothing wrong with a static image and no interaction. As long as you convey your intent, your job is done. Or is it?
+
+However, is `{ggplot}` our only graphic utiltiy/package/service? Certainly NO! Let's discuss [plotly](https://cran.r-project.org/web/packages/plotly/index.html).
+
+The author comments "(plotly)...has been downloaded from CRAN 4.9 million times at the time of writing this." I wanted to double check or update the stats. Using [DataScienceMeta](http://www.datasciencemeta.com/rpackages), the site lists plotly has been downloaded 10,129,165 and is the 179th most popular downloaded (out of 18,641)!
+
+```{r, Plotly Example}
+library(plotly)
+
+plot_ly(cars, x = ~speed, y = ~dist) %>% 
+  add_markers()
+```
+Citation: [JavaScript for R by John Coene, Chapter 3, figure 3.1](https://book.javascript-for-r.com/widgets-intro-intro.html#fig:plotly-scatter-diagram)
+
+- Wrap existing ggplot graphics with ggplotly, making them interactive
+- Initialize the chart with `plot_ly`
+
+Key differences between ggplot and plotly:
+- ggplot uses `+` to add layers
+  - this isn't horrible but doesn't lend itself to symatics and often feels like a speedbump while authoring
+- plotly recognizes the `{magrittr}` pipe `%>%` operator. If using this syntax for authoring, your script text flows easier.
+
+To achieve this layering in Plotly, we use the `add_` prefix.
+
+```{r, Layered Plotly}
+library(magrittr)
+library(plotly)
+plot_ly(mtcars, x = ~disp) %>% 
+  add_markers(y = ~mpg, text = rownames(mtcars)) %>% 
+  add_lines(y = ~fitted(loess(mpg ~ disp)))
+
+```
+Citation: [JavaScript for R by John Coene, Chapter 3, figure 3.3](https://book.javascript-for-r.com/widgets-intro-intro.html#fig:plotly-layers-diagram)
+
+## DT Package
+
+The `{DT}` package provides an R Interface to the jQuery JavaScript Library [DataTables](https://datatables.net/). (Not to be confused or remotely the same as Data.Tables).
+
+Unique characteristics of DataTables versus HTML tables alone are:
+
+ - Pagination
+ - Instant Search
+ - Multi-column ordering
+ - Use almost any datasource
+ - Easily Theme-able
+ - Wide Variety of extensions
+ 
+The following is a one-line snippet example of producing an interactivec DataTable. 
+```{r, Quick example of DataTables, eval=TRUE}
+library(DT)
+DT::datatable(cars)
+```
+Citation: [JavaScript for R by John Coene, Chapter 3, figure 3.4](https://book.javascript-for-r.com/widgets-intro-intro.html#fig:plotly-dt-diagram)
+
+## Crosstalk
+Crosstalk is a an add-on to the `{htmlwidgets}` package providing cross-widget interactions. Specifically supported at this time are:
+
+- linked brushing
+- filtering
+
+A couple limitations to using Crosstalk:
+
+- HTML widgets must be specifically modified by their authors.
+- Crosstalk currently only works for linked brushing and filtering of views that show individual data points, not aggregate or summary views.
+- Crosstalk is not appropriate for large data sets.
+
+Cross talk uses a shared R6 class to wrap existing dataframes.
+
+```{r, Cross Talk Example, eval = TRUE}
+library(crosstalk)
+library(d3scatter)
+shared_iris <- SharedData$new(iris)
+bscols(
+  d3scatter(shared_iris, ~Petal.Length, ~Petal.Width, ~Species, width="100%", height=300),
+  d3scatter(shared_iris, ~Sepal.Length, ~Sepal.Width, ~Species, width="100%", height=300)
+)
+```
+Citation: [Using Crosstalk](https://rstudio.github.io/crosstalk/using.html)
+
+```{r, CrossTalk Filtering, eval=TRUE}
+shared_mtcars <- SharedData$new(mtcars)
+bscols(widths = c(3,NA,NA),
+  list(
+    filter_checkbox("cyl", "Cylinders", shared_mtcars, ~cyl, inline = TRUE),
+    filter_slider("hp", "Horsepower", shared_mtcars, ~hp, width = "100%"),
+    filter_select("auto", "Automatic", shared_mtcars, ~ifelse(am == 0, "Yes", "No"))
+  ),
+  d3scatter(shared_mtcars, ~wt, ~mpg, ~factor(cyl), width="100%", height=250),
+  d3scatter(shared_mtcars, ~hp, ~qsec, ~factor(cyl), width="100%", height=250)
+)
+```
+Citation: [Using Crosstalk](https://rstudio.github.io/crosstalk/using.html)
+
+
+## Wrap-Up
+
+The following [link](https://rstudio.github.io/crosstalk/widgets.html) provides additional `{crosstalk}` compatible services.
+
+Any Questions?
 
 ## Meeting Videos
 
