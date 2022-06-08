@@ -146,6 +146,6 @@ Any Questions?
 00:34:24	Arthur Shaw:	For reference, here's {reactable}: https://glin.github.io/reactable/index.html
 01:04:31	russ:	https://rstudio.github.io/crosstalk/widgets.html
 01:04:54	Arthur Shaw:	{reactable} working with {crosstalk}: https://glin.github.io/reactable/articles/examples.html#cross-widget-interactions
-01:04:57	russ:	There is a statement at the top of the compatible widgets page: "To add a widget, please submit a PR with modifications to this page.)
+01:04:57	russ:	There is a statement at the top of the compatible widgets page: "To add a widget, please submit a PR with modifications to this page."
 ```
 </details>
