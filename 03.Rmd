@@ -133,12 +133,19 @@ Any Questions?
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/eVmvbOE3aJQ")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:07:40	russ:	Hi everyone
+00:18:14	russ:	http://gallery.htmlwidgets.org/
+00:18:19	russ:	http://www.datasciencemeta.com/
+00:22:15	russ:	There's a whole book about {plotly} - https://plotly-r.com/index.html
+00:34:24	Arthur Shaw:	For reference, here's {reactable}: https://glin.github.io/reactable/index.html
+01:04:31	russ:	https://rstudio.github.io/crosstalk/widgets.html
+01:04:54	Arthur Shaw:	{reactable} working with {crosstalk}: https://glin.github.io/reactable/articles/examples.html#cross-widget-interactions
+01:04:57	russ:	There is a statement at the top of the compatible widgets page: "To add a widget, please submit a PR with modifications to this page.)
 ```
 </details>
