@@ -1,0 +1,27 @@
+<!-- Source: "Javascript For R" John Coene, Chapter 4 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <!--
+  Import library
+  -->
+  <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+</head>
+<body>
+  <p>Plotly.js</p>
+  <!-- div to hold visualisation -->
+  <div id="chart" style="width:600px;height:400px;"></div>
+  <!-- Script to create visualisation -->
+  <script>
+    el = document.getElementById('chart');
+
+    var rawData = {
+      x: [1, 2, 3, 4, 5],
+      y: [1, 2, 4, 8, 16]
+    };
+
+    var plotData = [rawData];
+
+    Plotly.newPlot(el, plotData);
+  </script>
+</body>
+</html>
