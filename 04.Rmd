@@ -95,10 +95,6 @@ Library loading
 ```{r, file="examples/04/chart.html", eval = FALSE}
 ```
 
-### D3.js
-
-- TODO
-
 ## Compare and Contrast
 
 - Where is the plot placed?
