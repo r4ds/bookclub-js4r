@@ -2,23 +2,185 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Explore how to use JS visualisation libraries from .HTML pages
+- Discuss the details (data / dependencies / context) needed by a typical JS library
+- Summarise how htmlwidgets ensures these details are in place
 
-## SLIDE 1
+## Read and Study
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+So, you have found a front-end JS library you want to use from R
+
+Now: Learn how to use that library from JS/HTML first
+
+- USE IT!
+  - Work through a tutorial
+
+- INSTALL IT!
+  - Analyse it's dependencies / installation process
+
+- SEE HOW OTHERS USE IT!
+  - Study the examples
+  - Hopefully: consistent syntax
+
+- STUDY IT!
+  - Look at the API
+  
+- USE IT AGAIN!
+  - Code up some of your use-cases using mock data, but in JS/HTML
+  - Can you improve the API for your use-case?
+
+## Candidate Libraries
+
+Here we work out how to use some JS visualisation libraries in their natural setting: as part of
+an .html page.
+
+The files have been rewritten slightly, to emphasise similarities / differences between the
+libraries.
+
+### HTML / DOM recap
+
+```html
+<!–– index.html - Modified from Chapter 2 ––>
+<html>
+  <head>
+    <!--
+    Nondisplayed content goes here:
+    - Metadata (title / character encoding)
+    - _Some_ dependency loading (stylesheet / library)
+    -->
+  </head>
+  <body>
+    <!-- Displayed content goes here -->
+    <p id="content">Trying JavaScript!</p>
+    <script>
+      var cnt = document.getElementById("content");
+      cnt.innerText = "The text has changed";
+    </script>
+  </body>
+</html>
+```
+
+Library loading
+
+- Book examples load libraries from .html-adjacent location:
+
+```html
+<head>
+  <!-- Import library -->
+  <script src="highcharts.js"></script>
+</head>
+```
+
+- Here, we access the libraries from CDN (Content Delivery Network)
+
+```html
+<head>
+  <!-- Import library -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+```
+
+### Plotly.js
+
+```{r, file="examples/04/plotly.html", eval = FALSE}
+```
+
+### Highcharts.js
+
+```{r, file="examples/04/highcharts.html", eval = FALSE}
+```
+
+### Chart.js
+
+```{r, file="examples/04/chart.html", eval = FALSE}
+```
+
+## Compare and Contrast
+
+- Where is the plot placed?
+  - 'canvas' vs 'div'
+
+- How does the plotting library know where to put the plot?
+  - `PlottingLibrary.function(x, options)`
+  - Is `x` an element or the element's ID?
+
+- How is the plot configured?
+  - Is the plotData an array or object?
+  - Do we call a specific function for a particular plot type, or pass an option
+
+- From an R perspective:
+  - Could we readily convert a data-frame to the rawData JSON?
+  - How much of the JS API should the R user be aware of?
+
+```html
+<!-- Typical structure, based on the above -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <!-- Import library -->
+  <script src="https://blah.blah/mycharts.min.js"></script>
+</head>
+<body>
+  <!-- element to hold visualisation -->
+  <elementType id="chart" style="width:100%;height:400px;"></elementType>
+  <!-- Script to create visualisation -->
+  <script>
+    var rawData = {
+      // JSON-like data
+    }
+
+    var plotData = {
+      // all options required to make the plot
+    };
+
+    var myChart = Mycharts.someFunction(elementOrID, plotData);
+  </script>
+</body>
+</html>
+```
+
+## How it works
+
+- How would you write a package that calls "SuperCharts.js" if htmlwidgets didn't exist?
+
+- Create the HTML document
+- Import the external libraries
+- Add HTML element to hold visualisation
+- Convert R-data to JSON and embed it in the HTML
+- Append JS code to transfer data/element to library
+
+- (and seemlessly work with other R/HTML/JS/CSS tools - RMarkdown / Shiny etc)
+
+[Link to figure](https://book.javascript-for-r.com/widgets-basics.html#widgets-basics-inner-workings)
+
+## Summary
+
+- We studied the problem that htmlwidgets aims to solve
+- And looked at how JS libraries are used within .html pages
 
 ## Meeting Videos
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/p5p6q-LdIfE")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:30:44	Ryan Metcalf:	Adding reference to new element type: https://www.w3schools.com/html/html5_canvas.asp
+00:31:04	LUCIO ENRIQUE CORNEJO RAMÍREZ:	are there any advantages to adding the chart in a canvas element? Compared to Plotly, which adds the graphs in a div element
+00:32:08	Ryan Metcalf:	On the surface, I presume no. However, given GPU access, the Canvas Element may utilized more optimal rendering versus a Div that would use the CPU instead.
+00:32:10	Ryan Metcalf:	Just a thought.
+00:34:30	Ryan Metcalf:	StackOverflow is usually not the greatest reference point...but does provide some additional content to extend to other resources: https://stackoverflow.com/questions/5882716/html5-canvas-vs-svg-vs-div
+00:34:43	Ryan Metcalf:	Great question Lucio!
+00:35:52	LUCIO ENRIQUE CORNEJO RAMÍREZ:	Thanks for the answer :)
+00:36:37	Ryan Metcalf:	(Russ to expand to answer Lucio!!! 🙂)
+00:37:07	Ryan S:	I'm familiar with html <div> elements, but not so much <canvas>.  Is <canvas> just a lesser-known html element?
+00:37:56	Ryan Metcalf:	Newer supported tag. Released in 2004 by Apple.
+00:38:16	Ryan S:	👍
+00:38:26	Ryan Metcalf:	Again, likely not the greatest reference....extending the topic: https://medium.com/@AmyScript/introduction-to-html5-canvas-8c1bad20e855#:~:text=The%20canvas%20element%20was,to%20draw%20graphics%20utilizing%20JavaScript.
+00:42:16	Arthur Shaw:	On CSS, here's the canonical meme that make's Russ' point: http://gif-central.blogspot.com/2013/07/family-guy-css.html
+00:43:32	Ryan S:	LOL.... I can think of a dozen other subjects that gif applies to as well.
+00:57:57	LUCIO ENRIQUE CORNEJO RAMÍREZ:	thanks!
 ```
 </details>
