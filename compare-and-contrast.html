@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 24 Conclusion | JavaScript for R Book Club</title>
+  <title>4.3 Compare and Contrast | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 24 Conclusion | JavaScript for R Book Club" />
+  <meta property="og:title" content="4.3 Compare and Contrast | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 24 Conclusion | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="4.3 Compare and Contrast | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-22.html"/>
-<link rel="next" href="slide-1-19.html"/>
+<link rel="prev" href="candidate-libraries.html"/>
+<link rel="next" href="how-it-works.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -415,20 +415,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclusion" class="section level1 hasAnchor" number="24">
-<h1><span class="header-section-number">Chapter 24</span> Conclusion<a href="conclusion.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="compare-and-contrast" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Compare and Contrast<a href="compare-and-contrast.html#compare-and-contrast" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY</li>
+<li>Where is the plot placed?
+<ul>
+<li>‘canvas’ vs ‘div’</li>
+</ul></li>
+<li>How does the plotting library know where to put the plot?
+<ul>
+<li><code>PlottingLibrary.function(x, options)</code></li>
+<li>Is <code>x</code> an element or the element’s ID?</li>
+</ul></li>
+<li>How is the plot configured?
+<ul>
+<li>Is the plotData an array or object?</li>
+<li>Do we call a specific function for a particular plot type, or pass an option</li>
+</ul></li>
+<li>From an R perspective:
+<ul>
+<li>Could we readily convert a data-frame to the rawData JSON?</li>
+<li>How much of the JS API should the R user be aware of?</li>
+</ul></li>
 </ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb17-1"><a href="compare-and-contrast.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Typical structure, based on the above --&gt;</span></span>
+<span id="cb17-2"><a href="compare-and-contrast.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html</span> <span class="er">xmlns</span><span class="ot">=</span><span class="st">&quot;http://www.w3.org/1999/xhtml&quot;</span> <span class="er">lang</span><span class="ot">=</span><span class="st">&quot;&quot;</span> <span class="er">xml:lang</span><span class="ot">=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb17-3"><a href="compare-and-contrast.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb17-4"><a href="compare-and-contrast.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Import library --&gt;</span></span>
+<span id="cb17-5"><a href="compare-and-contrast.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">&quot;https://blah.blah/mycharts.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb17-6"><a href="compare-and-contrast.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb17-7"><a href="compare-and-contrast.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb17-8"><a href="compare-and-contrast.html#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- element to hold visualisation --&gt;</span></span>
+<span id="cb17-9"><a href="compare-and-contrast.html#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;elementType</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;chart&quot;</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;width:100%;height:400px;&quot;</span><span class="kw">&gt;&lt;/elementType&gt;</span></span>
+<span id="cb17-10"><a href="compare-and-contrast.html#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Script to create visualisation --&gt;</span></span>
+<span id="cb17-11"><a href="compare-and-contrast.html#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;script&gt;</span></span>
+<span id="cb17-12"><a href="compare-and-contrast.html#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> rawData <span class="op">=</span> {</span>
+<span id="cb17-13"><a href="compare-and-contrast.html#cb17-13" aria-hidden="true" tabindex="-1"></a>      <span class="co">// JSON-like data</span></span>
+<span id="cb17-14"><a href="compare-and-contrast.html#cb17-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb17-15"><a href="compare-and-contrast.html#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="compare-and-contrast.html#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> plotData <span class="op">=</span> {</span>
+<span id="cb17-17"><a href="compare-and-contrast.html#cb17-17" aria-hidden="true" tabindex="-1"></a>      <span class="co">// all options required to make the plot</span></span>
+<span id="cb17-18"><a href="compare-and-contrast.html#cb17-18" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb17-19"><a href="compare-and-contrast.html#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="compare-and-contrast.html#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> myChart <span class="op">=</span> Mycharts<span class="op">.</span><span class="fu">someFunction</span>(elementOrID<span class="op">,</span> plotData)<span class="op">;</span></span>
+<span id="cb17-21"><a href="compare-and-contrast.html#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/script&gt;</span></span>
+<span id="cb17-22"><a href="compare-and-contrast.html#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb17-23"><a href="compare-and-contrast.html#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-22.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-1-19.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="candidate-libraries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="how-it-works.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -459,7 +499,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/24.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/04.Rmd",
 "text": "Edit"
 },
 "history": {

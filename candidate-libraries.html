@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 24 Conclusion | JavaScript for R Book Club</title>
+  <title>4.2 Candidate Libraries | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 24 Conclusion | JavaScript for R Book Club" />
+  <meta property="og:title" content="4.2 Candidate Libraries | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 24 Conclusion | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="4.2 Candidate Libraries | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-22.html"/>
-<link rel="next" href="slide-1-19.html"/>
+<link rel="prev" href="read-and-study.html"/>
+<link rel="next" href="compare-and-contrast.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -415,20 +415,155 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclusion" class="section level1 hasAnchor" number="24">
-<h1><span class="header-section-number">Chapter 24</span> Conclusion<a href="conclusion.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="candidate-libraries" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Candidate Libraries<a href="candidate-libraries.html#candidate-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here we work out how to use some JS visualisation libraries in their natural setting: as part of
+an .html page.</p>
+<p>The files have been rewritten slightly, to emphasise similarities / differences between the
+libraries.</p>
+<div id="html-dom-recap" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> HTML / DOM recap<a href="candidate-libraries.html#html-dom-recap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb11-1"><a href="candidate-libraries.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>!–– index.html - Modified from Chapter 2 ––&gt;</span>
+<span id="cb11-2"><a href="candidate-libraries.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb11-3"><a href="candidate-libraries.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;head&gt;</span></span>
+<span id="cb11-4"><a href="candidate-libraries.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!--</span></span>
+<span id="cb11-5"><a href="candidate-libraries.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Nondisplayed content goes here:</span></span>
+<span id="cb11-6"><a href="candidate-libraries.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - Metadata (title / character encoding)</span></span>
+<span id="cb11-7"><a href="candidate-libraries.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - _Some_ dependency loading (stylesheet / library)</span></span>
+<span id="cb11-8"><a href="candidate-libraries.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">    --&gt;</span></span>
+<span id="cb11-9"><a href="candidate-libraries.html#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/head&gt;</span></span>
+<span id="cb11-10"><a href="candidate-libraries.html#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;body&gt;</span></span>
+<span id="cb11-11"><a href="candidate-libraries.html#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Displayed content goes here --&gt;</span></span>
+<span id="cb11-12"><a href="candidate-libraries.html#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;p</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;content&quot;</span><span class="kw">&gt;</span>Trying JavaScript!<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb11-13"><a href="candidate-libraries.html#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script&gt;</span></span>
+<span id="cb11-14"><a href="candidate-libraries.html#cb11-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> cnt <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;content&quot;</span>)<span class="op">;</span></span>
+<span id="cb11-15"><a href="candidate-libraries.html#cb11-15" aria-hidden="true" tabindex="-1"></a>      cnt<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&quot;The text has changed&quot;</span><span class="op">;</span></span>
+<span id="cb11-16"><a href="candidate-libraries.html#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/script&gt;</span></span>
+<span id="cb11-17"><a href="candidate-libraries.html#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb11-18"><a href="candidate-libraries.html#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<p>Library loading</p>
 <ul>
-<li>THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY</li>
+<li>Book examples load libraries from .html-adjacent location:</li>
 </ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb12-1"><a href="candidate-libraries.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb12-2"><a href="candidate-libraries.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Import library --&gt;</span></span>
+<span id="cb12-3"><a href="candidate-libraries.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">&quot;highcharts.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb12-4"><a href="candidate-libraries.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span></code></pre></div>
+<ul>
+<li>Here, we access the libraries from CDN (Content Delivery Network)</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb13-1"><a href="candidate-libraries.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb13-2"><a href="candidate-libraries.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Import library --&gt;</span></span>
+<span id="cb13-3"><a href="candidate-libraries.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">&quot;https://code.highcharts.com/highcharts.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb13-4"><a href="candidate-libraries.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span></code></pre></div>
+</div>
+<div id="plotly.js" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Plotly.js<a href="candidate-libraries.html#plotly.js" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="candidate-libraries.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;!--</span> Source<span class="sc">:</span> <span class="st">&quot;Javascript For R&quot;</span> John Coene, Chapter <span class="dv">4</span> <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb14-2"><a href="candidate-libraries.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>html xmlns<span class="ot">=</span><span class="st">&quot;http://www.w3.org/1999/xhtml&quot;</span> lang<span class="ot">=</span><span class="st">&quot;&quot;</span> xml<span class="sc">:</span>lang<span class="ot">=</span><span class="st">&quot;&quot;</span><span class="sc">&gt;</span></span>
+<span id="cb14-3"><a href="candidate-libraries.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>head<span class="sc">&gt;</span></span>
+<span id="cb14-4"><a href="candidate-libraries.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span></span>
+<span id="cb14-5"><a href="candidate-libraries.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  Import library</span>
+<span id="cb14-6"><a href="candidate-libraries.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb14-7"><a href="candidate-libraries.html#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script src<span class="ot">=</span><span class="st">&quot;https://cdn.plot.ly/plotly-2.12.1.min.js&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>script<span class="sc">&gt;</span></span>
+<span id="cb14-8"><a href="candidate-libraries.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>head<span class="sc">&gt;</span></span>
+<span id="cb14-9"><a href="candidate-libraries.html#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>body<span class="sc">&gt;</span></span>
+<span id="cb14-10"><a href="candidate-libraries.html#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>p<span class="sc">&gt;</span>Plotly.js<span class="sc">&lt;</span><span class="er">/</span>p<span class="sc">&gt;</span></span>
+<span id="cb14-11"><a href="candidate-libraries.html#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> div to hold visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb14-12"><a href="candidate-libraries.html#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>div id<span class="ot">=</span><span class="st">&quot;chart&quot;</span> style<span class="ot">=</span><span class="st">&quot;width:600px;height:400px;&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>div<span class="sc">&gt;</span></span>
+<span id="cb14-13"><a href="candidate-libraries.html#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Script to create visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb14-14"><a href="candidate-libraries.html#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script<span class="sc">&gt;</span></span>
+<span id="cb14-15"><a href="candidate-libraries.html#cb14-15" aria-hidden="true" tabindex="-1"></a>    el <span class="ot">=</span> <span class="fu">document.getElementById</span>(<span class="st">&#39;chart&#39;</span>);</span>
+<span id="cb14-16"><a href="candidate-libraries.html#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="candidate-libraries.html#cb14-17" aria-hidden="true" tabindex="-1"></a>    var rawData <span class="ot">=</span> {</span>
+<span id="cb14-18"><a href="candidate-libraries.html#cb14-18" aria-hidden="true" tabindex="-1"></a>      x<span class="sc">:</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
+<span id="cb14-19"><a href="candidate-libraries.html#cb14-19" aria-hidden="true" tabindex="-1"></a>      y<span class="sc">:</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">16</span>]</span>
+<span id="cb14-20"><a href="candidate-libraries.html#cb14-20" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb14-21"><a href="candidate-libraries.html#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="candidate-libraries.html#cb14-22" aria-hidden="true" tabindex="-1"></a>    var plotData <span class="ot">=</span> [rawData];</span>
+<span id="cb14-23"><a href="candidate-libraries.html#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="candidate-libraries.html#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Plotly.newPlot</span>(el, plotData);</span>
+<span id="cb14-25"><a href="candidate-libraries.html#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span><span class="er">/</span>script<span class="sc">&gt;</span></span>
+<span id="cb14-26"><a href="candidate-libraries.html#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>body<span class="sc">&gt;</span></span>
+<span id="cb14-27"><a href="candidate-libraries.html#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>html<span class="sc">&gt;</span></span></code></pre></div>
+</div>
+<div id="highcharts.js" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Highcharts.js<a href="candidate-libraries.html#highcharts.js" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="candidate-libraries.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;!--</span> Source<span class="sc">:</span> <span class="st">&quot;Javascript For R&quot;</span> John Coene, Chapter <span class="dv">4</span> <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb15-2"><a href="candidate-libraries.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>html xmlns<span class="ot">=</span><span class="st">&quot;http://www.w3.org/1999/xhtml&quot;</span> lang<span class="ot">=</span><span class="st">&quot;&quot;</span> xml<span class="sc">:</span>lang<span class="ot">=</span><span class="st">&quot;&quot;</span><span class="sc">&gt;</span></span>
+<span id="cb15-3"><a href="candidate-libraries.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>head<span class="sc">&gt;</span></span>
+<span id="cb15-4"><a href="candidate-libraries.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Import library <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb15-5"><a href="candidate-libraries.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script src<span class="ot">=</span><span class="st">&quot;https://code.highcharts.com/highcharts.js&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>script<span class="sc">&gt;</span></span>
+<span id="cb15-6"><a href="candidate-libraries.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>head<span class="sc">&gt;</span></span>
+<span id="cb15-7"><a href="candidate-libraries.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>body<span class="sc">&gt;</span></span>
+<span id="cb15-8"><a href="candidate-libraries.html#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>p<span class="sc">&gt;</span>Highcharts.js<span class="sc">&lt;</span><span class="er">/</span>p<span class="sc">&gt;</span></span>
+<span id="cb15-9"><a href="candidate-libraries.html#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> div to hold visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb15-10"><a href="candidate-libraries.html#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>div id<span class="ot">=</span><span class="st">&quot;chart&quot;</span> style<span class="ot">=</span><span class="st">&quot;width:100%;height:400px;&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>div<span class="sc">&gt;</span></span>
+<span id="cb15-11"><a href="candidate-libraries.html#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Script to create visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb15-12"><a href="candidate-libraries.html#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script<span class="sc">&gt;</span></span>
+<span id="cb15-13"><a href="candidate-libraries.html#cb15-13" aria-hidden="true" tabindex="-1"></a>    var rawData <span class="ot">=</span> {</span>
+<span id="cb15-14"><a href="candidate-libraries.html#cb15-14" aria-hidden="true" tabindex="-1"></a>      categories<span class="sc">:</span> [<span class="st">&#39;Apples&#39;</span>, <span class="st">&#39;Bananas&#39;</span>, <span class="st">&#39;Oranges&#39;</span>],</span>
+<span id="cb15-15"><a href="candidate-libraries.html#cb15-15" aria-hidden="true" tabindex="-1"></a>      series<span class="sc">:</span> [{</span>
+<span id="cb15-16"><a href="candidate-libraries.html#cb15-16" aria-hidden="true" tabindex="-1"></a>        name<span class="sc">:</span> <span class="st">&#39;Jane&#39;</span>,</span>
+<span id="cb15-17"><a href="candidate-libraries.html#cb15-17" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">:</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">4</span>]</span>
+<span id="cb15-18"><a href="candidate-libraries.html#cb15-18" aria-hidden="true" tabindex="-1"></a>      }, {</span>
+<span id="cb15-19"><a href="candidate-libraries.html#cb15-19" aria-hidden="true" tabindex="-1"></a>        name<span class="sc">:</span> <span class="st">&#39;John&#39;</span>,</span>
+<span id="cb15-20"><a href="candidate-libraries.html#cb15-20" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">:</span> [<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>]</span>
+<span id="cb15-21"><a href="candidate-libraries.html#cb15-21" aria-hidden="true" tabindex="-1"></a>      }]</span>
+<span id="cb15-22"><a href="candidate-libraries.html#cb15-22" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb15-23"><a href="candidate-libraries.html#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="candidate-libraries.html#cb15-24" aria-hidden="true" tabindex="-1"></a>    var plotData <span class="ot">=</span> {</span>
+<span id="cb15-25"><a href="candidate-libraries.html#cb15-25" aria-hidden="true" tabindex="-1"></a>      xAxis<span class="sc">:</span> {categories<span class="sc">:</span> rawData.categories},</span>
+<span id="cb15-26"><a href="candidate-libraries.html#cb15-26" aria-hidden="true" tabindex="-1"></a>      series<span class="sc">:</span> rawData.series</span>
+<span id="cb15-27"><a href="candidate-libraries.html#cb15-27" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb15-28"><a href="candidate-libraries.html#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="candidate-libraries.html#cb15-29" aria-hidden="true" tabindex="-1"></a>    var myChart <span class="ot">=</span> <span class="fu">Highcharts.chart</span>(<span class="st">&#39;chart&#39;</span>, plotData);</span>
+<span id="cb15-30"><a href="candidate-libraries.html#cb15-30" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span><span class="er">/</span>script<span class="sc">&gt;</span></span>
+<span id="cb15-31"><a href="candidate-libraries.html#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>body<span class="sc">&gt;</span></span>
+<span id="cb15-32"><a href="candidate-libraries.html#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>html<span class="sc">&gt;</span></span></code></pre></div>
+</div>
+<div id="chart.js" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Chart.js<a href="candidate-libraries.html#chart.js" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="candidate-libraries.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>html xmlns<span class="ot">=</span><span class="st">&quot;http://www.w3.org/1999/xhtml&quot;</span> lang<span class="ot">=</span><span class="st">&quot;&quot;</span> xml<span class="sc">:</span>lang<span class="ot">=</span><span class="st">&quot;&quot;</span><span class="sc">&gt;</span></span>
+<span id="cb16-2"><a href="candidate-libraries.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>head<span class="sc">&gt;</span></span>
+<span id="cb16-3"><a href="candidate-libraries.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Import library <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb16-4"><a href="candidate-libraries.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script src<span class="ot">=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>script<span class="sc">&gt;</span></span>
+<span id="cb16-5"><a href="candidate-libraries.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>head<span class="sc">&gt;</span></span>
+<span id="cb16-6"><a href="candidate-libraries.html#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>body<span class="sc">&gt;</span></span>
+<span id="cb16-7"><a href="candidate-libraries.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> canvas to hold visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb16-8"><a href="candidate-libraries.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>canvas id<span class="ot">=</span><span class="st">&quot;chart&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>canvas<span class="sc">&gt;</span></span>
+<span id="cb16-9"><a href="candidate-libraries.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Script to create visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb16-10"><a href="candidate-libraries.html#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script<span class="sc">&gt;</span></span>
+<span id="cb16-11"><a href="candidate-libraries.html#cb16-11" aria-hidden="true" tabindex="-1"></a>    var el <span class="ot">=</span> <span class="fu">document.getElementById</span>(<span class="st">&#39;chart&#39;</span>)<span class="fu">.getContext</span>(<span class="st">&#39;2d&#39;</span>);</span>
+<span id="cb16-12"><a href="candidate-libraries.html#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="candidate-libraries.html#cb16-13" aria-hidden="true" tabindex="-1"></a>    var rawData <span class="ot">=</span> {</span>
+<span id="cb16-14"><a href="candidate-libraries.html#cb16-14" aria-hidden="true" tabindex="-1"></a>      labels<span class="sc">:</span> [</span>
+<span id="cb16-15"><a href="candidate-libraries.html#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;Red&#39;</span>, <span class="st">&#39;Blue&#39;</span>, <span class="st">&#39;Yellow&#39;</span>, <span class="st">&#39;Green&#39;</span>, <span class="st">&#39;Purple&#39;</span>, <span class="st">&#39;Orange&#39;</span></span>
+<span id="cb16-16"><a href="candidate-libraries.html#cb16-16" aria-hidden="true" tabindex="-1"></a>      ],</span>
+<span id="cb16-17"><a href="candidate-libraries.html#cb16-17" aria-hidden="true" tabindex="-1"></a>      datasets<span class="sc">:</span> [{</span>
+<span id="cb16-18"><a href="candidate-libraries.html#cb16-18" aria-hidden="true" tabindex="-1"></a>        label<span class="sc">:</span> <span class="st">&#39;# of Votes&#39;</span>,</span>
+<span id="cb16-19"><a href="candidate-libraries.html#cb16-19" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">:</span> [<span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb16-20"><a href="candidate-libraries.html#cb16-20" aria-hidden="true" tabindex="-1"></a>      }]</span>
+<span id="cb16-21"><a href="candidate-libraries.html#cb16-21" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb16-22"><a href="candidate-libraries.html#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="candidate-libraries.html#cb16-23" aria-hidden="true" tabindex="-1"></a>    var plotData <span class="ot">=</span> {</span>
+<span id="cb16-24"><a href="candidate-libraries.html#cb16-24" aria-hidden="true" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">&#39;bar&#39;</span>,</span>
+<span id="cb16-25"><a href="candidate-libraries.html#cb16-25" aria-hidden="true" tabindex="-1"></a>      data<span class="sc">:</span> rawData</span>
+<span id="cb16-26"><a href="candidate-libraries.html#cb16-26" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb16-27"><a href="candidate-libraries.html#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="candidate-libraries.html#cb16-28" aria-hidden="true" tabindex="-1"></a>    var myChart <span class="ot">=</span> new <span class="fu">Chart</span>(el, plotData);</span>
+<span id="cb16-29"><a href="candidate-libraries.html#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span><span class="er">/</span>script<span class="sc">&gt;</span></span>
+<span id="cb16-30"><a href="candidate-libraries.html#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>body<span class="sc">&gt;</span></span>
+<span id="cb16-31"><a href="candidate-libraries.html#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>html<span class="sc">&gt;</span></span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-22.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-1-19.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="read-and-study.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-and-contrast.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -459,7 +594,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/24.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/04.Rmd",
 "text": "Edit"
 },
 "history": {
