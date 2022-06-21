@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8.2 Meeting Videos | JavaScript for R Book Club</title>
+  <title>5.3 JS function | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8.2 Meeting Videos | JavaScript for R Book Club" />
+  <meta property="og:title" content="5.3 JS function | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8.2 Meeting Videos | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="5.3 JS function | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="slide-1-2.html"/>
-<link rel="next" href="linking-widgets.html"/>
+<link rel="prev" href="r-functions.html"/>
+<link rel="next" href="js-dependencies.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -427,29 +427,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="meeting-videos-7" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> Meeting Videos<a href="meeting-videos-7.html#meeting-videos-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="cohort-1-7" class="section level3 hasAnchor" number="8.2.1">
-<h3><span class="header-section-number">8.2.1</span> Cohort 1<a href="meeting-videos-7.html#cohort-1-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<iframe src="https://www.youtube.com/embed/URL" width="100%" height="400px" data-external="1">
-</iframe>
-<details>
-<summary>
-Meeting chat log
-</summary>
-<pre><code>LOG</code></pre>
-</details>
-
+<div id="js-function" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> JS function<a href="js-function.html#js-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview-2" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Overview<a href="js-function.html#overview-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb22-1"><a href="js-function.html#cb22-1" aria-hidden="true" tabindex="-1"></a>HTMLWidgets<span class="op">.</span><span class="fu">widget</span>({</span>
+<span id="cb22-2"><a href="js-function.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="js-function.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;my_widget&#39;</span><span class="op">,</span></span>
+<span id="cb22-4"><a href="js-function.html#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="js-function.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;output&#39;</span><span class="op">,</span></span>
+<span id="cb22-6"><a href="js-function.html#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="js-function.html#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">factory</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
+<span id="cb22-8"><a href="js-function.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="js-function.html#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">TODO</span><span class="co">: define shared variables for this instance</span></span>
+<span id="cb22-10"><a href="js-function.html#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="js-function.html#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb22-12"><a href="js-function.html#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="js-function.html#cb22-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb22-14"><a href="js-function.html#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="js-function.html#cb22-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: code to render the widget, e.g.</span></span>
+<span id="cb22-16"><a href="js-function.html#cb22-16" aria-hidden="true" tabindex="-1"></a>        el<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> x<span class="op">.</span><span class="at">message</span><span class="op">;</span></span>
+<span id="cb22-17"><a href="js-function.html#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="js-function.html#cb22-18" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb22-19"><a href="js-function.html#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="js-function.html#cb22-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">resize</span><span class="op">:</span> <span class="kw">function</span>(width<span class="op">,</span> height) {</span>
+<span id="cb22-21"><a href="js-function.html#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="js-function.html#cb22-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: code to re-render the widget with a new size</span></span>
+<span id="cb22-23"><a href="js-function.html#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="js-function.html#cb22-24" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb22-25"><a href="js-function.html#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="js-function.html#cb22-26" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb22-27"><a href="js-function.html#cb22-27" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-28"><a href="js-function.html#cb22-28" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+</div>
+<div id="output-1" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Output<a href="js-function.html#output-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="how" class="section level4 hasAnchor" number="5.3.2.1">
+<h4><span class="header-section-number">5.3.2.1</span> How<a href="js-function.html#how" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>What you put in the element is what you see.</p>
+<p>The section will follow this recipe:</p>
+<ul>
+<li>Change JS function, specifying what to put in element</li>
+<li>Reload package via <code>devtools::load_all()</code></li>
+<li>Execute with <code>my_widget()</code> with appropriate parameter(s)</li>
+</ul>
+</div>
+<div id="what" class="section level4 hasAnchor" number="5.3.2.2">
+<h4><span class="header-section-number">5.3.2.2</span> What<a href="js-function.html#what" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Object itself: <code>console.log(x)</code></li>
+<li>Text: <code>innerText</code></li>
+<li>HTML of element: <code>innerHTML</code></li>
+<li>Style of element <code>style.*</code></li>
+</ul>
 </div>
 </div>
-<!-- </div> -->
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="slide-1-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="linking-widgets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="js-dependencies.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -480,7 +520,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/08.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/05.Rmd",
 "text": "Edit"
 },
 "history": {
