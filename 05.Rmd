@@ -201,7 +201,7 @@ The section will follow this recipe:
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/IjiqgpFVqcM")`
 
 <details>
 <summary> Meeting chat log </summary>
