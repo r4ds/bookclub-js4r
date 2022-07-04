@@ -4,10 +4,103 @@
 
 - THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
 
-## SLIDE 1
+## Workflow
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+- Write an example using vanilla HTML/JS
+- Initialise an R package
+- Build scaffold for widget
+- Declare any dependencies
+- Work out what data / data structure / chart options should be passed from R to JS
+- Check that the visualisation looks OK
+  - `<widget>_html`
+
+## gio.js in .HTML
+
+The following shows how to use gio.js in a plain .html file.
+The code has been modified from that in the book:
+
+- libraries are loaded from CDN
+- the missing 'data' variable has been filled in
+
+The code is very similar to the main example on the gio.js homepage.
+
+```{r file="examples/07/gio.html", eval = FALSE}
+```
+
+## R package
+
+We create an R package with a widget.
+
+```r
+usethis::create_package("giro")
+htmlwidgets::scaffoldWidget("newGio")
+```
+
+We've done this a few times now:
+
+- `newGio.[R|yaml|js]` files are created and opened
+
+## Declaring Dependencies
+
+We use v2.0.0 of gio.js and v110 of three.js, as in the book
+
+We add a ./dev script to contain the code that downloaded the dependencies:
+
+```r
+# ./dev/download-dependencies.R
+
+versions <- list(
+  three = "110",
+  gio = "2.0.0"
+)
+
+dirs <- list(
+  htmlwidgets = file.path("inst", "htmlwidgets")
+)
+dirs$three <- file.path(dirs$htmlwidgets, "three")
+dirs$gio <- file.path(dirs$htmlwidgets, "gio")
+
+urls <- list(
+  three = glue::glue(
+    "https://cdnjs.cloudflare.com/ajax/libs/three.js/{versions$three}/three.min.js"
+  ),
+  gio = glue::glue(
+    "https://cdn.jsdelivr.net/npm/giojs@{versions$gio}/build/gio.min.js"
+  )
+)
+
+# create directory for JS dependencies
+dir.create(dirs$three, recursive = TRUE)
+dir.create(dirs$gio, recursive = TRUE)
+
+# download the JS dependencies
+download.file(urls$three, file.path(dirs$three, "three.min.js"))
+download.file(urls$gio, file.path(dirs$gio, "gio.min.js"))
+```
+
+We have done this before:
+
+- Generate an R package
+- with the scaffold for a widget
+- and the dependencies of that widget downloaded into subdirectories.
+
+Now
+
+- Tell {htmlwidgets} where the libraries can be found:
+
+```yaml
+dependencies:
+  - name: three
+    version: 110
+    src: htmlwidgets/three
+    script: three.min.js
+  - name: gio
+    version: 2.0
+    src: htmlwidgets/gio
+    script: gio.min.js
+```
+
+Put "three.js" first, since "gio.js" depends on "three.js"
 
 ## Meeting Videos
 
