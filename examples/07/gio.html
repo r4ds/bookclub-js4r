@@ -14,8 +14,20 @@
   <div id="globe" style="width: 200px; height: 200px"></div>
 
   <!-- script to create visualisation -->
+  <!-- Note: 'data' must be defined before use -->
   <script>
-    var data;
+    var data = [
+        {
+                "e": "CN",
+                "i": "US",
+                "v": 3300000
+        },
+        {
+                "e": "CN",
+                "i": "RU",
+                "v": 10000
+        }
+    ];
     var container = document.getElementById("globe");
     var controller = new GIO.Controller(container);
     controller.addData(data);
