@@ -15,6 +15,9 @@ Imports:
     bookdown,
     d3scatter (>= 0.1.0),
     DT,
+    ggplot2,
+    jsonify,
+    jsonlite,
     plotly,
     rmarkdown,
     tidyverse

@@ -10,7 +10,9 @@
 - Initialise an R package
 - Build scaffold for widget
 - Declare any dependencies
+- Add JS-side code for rendering
 - Work out what data / data structure / chart options should be passed from R to JS
+- Add R-side code for setting up data
 - Check that the visualisation looks OK
   - `<widget>_html`
 
@@ -101,6 +103,211 @@ dependencies:
 ```
 
 Put "three.js" first, since "gio.js" depends on "three.js"
+
+## JS-side code
+
+Skeleton for adding a GIO visualisation is placed into 'renderValue' function in the *.js file:
+
+Note that `el` is the element within which the GIO visualisation will be placed
+
+```js
+// ... snip ...
+factory: function(el, width, height) {
+  return {
+    renderValue: function(x) {
+      // Iterations:
+      // var container = document.getElementById("globe"); // hard-coded element ID
+      // var container = document.getElementById(el.id); // use the ID for the user's element
+      // var controller = GIO.Controller(container);
+      // ... but `container` _is_ `el`
+      
+      var controller = GIO.Controller(el);
+      // controller.addData(data);
+      controller.init();
+    }
+  }
+  // ... snip ...
+}
+```
+
+With this we can generate an empty visualisation and add it to the user-supplied element `el`.
+
+## Working with data
+
+The data expected by GIO is as follows:
+
+```js
+// Array[Object{e: ISO2CODE, i: ISO2CODE, v: number}]
+[
+  {
+    "e": "CN", // exporting country
+    "i": "US", // importing country
+    "v": 3300000 // value
+  },
+  {
+    "e": "CN",
+    "i": "RU",
+    "v": 10000
+  }
+]
+```
+
+https://giojs.org/html/docs/dataAdd.html
+
+R reads that as a data-frame:
+
+```{r}
+arcs <- jsonlite::fromJSON(r"([
+  {
+    "e": "CN", // exporting country
+    "i": "US", // importing country
+    "v": 3300000 // value
+  },
+  {
+    "e": "CN",
+    "i": "RU",
+    "v": 10000
+  }
+])")
+```
+
+```{r}
+arcs
+```
+
+Conflict between R-style datasets and GIO-expected / JS-style datasets
+
+- Objects in the JS array ~ Rows of the R data-frame
+
+Widget changes:
+- use `data` param rather than `message` in R function
+- include this as `x.data` in the object passed to JS
+- Use `x.data` in the `controller.addData()` call
+
+```js
+// ... snip ...
+factory: function(el, width, height) {
+  return {
+    renderValue: function(x) {
+      var controller = GIO.Controller(el);
+      controller.addData(x.data);
+      controller.init();
+    }
+  }
+  // ... snip ...
+}
+```
+
+```r
+newGio <- function(data, width = NULL, height = NULL, elementId = NULL) {
+
+  # forward options using x
+  x = list(
+    data = data
+  )
+# ... snip ...
+```
+
+Look in devtools at the contents of the dataset:
+
+```js
+<script type="application/json" data-for="htmlwidget-b97f43c69fa089f58c24">
+{
+  "x": {
+    "data":{
+      "e":["CN","CN"],
+      "i":["US","RU"],
+      "v":[3300000,10000]
+    }
+  },
+  "evals":[],
+  "jsHooks":[]
+}
+</script>
+```
+
+Columns in R have become the elements in `x.data`
+
+## Transforming Data
+
+We want the serialised data to be in the format the JS library expects
+
+Approaches:
+
+- Convert the data on the JS side
+  - `HTMLWidgets.dataframeToD3()`
+- Modify the data in R before serialising it
+  - e.g., make list of rows
+- Modify the serialiser used by htmlwidgets
+- Replace the serialiser used by htmlwidgets
+
+The default serialiser in htmlwidgets uses `jsonlite::toJSON(..., dataframe = "columns")`:
+
+```{r convert_columns_to_json}
+# This is not what we want ...
+jsonlite::toJSON(arcs, dataframe = "columns")
+```
+
+```{r convert_rows_to_json}
+# This is what we want ...
+jsonlite::toJSON(arcs, dataframe = "rows")
+```
+
+```{r jsonify_example}
+jsonify::to_json(arcs, unbox = TRUE)
+```
+
+To alter the serialiser used by {htmlwidgets} you modify the attributes of the `x` that you pass
+into `createWidget`.
+
+Either with "TOJSON_ARGS" or "TOJSON_FUNC".
+
+```{r modifying_the_default_serialiser}
+# modify the arguments of the default serialiser:
+
+# ... snip
+x <- list(data = arcs)
+attr(x, "TOJSON_ARGS") <- list(dataframe = "rows")
+```
+
+```{r replacing_the_default_serialiser}
+# replace the default serialiser
+gio_serialiser = function(x) {
+  jsonify::to_json(x, unbox = TRUE)
+}
+
+# ... snip
+x = list(data = arcs)
+attr(x, "TOJSON_FUNC") <- gio_serialiser
+```
+
+See the Data Transformation section of one of the {htmlwidgets} vignettes: https://www.htmlwidgets.org/develop_advanced.html#data-transformation
+
+## On Print Method
+
+In ggplot2:
+
+```{r two_steps_of_ggplot2}
+library(ggplot2)
+
+# create an object
+my_plot <- ggplot(diamonds, aes(x = x, y = price)) + geom_point()
+
+# plot the object
+my_plot
+```
+
+With a widget:
+
+```r
+# create an object
+my_widget <- gio(arcs)
+
+# visualise the object
+my_widget
+```
+
+The object created can be subsequently modified before visualisation ('print'ing).
 
 ## Meeting Videos
 
