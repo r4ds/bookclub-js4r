@@ -2,7 +2,11 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- The nature of column-oriented vs row-oriented data serialisation
+- How to ensure that R serialises data appropriately for use by JS
+- How to modify the object returned by createWidget
+- What order should dependencies be specified in the yaml
+- We also see how to wrap a complicated JS library using htmlwidgets
 
 ## Workflow
 
