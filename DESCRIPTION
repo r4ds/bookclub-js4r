@@ -13,6 +13,10 @@ Depends:
     R (>= 3.1.0)
 Imports: 
     bookdown,
+    d3scatter (>= 0.1.0),
+    DT,
     plotly,
     rmarkdown,
     tidyverse
+Remotes:  
+    jcheng5/d3scatter

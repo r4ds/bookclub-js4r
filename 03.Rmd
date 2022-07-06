@@ -2,12 +2,12 @@
 
 **Learning objectives:**
 
-- Review alternative packages for interaction between JavaScript and R
-- Dive into using Plotly for Graphics
-- Expand on using DT for Data Tables
-- Understand what *is* `{crosstalk}` and how to deploy it to `{shiny}`
+- Review alternative packages for interaction between JavaScript and R.
+- Dive into using `{plotly}` for graphics.
+- Expand on using `{DT}` for Data Tables.
+- Understand what `{crosstalk}` *is* and how to deploy it to `{shiny}`.
 
-`{htmlwidgets}` is an a succsseor to `{rCharts}`. 
+`{htmlwidgets}` is a succsseor to `{rCharts}`. 
 
 HTML Widgets can be:
 
@@ -20,6 +20,8 @@ HTML Widgets can be:
 There are currently 127 registered widgets on [gallery.htmlwidgets.org](http://gallery.htmlwidgets.org/)
 
 ## Plotly Package
+
+
 Often, the first graphing example a new user experiences is found in [R for Data Science by Hadley Wickham and Garrett Grolemund](https://r4ds.had.co.nz/index.html). In this example, the author describes the *grammer of graphics* and the `{ggplot2}` package.
 
 ```{r, first plot}
@@ -30,7 +32,7 @@ ggplot(data = mpg) +
 
 Technically, there is nothing wrong with a static image and no interaction. As long as you convey your intent, your job is done. Or is it?
 
-However, is `{ggplot}` our only graphic utiltiy/package/service? Certainly NO! Let's discuss [plotly](https://cran.r-project.org/web/packages/plotly/index.html).
+However, is `{ggplot}` our only graphic utility/package/service? Certainly NO! Let's discuss [plotly](https://cran.r-project.org/web/packages/plotly/index.html).
 
 The author comments "(plotly)...has been downloaded from CRAN 4.9 million times at the time of writing this." I wanted to double check or update the stats. Using [DataScienceMeta](http://www.datasciencemeta.com/rpackages), the site lists plotly has been downloaded 10,129,165 and is the 179th most popular downloaded (out of 18,641)!
 
@@ -132,12 +134,19 @@ Any Questions?
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/eVmvbOE3aJQ")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:07:40	russ:	Hi everyone
+00:18:14	russ:	http://gallery.htmlwidgets.org/
+00:18:19	russ:	http://www.datasciencemeta.com/
+00:22:15	russ:	There's a whole book about {plotly} - https://plotly-r.com/index.html
+00:34:24	Arthur Shaw:	For reference, here's {reactable}: https://glin.github.io/reactable/index.html
+01:04:31	russ:	https://rstudio.github.io/crosstalk/widgets.html
+01:04:54	Arthur Shaw:	{reactable} working with {crosstalk}: https://glin.github.io/reactable/articles/examples.html#cross-widget-interactions
+01:04:57	russ:	There is a statement at the top of the compatible widgets page: "To add a widget, please submit a PR with modifications to this page."
 ```
 </details>

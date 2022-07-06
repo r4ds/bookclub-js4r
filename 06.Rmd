@@ -81,12 +81,18 @@ system.file("htmlwidgets/peity", package = "mypeityexample")
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/YjY8YQNh9J0")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:09:23	russ:	Hi everyone
+00:11:57	russ:	Apologies for my pronunciation
+00:20:13	russ:	https://www.npmjs.com/package/peity?activeTab=dependencies
+00:25:18	Arthur Shaw:	Following on what Russ said, the peity library on npm shows no dependencies, but the use basic usage example uses jQuery. At the risk of being lawyerly, perhaps the library doesn't depend on jQuery, but using it may require (or most easily be done via) jQuery. npm link: https://www.npmjs.com/package/peity
+01:03:30	russ:	https://github.com/JohnCoene/javascript-for-r/blob/master/code/peity/R/peity.R
+01:10:14	russ:	https://github.com/ramnathv/htmlwidgets/blob/7b9c1ea3d9fbf4736d84f1fd1178fce0af29f8e3/R/htmlwidgets.R#L257
 ```
+
 </details>
