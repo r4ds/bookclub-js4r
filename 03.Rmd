@@ -21,6 +21,7 @@ There are currently 127 registered widgets on [gallery.htmlwidgets.org](http://g
 
 ## Plotly Package
 
+
 Often, the first graphing example a new user experiences is found in [R for Data Science by Hadley Wickham and Garrett Grolemund](https://r4ds.had.co.nz/index.html). In this example, the author describes the *grammer of graphics* and the `{ggplot2}` package.
 
 ```{r, first plot}
@@ -31,7 +32,7 @@ ggplot(data = mpg) +
 
 Technically, there is nothing wrong with a static image and no interaction. As long as you convey your intent, your job is done. Or is it?
 
-However, is `{ggplot}` our only graphic utilty/package/service? Certainly NO! Let's discuss [plotly](https://cran.r-project.org/web/packages/plotly/index.html).
+However, is `{ggplot}` our only graphic utility/package/service? Certainly NO! Let's discuss [plotly](https://cran.r-project.org/web/packages/plotly/index.html).
 
 The author comments "(plotly)...has been downloaded from CRAN 4.9 million times at the time of writing this." I wanted to double check or update the stats. Using [DataScienceMeta](http://www.datasciencemeta.com/rpackages), the site lists plotly has been downloaded 10,129,165 and is the 179th most popular downloaded (out of 18,641)!
 
