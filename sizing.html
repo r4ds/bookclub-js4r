@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 DT Package | JavaScript for R Book Club</title>
+  <title>8.2 Sizing | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 DT Package | JavaScript for R Book Club" />
+  <meta property="og:title" content="8.2 Sizing | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 DT Package | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="8.2 Sizing | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="plotly-package.html"/>
-<link rel="next" href="crosstalk.html"/>
+<link rel="prev" href="sharing-variables-between-rendervalue-and-resize.html"/>
+<link rel="next" href="adding-html-content.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -436,32 +436,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dt-package" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> DT Package<a href="dt-package.html#dt-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <code>{DT}</code> package provides an R Interface to the jQuery JavaScript Library <a href="https://datatables.net/">DataTables</a>. (Not to be confused or remotely the same as Data.Tables).</p>
-<p>Unique characteristics of DataTables versus HTML tables alone are:</p>
+<div id="sizing" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Sizing<a href="sizing.html#sizing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Two main issues:</p>
 <ul>
-<li>Pagination</li>
-<li>Instant Search</li>
-<li>Multi-column ordering</li>
-<li>Use almost any datasource</li>
-<li>Easily Theme-able</li>
-<li>Wide Variety of extensions</li>
+<li>What is the initial size of the image</li>
+<li>How should the image respond to changes in the surrounding page</li>
 </ul>
-<p>The following is a one-line snippet example of producing an interactivec DataTable.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="dt-package.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb7-2"><a href="dt-package.html#cb7-2" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(cars)</span></code></pre></div>
-<div id="htmlwidget-d3aadc8f8329d45e2b6b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3aadc8f8329d45e2b6b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"],[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,17,18,18,18,18,19,19,19,20,20,20,20,20,22,23,24,24,24,24,25],[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40,50,42,56,76,84,36,46,68,32,48,52,56,64,66,54,70,92,93,120,85]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>speed<\/th>\n      <th>dist<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p>Citation: <a href="https://book.javascript-for-r.com/widgets-intro-intro.html#fig:plotly-dt-diagram">JavaScript for R by John Coene, Chapter 3, figure 3.4</a></p>
+<p>Ancillary issues:</p>
+<ul>
+<li>should sizing rules depend on context ()</li>
+</ul>
+<p>Example based on GIO (as presented in Chapter 7)</p>
+<ul>
+<li>The widget.js file has an empty <code>resize</code> function at present</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="sizing.html#cb34-1" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="st">&#39;</span></span>
+<span id="cb34-2"><a href="sizing.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">  [</span></span>
+<span id="cb34-3"><a href="sizing.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;e&quot;: &quot;CN&quot;, &quot;i&quot;: &quot;US&quot;, &quot;v&quot;: 330000}</span></span>
+<span id="cb34-4"><a href="sizing.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb34-5"><a href="sizing.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="sizing.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fixed size</span></span>
+<span id="cb35-2"><a href="sizing.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">newGio</span>(arcs)</span>
+<span id="cb35-3"><a href="sizing.html#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="sizing.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># unreadably narrow</span></span>
+<span id="cb35-5"><a href="sizing.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">newGio</span>(arcs, <span class="at">width =</span> <span class="st">&quot;50px&quot;</span>)</span>
+<span id="cb35-6"><a href="sizing.html#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="sizing.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># half of the container&#39;s width</span></span>
+<span id="cb35-8"><a href="sizing.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - automatically widens/narrows on page resizing</span></span>
+<span id="cb35-9"><a href="sizing.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">newGio</span>(arcs, <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>)</span></code></pre></div>
+<p>For sizing visualisations:</p>
+<ul>
+<li><code>width</code> / <code>height</code> arguments in <code>createWidget()</code></li>
+<li><code>sizingPolicy</code> argument in <code>createWidget()</code>
+<ul>
+<li>how should the widget be sized / padded in different settings</li>
+</ul></li>
+<li><code>resize()</code> function in <code>*.js</code>
+<ul>
+<li>called whenever the widget is resized</li>
+<li>See the example for {plotly}: <a href="https://github.com/plotly/plotly.R/blob/master/inst/htmlwidgets/plotly.js" class="uri">https://github.com/plotly/plotly.R/blob/master/inst/htmlwidgets/plotly.js</a></li>
+</ul></li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="plotly-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="crosstalk.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sharing-variables-between-rendervalue-and-resize.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="adding-html-content.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -492,7 +516,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/03.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/08.Rmd",
 "text": "Edit"
 },
 "history": {

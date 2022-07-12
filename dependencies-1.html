@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 DT Package | JavaScript for R Book Club</title>
+  <title>8.4 Dependencies | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 DT Package | JavaScript for R Book Club" />
+  <meta property="og:title" content="8.4 Dependencies | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 DT Package | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="8.4 Dependencies | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="plotly-package.html"/>
-<link rel="next" href="crosstalk.html"/>
+<link rel="prev" href="adding-html-content.html"/>
+<link rel="next" href="efficient-data-transfer.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -436,32 +436,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dt-package" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> DT Package<a href="dt-package.html#dt-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <code>{DT}</code> package provides an R Interface to the jQuery JavaScript Library <a href="https://datatables.net/">DataTables</a>. (Not to be confused or remotely the same as Data.Tables).</p>
-<p>Unique characteristics of DataTables versus HTML tables alone are:</p>
+<div id="dependencies-1" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Dependencies<a href="dependencies-1.html#dependencies-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>JavaScript dependencies so far…</p>
 <ul>
-<li>Pagination</li>
-<li>Instant Search</li>
-<li>Multi-column ordering</li>
-<li>Use almost any datasource</li>
-<li>Easily Theme-able</li>
-<li>Wide Variety of extensions</li>
+<li>declare them in <code>myWidget.yaml</code></li>
 </ul>
-<p>The following is a one-line snippet example of producing an interactivec DataTable.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="dt-package.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb7-2"><a href="dt-package.html#cb7-2" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(cars)</span></code></pre></div>
-<div id="htmlwidget-d3aadc8f8329d45e2b6b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3aadc8f8329d45e2b6b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"],[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,17,18,18,18,18,19,19,19,20,20,20,20,20,22,23,24,24,24,24,25],[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40,50,42,56,76,84,36,46,68,32,48,52,56,64,66,54,70,92,93,120,85]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>speed<\/th>\n      <th>dist<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p>Citation: <a href="https://book.javascript-for-r.com/widgets-intro-intro.html#fig:plotly-dt-diagram">JavaScript for R by John Coene, Chapter 3, figure 3.4</a></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb36-1"><a href="dependencies-1.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb36-2"><a href="dependencies-1.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> three</span></span>
+<span id="cb36-3"><a href="dependencies-1.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">110</span></span>
+<span id="cb36-4"><a href="dependencies-1.html#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/three</span></span>
+<span id="cb36-5"><a href="dependencies-1.html#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> three.min.js</span></span>
+<span id="cb36-6"><a href="dependencies-1.html#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> gio</span></span>
+<span id="cb36-7"><a href="dependencies-1.html#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.0</span></span>
+<span id="cb36-8"><a href="dependencies-1.html#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/gio</span></span>
+<span id="cb36-9"><a href="dependencies-1.html#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> gio.min.js</span></span></code></pre></div>
+<p>But …</p>
+<ul>
+<li>Can we load only the small part of a JS library that our widget needs?</li>
+<li>Can we extend a widget with an optional library?</li>
+<li>A multiwidget report might
+<ul>
+<li>load multiple copies of the same library</li>
+<li>load incompatible versions of the same library</li>
+</ul></li>
+</ul>
+<p>Tools:</p>
+<ul>
+<li>Library builders
+<ul>
+<li><a href="https://echarts.apache.org/en/builder.html" class="uri">https://echarts.apache.org/en/builder.html</a></li>
+<li>Allows to create a subset of eCharts containing only the components that you need</li>
+</ul></li>
+<li>Chrome “DevTools::Network” tab
+<ul>
+<li>which libraries are loaded</li>
+<li>how long it takes to load libraries</li>
+</ul></li>
+<li><code>htmlwidgets::getDependency()</code>
+<ul>
+<li>Access JS dependencies from an existing R package</li>
+</ul></li>
+</ul>
+<div id="optional-dependencies-htmltoolshtmldependency" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Optional dependencies &amp; htmltools::htmlDependency<a href="dependencies-1.html#optional-dependencies-htmltoolshtmldependency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Example: adding <code>stats.js</code> as an optional dependency for our GIO widget</p>
+<p>In JavaScript:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb37-1"><a href="dependencies-1.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ... snip ...</span></span>
+<span id="cb37-2"><a href="dependencies-1.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb37-3"><a href="dependencies-1.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb37-4"><a href="dependencies-1.html#cb37-4" aria-hidden="true" tabindex="-1"></a>controller<span class="op">.</span><span class="fu">enableStats</span>()<span class="op">;</span></span></code></pre></div>
+<p>We only want to enable <code>stats.js</code> when the user requests it. The library should not be loaded by
+the browser otherwise.</p>
+<p>For the user, the syntax should look like:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="dependencies-1.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a GIO visualisation without performance monitoring by `stats.js`</span></span>
+<span id="cb38-2"><a href="dependencies-1.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gio</span>(some_data)</span>
+<span id="cb38-3"><a href="dependencies-1.html#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="dependencies-1.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a GIO visualisation with performance monitoring by `stats.js`</span></span>
+<span id="cb38-5"><a href="dependencies-1.html#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gio_stats</span>(<span class="fu">gio</span>(some_data))</span></code></pre></div>
+<p>To make this work:</p>
+<ul>
+<li>Download <code>stats.js</code> to <code>inst/htmlwidgets/stats/</code></li>
+<li>Use <code>htmltools::htmlDependency()</code> to specify where <code>stats.js</code> can be found</li>
+<li>If the user calls <code>gio_stats</code>
+<ul>
+<li>Append the <code>html_dependency</code> object to the <code>htmlwidget</code></li>
+<li>Add a flag that <code>stats.js</code> is to be used in the browser-transferred data</li>
+</ul></li>
+<li>Modify the <code>gio.js</code> file to optionally call <code>controller.enableStats()</code> when the flag is set</li>
+</ul>
+<p>[Live coding]</p>
+<p>Issues with that pattern?</p>
+<ul>
+<li>Could we have written <code>gio_stats()</code> function in a separate package from <code>{gio}</code>?</li>
+<li>How could we write extension packages for <code>{gio}</code>?</li>
+</ul>
+<p>Recommendations:</p>
+<ul>
+<li>Use <code>myWidget.yaml</code> for hard dependencies</li>
+<li>Use <code>htmltools::htmlDependency</code> for optional dependencies</li>
+<li>If an established R package includes a JS dependency that your package needs, access the JS
+library from that R package</li>
+</ul>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="plotly-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="crosstalk.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="adding-html-content.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="efficient-data-transfer.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -492,7 +557,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/03.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/08.Rmd",
 "text": "Edit"
 },
 "history": {
