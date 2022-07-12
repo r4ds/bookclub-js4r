@@ -2,12 +2,232 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- A little about JS scoping rules
+- Resizing widgets
+- Adding additional HTML content to a widget
+- Overlapping, optional and conflicting JS dependencies
+- Efficient data transfer
 
-## SLIDE 1
+Not covered in the bookclub
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+- Transferring JS code (just use `htmlwidgets::JS`)
+- preRenderHook (modify the R-side widget object before sending across the wires)
+- Unit testing (use testthat on the `htmlwidget` object)
+
+## Sharing variables between `renderValue` and `resize`
+
+`newGio.js` looks like this:
+
+```js
+HTMLWidgets.widget({
+  name: "newGio",
+  type: "output",
+  factory: function(el, width, height) {
+    return {
+      renderValue: function(x) {
+        // I, the controller, am only available inside this function
+        var controller = new GIO.Controller(el);
+        // etc //
+      },
+      resize: function(width, height) {
+        // code to re-render the widget with a new size
+        // ... ARG! I need to access the controller!
+      }
+    };
+  };
+});
+```
+
+Three scoping rules in JavaScript: Block, Function and Global scope.
+
+Function scope is similar to R (for data access)
+
+```{r}
+make_adder <- function(y) {
+  adder <- function(x) {
+    x + y
+  }
+  # The returned function can access `y` even after `make_adder` has ran
+  adder
+}
+
+add_10 <- make_adder(10)
+
+add_10(3)
+```
+
+So if you need to access the same variable in `renderValue` and `resize`, define that variable
+in a scope that they both can find:
+
+```js
+HTMLWidgets.widget({
+  name: "newGio",
+  type: "output",
+  factory: function(el, width, height) {
+    var controller = new GIO.Controller(el);
+    
+    return {
+      renderValue: function(x) {
+        // `controller` is accessible here
+      },
+      resize: function(width, height) {
+        // ... and also here :0)
+      }
+    };
+  };
+});
+```
+
+## Sizing
+
+Two main issues:
+
+- What is the initial size of the image
+- How should the image respond to changes in the surrounding page
+
+Ancillary issues:
+
+- should sizing rules depend on context ()
+
+Example based on GIO (as presented in Chapter 7)
+
+- The widget.js file has an empty `resize` function at present
+
+```r
+arcs <- jsonlite::fromJSON('
+  [
+    {"e": "CN", "i": "US", "v": 330000}
+  ]
+')
+```
+
+```r
+# fixed size
+newGio(arcs)
+
+# unreadably narrow
+newGio(arcs, width = "50px")
+
+# half of the container's width
+# - automatically widens/narrows on page resizing
+newGio(arcs, width = "50%")
+```
+
+For sizing visualisations:
+
+- `width` / `height` arguments in `createWidget()`
+- `sizingPolicy` argument in `createWidget()`
+  - how should the widget be sized / padded in different settings
+- `resize()` function in `*.js`
+  - called whenever the widget is resized
+  - See the example for {plotly}: https://github.com/plotly/plotly.R/blob/master/inst/htmlwidgets/plotly.js
+  
+## Adding HTML content
+
+Use the `htmlwidgets::prependContent(theWidget, someHTML)` or `appendContent` functions
+
+Remember, createWidget returns an R object and we can modify it's content before 'print'ing it
+
+## Dependencies
+
+JavaScript dependencies so far...
+
+- declare them in `myWidget.yaml`
+
+```yaml
+dependencies:
+  - name: three
+    version: 110
+    src: htmlwidgets/three
+    script: three.min.js
+  - name: gio
+    version: 2.0
+    src: htmlwidgets/gio
+    script: gio.min.js
+```
+
+But ...
+
+- Can we load only the small part of a JS library that our widget needs?
+- Can we extend a widget with an optional library?
+- A multiwidget report might
+  - load multiple copies of the same library
+  - load incompatible versions of the same library
+  
+Tools:
+
+- Library builders
+  - https://echarts.apache.org/en/builder.html
+  - Allows to create a subset of eCharts containing only the components that you need
+
+- Chrome "DevTools::Network" tab
+  - which libraries are loaded
+  - how long it takes to load libraries
+
+- `htmlwidgets::getDependency()`
+  - Access JS dependencies from an existing R package
+
+### Optional dependencies & htmltools::htmlDependency
+
+Example: adding `stats.js` as an optional dependency for our GIO widget
+
+In JavaScript:
+
+```js
+// ... snip ...
+const controller = new GIO.Controller(el);
+//
+controller.enableStats();
+```
+
+We only want to enable `stats.js` when the user requests it. The library should not be loaded by
+the browser otherwise.
+
+For the user, the syntax should look like:
+
+```r
+# create a GIO visualisation without performance monitoring by `stats.js`
+gio(some_data)
+
+# create a GIO visualisation with performance monitoring by `stats.js`
+gio_stats(gio(some_data))
+```
+
+To make this work:
+
+- Download `stats.js` to `inst/htmlwidgets/stats/`
+- Use `htmltools::htmlDependency()` to specify where `stats.js` can be found
+- If the user calls `gio_stats`
+  - Append the `html_dependency` object to the `htmlwidget`
+  - Add a flag that `stats.js` is to be used in the browser-transferred data
+- Modify the `gio.js` file to optionally call `controller.enableStats()` when the flag is set
+
+[Live coding]
+
+Issues with that pattern?
+
+- Could we have written `gio_stats()` function in a separate package from `{gio}`?
+- How could we write extension packages for `{gio}`?
+
+Recommendations:
+
+- Use `myWidget.yaml` for hard dependencies
+- Use `htmltools::htmlDependency` for optional dependencies
+- If an established R package includes a JS dependency that your package needs, access the JS
+  library from that R package
+
+## Efficient data transfer
+
+So far our data is:
+
+- loaded into R
+- serialised as JSON
+- transferred to an HTML element
+- deserialised by JS
+- ... presented ...
+
+If data is _really_ large, you could design your JS to pull from a server, or access content in a
+served static file.
 
 ## Meeting Videos
 
