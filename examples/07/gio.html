@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <!-- Import Libraries
+    - Note using CDN rather than local download
+  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/giojs@2.0.0/build/gio.min.js"></script>
+</head>
+
+<body>
+  <!-- div to hold visualisation -->
+  <div id="globe" style="width: 200px; height: 200px"></div>
+
+  <!-- script to create visualisation -->
+  <!-- Note: 'data' must be defined before use -->
+  <script>
+    var data = [
+        {
+                "e": "CN",
+                "i": "US",
+                "v": 3300000
+        },
+        {
+                "e": "CN",
+                "i": "RU",
+                "v": 10000
+        }
+    ];
+    var container = document.getElementById("globe");
+    var controller = new GIO.Controller(container);
+    controller.addData(data);
+    controller.init();
+  </script>
+
+</body>
+
+</html>
