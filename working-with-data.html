@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 The Full Monty | JavaScript for R Book Club</title>
+  <title>7.6 Working with data | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta property="og:title" content="7.6 Working with data | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="7.6 Working with data | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-5.html"/>
-<link rel="next" href="workflow.html"/>
+<link rel="prev" href="js-side-code.html"/>
+<link rel="next" href="transforming-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -443,24 +443,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-full-monty" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> The Full Monty<a href="the-full-monty.html#the-full-monty" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="working-with-data" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Working with data<a href="working-with-data.html#working-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The data expected by GIO is as follows:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb34-1"><a href="working-with-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Array[Object{e: ISO2CODE, i: ISO2CODE, v: number}]</span></span>
+<span id="cb34-2"><a href="working-with-data.html#cb34-2" aria-hidden="true" tabindex="-1"></a>[</span>
+<span id="cb34-3"><a href="working-with-data.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb34-4"><a href="working-with-data.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="st">&quot;CN&quot;</span><span class="op">,</span> <span class="co">// exporting country</span></span>
+<span id="cb34-5"><a href="working-with-data.html#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="st">&quot;US&quot;</span><span class="op">,</span> <span class="co">// importing country</span></span>
+<span id="cb34-6"><a href="working-with-data.html#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">3300000</span> <span class="co">// value</span></span>
+<span id="cb34-7"><a href="working-with-data.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb34-8"><a href="working-with-data.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb34-9"><a href="working-with-data.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="st">&quot;CN&quot;</span><span class="op">,</span></span>
+<span id="cb34-10"><a href="working-with-data.html#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="st">&quot;RU&quot;</span><span class="op">,</span></span>
+<span id="cb34-11"><a href="working-with-data.html#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">10000</span></span>
+<span id="cb34-12"><a href="working-with-data.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-13"><a href="working-with-data.html#cb34-13" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<p><a href="https://giojs.org/html/docs/dataAdd.html" class="uri">https://giojs.org/html/docs/dataAdd.html</a></p>
+<p>R reads that as a data-frame:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(r<span class="st">&quot;([</span></span>
+<span id="cb35-2"><a href="working-with-data.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="st">  {</span></span>
+<span id="cb35-3"><a href="working-with-data.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>e<span class="st">&quot;: &quot;</span>CN<span class="st">&quot;, // exporting country</span></span>
+<span id="cb35-4"><a href="working-with-data.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>i<span class="st">&quot;: &quot;</span>US<span class="st">&quot;, // importing country</span></span>
+<span id="cb35-5"><a href="working-with-data.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>v<span class="st">&quot;: 3300000 // value</span></span>
+<span id="cb35-6"><a href="working-with-data.html#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb35-7"><a href="working-with-data.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">  {</span></span>
+<span id="cb35-8"><a href="working-with-data.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>e<span class="st">&quot;: &quot;</span>CN<span class="st">&quot;,</span></span>
+<span id="cb35-9"><a href="working-with-data.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>i<span class="st">&quot;: &quot;</span>RU<span class="st">&quot;,</span></span>
+<span id="cb35-10"><a href="working-with-data.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>v<span class="st">&quot;: 10000</span></span>
+<span id="cb35-11"><a href="working-with-data.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb35-12"><a href="working-with-data.html#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="st">])&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="working-with-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a>arcs</span></code></pre></div>
+<pre><code>##    e  i       v
+## 1 CN US 3300000
+## 2 CN RU   10000</code></pre>
+<p>Conflict between R-style datasets and GIO-expected / JS-style datasets</p>
 <ul>
-<li>The nature of column-oriented vs row-oriented data serialisation</li>
-<li>How to ensure that R serialises data appropriately for use by JS</li>
-<li>How to modify the object returned by createWidget</li>
-<li>What order should dependencies be specified in the yaml</li>
-<li>We also see how to wrap a complicated JS library using htmlwidgets</li>
+<li>Objects in the JS array ~ Rows of the R data-frame</li>
 </ul>
+<p>Widget changes:
+- use <code>data</code> param rather than <code>message</code> in R function
+- include this as <code>x.data</code> in the object passed to JS
+- Use <code>x.data</code> in the <code>controller.addData()</code> call</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb38-1"><a href="working-with-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ... snip ...</span></span>
+<span id="cb38-2"><a href="working-with-data.html#cb38-2" aria-hidden="true" tabindex="-1"></a>factory<span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
+<span id="cb38-3"><a href="working-with-data.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb38-4"><a href="working-with-data.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb38-5"><a href="working-with-data.html#cb38-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> controller <span class="op">=</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb38-6"><a href="working-with-data.html#cb38-6" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">addData</span>(x<span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
+<span id="cb38-7"><a href="working-with-data.html#cb38-7" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">init</span>()<span class="op">;</span></span>
+<span id="cb38-8"><a href="working-with-data.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb38-9"><a href="working-with-data.html#cb38-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-10"><a href="working-with-data.html#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
+<span id="cb38-11"><a href="working-with-data.html#cb38-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="working-with-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a>newGio <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb39-2"><a href="working-with-data.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="working-with-data.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># forward options using x</span></span>
+<span id="cb39-4"><a href="working-with-data.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb39-5"><a href="working-with-data.html#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
+<span id="cb39-6"><a href="working-with-data.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-7"><a href="working-with-data.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span></code></pre></div>
+<p>Look in devtools at the contents of the dataset:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb40-1"><a href="working-with-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;application/json&quot;</span> data<span class="op">-</span><span class="cf">for</span><span class="op">=</span><span class="st">&quot;htmlwidget-b97f43c69fa089f58c24&quot;</span><span class="op">&gt;</span></span>
+<span id="cb40-2"><a href="working-with-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb40-3"><a href="working-with-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;x&quot;</span><span class="op">:</span> {</span>
+<span id="cb40-4"><a href="working-with-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;data&quot;</span><span class="op">:</span>{</span>
+<span id="cb40-5"><a href="working-with-data.html#cb40-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;e&quot;</span><span class="op">:</span>[<span class="st">&quot;CN&quot;</span><span class="op">,</span><span class="st">&quot;CN&quot;</span>]<span class="op">,</span></span>
+<span id="cb40-6"><a href="working-with-data.html#cb40-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;i&quot;</span><span class="op">:</span>[<span class="st">&quot;US&quot;</span><span class="op">,</span><span class="st">&quot;RU&quot;</span>]<span class="op">,</span></span>
+<span id="cb40-7"><a href="working-with-data.html#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;v&quot;</span><span class="op">:</span>[<span class="dv">3300000</span><span class="op">,</span><span class="dv">10000</span>]</span>
+<span id="cb40-8"><a href="working-with-data.html#cb40-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb40-9"><a href="working-with-data.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb40-10"><a href="working-with-data.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;evals&quot;</span><span class="op">:</span>[]<span class="op">,</span></span>
+<span id="cb40-11"><a href="working-with-data.html#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;jsHooks&quot;</span><span class="op">:</span>[]</span>
+<span id="cb40-12"><a href="working-with-data.html#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-13"><a href="working-with-data.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
+<p>Columns in R have become the elements in <code>x.data</code></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="js-side-code.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transforming-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

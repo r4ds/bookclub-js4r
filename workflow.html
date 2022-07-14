@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 The Full Monty | JavaScript for R Book Club</title>
+  <title>7.1 Workflow | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta property="og:title" content="7.1 Workflow | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="7.1 Workflow | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-5.html"/>
-<link rel="next" href="workflow.html"/>
+<link rel="prev" href="the-full-monty.html"/>
+<link rel="next" href="gio.js-in-.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -443,15 +443,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-full-monty" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> The Full Monty<a href="the-full-monty.html#the-full-monty" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="workflow" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Workflow<a href="workflow.html#workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>The nature of column-oriented vs row-oriented data serialisation</li>
-<li>How to ensure that R serialises data appropriately for use by JS</li>
-<li>How to modify the object returned by createWidget</li>
-<li>What order should dependencies be specified in the yaml</li>
-<li>We also see how to wrap a complicated JS library using htmlwidgets</li>
+<li>Write an example using vanilla HTML/JS</li>
+<li>Initialise an R package</li>
+<li>Build scaffold for widget</li>
+<li>Declare any dependencies</li>
+<li>Add JS-side code for rendering</li>
+<li>Work out what data / data structure / chart options should be passed from R to JS</li>
+<li>Add R-side code for setting up data</li>
+<li>Check that the visualisation looks OK
+<ul>
+<li><code>&lt;widget&gt;_html</code></li>
+</ul></li>
 </ul>
 </div>
             </section>
@@ -459,8 +464,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="meeting-videos-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-full-monty.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gio.js-in-.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 The Full Monty | JavaScript for R Book Club</title>
+  <title>7.2 gio.js in .HTML | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta property="og:title" content="7.2 gio.js in .HTML | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="7.2 gio.js in .HTML | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-5.html"/>
-<link rel="next" href="workflow.html"/>
+<link rel="prev" href="workflow.html"/>
+<link rel="next" href="r-package.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -443,24 +443,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-full-monty" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> The Full Monty<a href="the-full-monty.html#the-full-monty" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="gio.js-in-.html" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> gio.js in .HTML<a href="gio.js-in-.html#gio.js-in-.html" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following shows how to use gio.js in a plain .html file.
+The code has been modified from that in the book:</p>
 <ul>
-<li>The nature of column-oriented vs row-oriented data serialisation</li>
-<li>How to ensure that R serialises data appropriately for use by JS</li>
-<li>How to modify the object returned by createWidget</li>
-<li>What order should dependencies be specified in the yaml</li>
-<li>We also see how to wrap a complicated JS library using htmlwidgets</li>
+<li>libraries are loaded from CDN</li>
+<li>the missing ‘data’ variable has been filled in</li>
 </ul>
+<p>The code is very similar to the main example on the gio.js homepage.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="gio.js-in-.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;!</span>DOCTYPE html<span class="sc">&gt;</span></span>
+<span id="cb29-2"><a href="gio.js-in-.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>html xmlns<span class="ot">=</span><span class="st">&quot;http://www.w3.org/1999/xhtml&quot;</span> lang<span class="ot">=</span><span class="st">&quot;&quot;</span> xml<span class="sc">:</span>lang<span class="ot">=</span><span class="st">&quot;&quot;</span><span class="sc">&gt;</span></span>
+<span id="cb29-3"><a href="gio.js-in-.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="gio.js-in-.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>head<span class="sc">&gt;</span></span>
+<span id="cb29-5"><a href="gio.js-in-.html#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Import Libraries</span>
+<span id="cb29-6"><a href="gio.js-in-.html#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span> Note using CDN rather than local download</span>
+<span id="cb29-7"><a href="gio.js-in-.html#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb29-8"><a href="gio.js-in-.html#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script src<span class="ot">=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>script<span class="sc">&gt;</span></span>
+<span id="cb29-9"><a href="gio.js-in-.html#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script src<span class="ot">=</span><span class="st">&quot;https://cdn.jsdelivr.net/npm/giojs@2.0.0/build/gio.min.js&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>script<span class="sc">&gt;</span></span>
+<span id="cb29-10"><a href="gio.js-in-.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>head<span class="sc">&gt;</span></span>
+<span id="cb29-11"><a href="gio.js-in-.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="gio.js-in-.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>body<span class="sc">&gt;</span></span>
+<span id="cb29-13"><a href="gio.js-in-.html#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> div to hold visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb29-14"><a href="gio.js-in-.html#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>div id<span class="ot">=</span><span class="st">&quot;globe&quot;</span> style<span class="ot">=</span><span class="st">&quot;width: 200px; height: 200px&quot;</span><span class="sc">&gt;</span><span class="er">&lt;/</span>div<span class="sc">&gt;</span></span>
+<span id="cb29-15"><a href="gio.js-in-.html#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="gio.js-in-.html#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> script to create visualisation <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb29-17"><a href="gio.js-in-.html#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span><span class="sc">!--</span> Note<span class="sc">:</span> <span class="st">&#39;data&#39;</span> must be defined before use <span class="sc">-</span><span class="ot">-&gt;</span></span>
+<span id="cb29-18"><a href="gio.js-in-.html#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>script<span class="sc">&gt;</span></span>
+<span id="cb29-19"><a href="gio.js-in-.html#cb29-19" aria-hidden="true" tabindex="-1"></a>    var data <span class="ot">=</span> [</span>
+<span id="cb29-20"><a href="gio.js-in-.html#cb29-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb29-21"><a href="gio.js-in-.html#cb29-21" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;e&quot;</span><span class="sc">:</span> <span class="st">&quot;CN&quot;</span>,</span>
+<span id="cb29-22"><a href="gio.js-in-.html#cb29-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;i&quot;</span><span class="sc">:</span> <span class="st">&quot;US&quot;</span>,</span>
+<span id="cb29-23"><a href="gio.js-in-.html#cb29-23" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;v&quot;</span><span class="sc">:</span> <span class="dv">3300000</span></span>
+<span id="cb29-24"><a href="gio.js-in-.html#cb29-24" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb29-25"><a href="gio.js-in-.html#cb29-25" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb29-26"><a href="gio.js-in-.html#cb29-26" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;e&quot;</span><span class="sc">:</span> <span class="st">&quot;CN&quot;</span>,</span>
+<span id="cb29-27"><a href="gio.js-in-.html#cb29-27" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;i&quot;</span><span class="sc">:</span> <span class="st">&quot;RU&quot;</span>,</span>
+<span id="cb29-28"><a href="gio.js-in-.html#cb29-28" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;v&quot;</span><span class="sc">:</span> <span class="dv">10000</span></span>
+<span id="cb29-29"><a href="gio.js-in-.html#cb29-29" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb29-30"><a href="gio.js-in-.html#cb29-30" aria-hidden="true" tabindex="-1"></a>    ];</span>
+<span id="cb29-31"><a href="gio.js-in-.html#cb29-31" aria-hidden="true" tabindex="-1"></a>    var container <span class="ot">=</span> <span class="fu">document.getElementById</span>(<span class="st">&quot;globe&quot;</span>);</span>
+<span id="cb29-32"><a href="gio.js-in-.html#cb29-32" aria-hidden="true" tabindex="-1"></a>    var controller <span class="ot">=</span> new <span class="fu">GIO.Controller</span>(container);</span>
+<span id="cb29-33"><a href="gio.js-in-.html#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">controller.addData</span>(data);</span>
+<span id="cb29-34"><a href="gio.js-in-.html#cb29-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">controller.init</span>();</span>
+<span id="cb29-35"><a href="gio.js-in-.html#cb29-35" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span><span class="er">/</span>script<span class="sc">&gt;</span></span>
+<span id="cb29-36"><a href="gio.js-in-.html#cb29-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-37"><a href="gio.js-in-.html#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>body<span class="sc">&gt;</span></span>
+<span id="cb29-38"><a href="gio.js-in-.html#cb29-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-39"><a href="gio.js-in-.html#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>html<span class="sc">&gt;</span></span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="workflow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

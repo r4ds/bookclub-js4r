@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 The Full Monty | JavaScript for R Book Club</title>
+  <title>7.7 Transforming Data | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta property="og:title" content="7.7 Transforming Data | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="7.7 Transforming Data | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-5.html"/>
-<link rel="next" href="workflow.html"/>
+<link rel="prev" href="working-with-data.html"/>
+<link rel="next" href="on-print-method.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -443,24 +443,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-full-monty" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> The Full Monty<a href="the-full-monty.html#the-full-monty" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="transforming-data" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Transforming Data<a href="transforming-data.html#transforming-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We want the serialised data to be in the format the JS library expects</p>
+<p>Approaches:</p>
 <ul>
-<li>The nature of column-oriented vs row-oriented data serialisation</li>
-<li>How to ensure that R serialises data appropriately for use by JS</li>
-<li>How to modify the object returned by createWidget</li>
-<li>What order should dependencies be specified in the yaml</li>
-<li>We also see how to wrap a complicated JS library using htmlwidgets</li>
+<li>Convert the data on the JS side
+<ul>
+<li><code>HTMLWidgets.dataframeToD3()</code></li>
+</ul></li>
+<li>Modify the data in R before serialising it
+<ul>
+<li>e.g., make list of rows</li>
+</ul></li>
+<li>Modify the serialiser used by htmlwidgets</li>
+<li>Replace the serialiser used by htmlwidgets</li>
 </ul>
+<p>The default serialiser in htmlwidgets uses <code>jsonlite::toJSON(..., dataframe = "columns")</code>:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="transforming-data.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is not what we want ...</span></span>
+<span id="cb41-2"><a href="transforming-data.html#cb41-2" aria-hidden="true" tabindex="-1"></a>jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(arcs, <span class="at">dataframe =</span> <span class="st">&quot;columns&quot;</span>)</span></code></pre></div>
+<pre><code>## {&quot;e&quot;:[&quot;CN&quot;,&quot;CN&quot;],&quot;i&quot;:[&quot;US&quot;,&quot;RU&quot;],&quot;v&quot;:[3300000,10000]}</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="transforming-data.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is what we want ...</span></span>
+<span id="cb43-2"><a href="transforming-data.html#cb43-2" aria-hidden="true" tabindex="-1"></a>jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(arcs, <span class="at">dataframe =</span> <span class="st">&quot;rows&quot;</span>)</span></code></pre></div>
+<pre><code>## [{&quot;e&quot;:&quot;CN&quot;,&quot;i&quot;:&quot;US&quot;,&quot;v&quot;:3300000},{&quot;e&quot;:&quot;CN&quot;,&quot;i&quot;:&quot;RU&quot;,&quot;v&quot;:10000}]</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="transforming-data.html#cb45-1" aria-hidden="true" tabindex="-1"></a>jsonify<span class="sc">::</span><span class="fu">to_json</span>(arcs, <span class="at">unbox =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by &#39;jsonify&#39;:
+##   method     from    
+##   print.json jsonlite</code></pre>
+<pre><code>## [{&quot;e&quot;:&quot;CN&quot;,&quot;i&quot;:&quot;US&quot;,&quot;v&quot;:3300000},{&quot;e&quot;:&quot;CN&quot;,&quot;i&quot;:&quot;RU&quot;,&quot;v&quot;:10000}]</code></pre>
+<p>To alter the serialiser used by {htmlwidgets} you modify the attributes of the <code>x</code> that you pass
+into <code>createWidget</code>.</p>
+<p>Either with “TOJSON_ARGS” or “TOJSON_FUNC”.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="transforming-data.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># modify the arguments of the default serialiser:</span></span>
+<span id="cb48-2"><a href="transforming-data.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="transforming-data.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip</span></span>
+<span id="cb48-4"><a href="transforming-data.html#cb48-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">data =</span> arcs)</span>
+<span id="cb48-5"><a href="transforming-data.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(x, <span class="st">&quot;TOJSON_ARGS&quot;</span>) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">dataframe =</span> <span class="st">&quot;rows&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="transforming-data.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># replace the default serialiser</span></span>
+<span id="cb49-2"><a href="transforming-data.html#cb49-2" aria-hidden="true" tabindex="-1"></a>gio_serialiser <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb49-3"><a href="transforming-data.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  jsonify<span class="sc">::</span><span class="fu">to_json</span>(x, <span class="at">unbox =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-4"><a href="transforming-data.html#cb49-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-5"><a href="transforming-data.html#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="transforming-data.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip</span></span>
+<span id="cb49-7"><a href="transforming-data.html#cb49-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">list</span>(<span class="at">data =</span> arcs)</span>
+<span id="cb49-8"><a href="transforming-data.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(x, <span class="st">&quot;TOJSON_FUNC&quot;</span>) <span class="ot">&lt;-</span> gio_serialiser</span></code></pre></div>
+<p>See the Data Transformation section of one of the {htmlwidgets} vignettes: <a href="https://www.htmlwidgets.org/develop_advanced.html#data-transformation" class="uri">https://www.htmlwidgets.org/develop_advanced.html#data-transformation</a></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="working-with-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="on-print-method.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
