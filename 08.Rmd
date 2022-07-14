@@ -233,12 +233,16 @@ served static file.
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/c-cGKTuiaiQ")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:03:44	russ:	Hi
+00:06:17	Arthur Shaw:	Wups. Sorry--my mic was on. Closed it now so you don't have to hear me sip tea ;)
+00:50:48	Arthur Shaw:	controller.enableStats();
+01:06:29	Arthur Shaw:	This one: https://bookdown.org/yihui/rmarkdown-cookbook/html-widgets.html ?
+01:07:48	Ryan Metcalf:	Quick citation for my earlier topic: https://rdrr.io/github/rpc5102/rlocker/f/README.md The page points and a developer library for xAPI using the Learning Locker. Russ, to your benifit, I'm fairly certain Learning Locker is an British open source project!
 ```
 </details>
