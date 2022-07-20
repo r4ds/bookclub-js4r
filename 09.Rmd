@@ -1,13 +1,224 @@
 # Linking Widgets
 
-**Learning objectives:**
+**Learning objectives**:
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Learn how `crosstalk` links widgets
+- Explore linking widgets with gio as an example
 
-## SLIDE 1
+## Motivating example
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+### Basic
+
+```{r crosstalk_basic, eval=FALSE}
+library(DT)
+library(plotly)
+library(crosstalk)
+
+shared <- SharedData$new(cars)
+
+bscols(
+  plot_ly(shared, x = ~speed, y=~dist),
+  datatable(shared, width = "100%")
+)
+```
+
+### Shiny
+
+```{r crosstalk_shiny, eval=FALSE}
+library(DT)
+library(shiny)
+library(crosstalk)
+
+ui <- fluidPage(
+  fluidRow(
+    column(4, uiOutput("text")),
+    column(8, DTOutput("table"))
+  )
+)
+
+server <- function(input, output) {
+  sd <- SharedData$new(cars)
+
+  output$text <- renderUI({
+    # get selected rows
+    n_selected <- sd$data(withSelection = TRUE) %>% 
+      dplyr::filter(selected_ == TRUE) %>% 
+      nrow()
+
+    h3(n_selected, "selected items")
+    
+  })
+
+  output$table <- renderDT({
+    datatable(sd)
+  }, server = FALSE)
+}
+
+shinyApp(ui, server)
+```
+
+## How `crosstalk` "talks"
+
+### Shared data
+
+```{r shared_data, eval=TRUE}
+# create shared data...
+sd_cars <- SharedData$new(cars[1:2,])
+
+# ...that is not a simple data frame
+class(sd_cars)
+str(sd_cars)
+```
+
+### Communication 
+
+#### Keys
+
+Keys are the key for communication
+
+- Action in widget 1
+  - Listen for actions
+  - Capture key where action occurs
+  - Pass key to widget 2
+- React in widget 2
+  - Listen for keys emitted by widget 1
+  - Receive key from widget 1
+  - Make changes in widget 2 using key from widget 1
+
+Where do keys come from?
+
+- Either bring them--for example, `rownames` in a dataframe
+- Or set them (in the package logic)
+
+#### Groups
+
+- Keys identify observations in the same group
+- Groups are
+  - Either for the same data set
+```{r, eval=FALSE}
+# same data; shared keys, by construction
+shared_cars <- SharedData$new(mtcars, group = "cars")
+```
+  - Or for different data sets with shared keys
+```{r, eval=FALSE}
+# different data; shared keys
+shared_cars       <- SharedData$new(mtcars, group = "cars")
+shared_cars_head  <- SharedData$new(head(mtcars), group = "cars")
+```
+
+## Crosswalk with `gio`
+
+### R code
+
+What to change:
+
+- Accept shared data frame, rather than simple data frame: `if (crosstalk::is.SharedData(data))`
+- Extract original data from shared data object: `data <- data$origData()` 
+- Extract group: `group <- data$groupName()`
+- Set `crosstalk` dependency:
+  - `deps <- crosstalk::crosstalkLibs()`
+  - `htmlwidgets::createWidget(dependencies = deps)`
+
+```{r, eval=FALSE}
+gio <- function(data, width = NULL, height = NULL, 
+  elementId = NULL) {
+
+  # defaults to NULL
+  group <- NULL
+  deps <- NULL
+
+  # uses crosstalk
+  if (crosstalk::is.SharedData(data)) {
+    group <- data$groupName()
+    data <- data$origData()
+    deps <- crosstalk::crosstalkLibs()
+  }
+
+  # forward options using x
+  x = list(
+    data = data,
+    style = "default",
+    crosstalk = list(group = group) # pass group
+  )
+
+  attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
+
+  # create widget
+  htmlwidgets::createWidget(
+    name = 'gio',
+    x,
+    width = width,
+    height = height,
+    package = 'gio',
+    elementId = elementId,
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      padding = 0,
+      browser.fill = TRUE,
+      defaultWidth = "100%"
+    ),
+    preRenderHook = render_gio,
+    # add crosstalk dependency
+    dependencies = deps
+  )
+}
+```
+
+### JS code
+
+#### Register selections
+
+What to change:
+
+- Create selection handler: `var sel_handle = new crosstalk.SelectionHandle();`
+- Set the group passed from R: `sel_handle.setGroup(x.crosstalk.group);`
+
+#### Send selection from `gio` to another widget
+
+```{js, eval=FALSE}
+function callback (selectedCountry) {
+  sel_handle.set([selectedCountry.ISOCode]);
+}
+
+controller.onCountryPicked(callback);
+```
+
+#### Receive selection from another widget; react in  `gio`
+
+```{js, eval=FALSE}
+// placed in factory function
+sel_handle.on("change", function(e) {
+
+  // selection comes from another widget
+  if (e.sender !== sel_handle) {
+    // clear the selection
+    // not possible with gio.js
+  }
+  controller.switchCountry(e.value[0]);
+});
+```
+
+### Usage example
+
+```{r gio_w_crosstalk, eval=FALSE}
+library(DT)
+library(gio)
+library(crosstalk)
+
+url <- paste0(
+  "https://raw.githubusercontent.com/JohnCoene/",
+  "javascript-for-r/master/data/countries.json"
+)
+arcs <- jsonlite::fromJSON(url)
+
+# Wrap data frame in SharedData
+# key is importing country
+sd <- SharedData$new(arcs, key = arcs$i)
+
+bscols(
+  gio(sd),
+  datatable(sd, width="100%", selection = "single")
+)
+```
 
 ## Meeting Videos
 
