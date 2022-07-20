@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7.4 Declaring Dependencies | JavaScript for R Book Club</title>
+  <title>9.1 Motivating example | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7.4 Declaring Dependencies | JavaScript for R Book Club" />
+  <meta property="og:title" content="9.1 Motivating example | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7.4 Declaring Dependencies | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="9.1 Motivating example | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="r-package.html"/>
-<link rel="next" href="js-side-code.html"/>
+<link rel="prev" href="linking-widgets.html"/>
+<link rel="next" href="how-crosstalk-talks.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -458,67 +458,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="declaring-dependencies" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Declaring Dependencies<a href="declaring-dependencies.html#declaring-dependencies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We use v2.0.0 of gio.js and v110 of three.js, as in the book</p>
-<p>We add a ./dev script to contain the code that downloaded the dependencies:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="declaring-dependencies.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ./dev/download-dependencies.R</span></span>
-<span id="cb31-2"><a href="declaring-dependencies.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="declaring-dependencies.html#cb31-3" aria-hidden="true" tabindex="-1"></a>versions <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb31-4"><a href="declaring-dependencies.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">three =</span> <span class="st">&quot;110&quot;</span>,</span>
-<span id="cb31-5"><a href="declaring-dependencies.html#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gio =</span> <span class="st">&quot;2.0.0&quot;</span></span>
-<span id="cb31-6"><a href="declaring-dependencies.html#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-7"><a href="declaring-dependencies.html#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="declaring-dependencies.html#cb31-8" aria-hidden="true" tabindex="-1"></a>dirs <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb31-9"><a href="declaring-dependencies.html#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">htmlwidgets =</span> <span class="fu">file.path</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;htmlwidgets&quot;</span>)</span>
-<span id="cb31-10"><a href="declaring-dependencies.html#cb31-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-11"><a href="declaring-dependencies.html#cb31-11" aria-hidden="true" tabindex="-1"></a>dirs<span class="sc">$</span>three <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>htmlwidgets, <span class="st">&quot;three&quot;</span>)</span>
-<span id="cb31-12"><a href="declaring-dependencies.html#cb31-12" aria-hidden="true" tabindex="-1"></a>dirs<span class="sc">$</span>gio <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>htmlwidgets, <span class="st">&quot;gio&quot;</span>)</span>
-<span id="cb31-13"><a href="declaring-dependencies.html#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-14"><a href="declaring-dependencies.html#cb31-14" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb31-15"><a href="declaring-dependencies.html#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">three =</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb31-16"><a href="declaring-dependencies.html#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/{versions$three}/three.min.js&quot;</span></span>
-<span id="cb31-17"><a href="declaring-dependencies.html#cb31-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb31-18"><a href="declaring-dependencies.html#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">gio =</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb31-19"><a href="declaring-dependencies.html#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://cdn.jsdelivr.net/npm/giojs@{versions$gio}/build/gio.min.js&quot;</span></span>
-<span id="cb31-20"><a href="declaring-dependencies.html#cb31-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-21"><a href="declaring-dependencies.html#cb31-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-22"><a href="declaring-dependencies.html#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-23"><a href="declaring-dependencies.html#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co"># create directory for JS dependencies</span></span>
-<span id="cb31-24"><a href="declaring-dependencies.html#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(dirs<span class="sc">$</span>three, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb31-25"><a href="declaring-dependencies.html#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(dirs<span class="sc">$</span>gio, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb31-26"><a href="declaring-dependencies.html#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-27"><a href="declaring-dependencies.html#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co"># download the JS dependencies</span></span>
-<span id="cb31-28"><a href="declaring-dependencies.html#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(urls<span class="sc">$</span>three, <span class="fu">file.path</span>(dirs<span class="sc">$</span>three, <span class="st">&quot;three.min.js&quot;</span>))</span>
-<span id="cb31-29"><a href="declaring-dependencies.html#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(urls<span class="sc">$</span>gio, <span class="fu">file.path</span>(dirs<span class="sc">$</span>gio, <span class="st">&quot;gio.min.js&quot;</span>))</span></code></pre></div>
-<p>We have done this before:</p>
-<ul>
-<li>Generate an R package</li>
-<li>with the scaffold for a widget</li>
-<li>and the dependencies of that widget downloaded into subdirectories.</li>
-</ul>
-<p>Now</p>
-<ul>
-<li>Tell {htmlwidgets} where the libraries can be found:</li>
-</ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb32-1"><a href="declaring-dependencies.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
-<span id="cb32-2"><a href="declaring-dependencies.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> three</span></span>
-<span id="cb32-3"><a href="declaring-dependencies.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">110</span></span>
-<span id="cb32-4"><a href="declaring-dependencies.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/three</span></span>
-<span id="cb32-5"><a href="declaring-dependencies.html#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> three.min.js</span></span>
-<span id="cb32-6"><a href="declaring-dependencies.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> gio</span></span>
-<span id="cb32-7"><a href="declaring-dependencies.html#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.0</span></span>
-<span id="cb32-8"><a href="declaring-dependencies.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/gio</span></span>
-<span id="cb32-9"><a href="declaring-dependencies.html#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> gio.min.js</span></span></code></pre></div>
-<p>Put “three.js” first, since “gio.js” depends on “three.js”</p>
+<div id="motivating-example" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Motivating example<a href="motivating-example.html#motivating-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="basic" class="section level3 hasAnchor" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Basic<a href="motivating-example.html#basic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="motivating-example.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb63-2"><a href="motivating-example.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb63-3"><a href="motivating-example.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstalk)</span>
+<span id="cb63-4"><a href="motivating-example.html#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="motivating-example.html#cb63-5" aria-hidden="true" tabindex="-1"></a>shared <span class="ot">&lt;-</span> SharedData<span class="sc">$</span><span class="fu">new</span>(cars)</span>
+<span id="cb63-6"><a href="motivating-example.html#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="motivating-example.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bscols</span>(</span>
+<span id="cb63-8"><a href="motivating-example.html#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(shared, <span class="at">x =</span> <span class="sc">~</span>speed, <span class="at">y=</span><span class="sc">~</span>dist),</span>
+<span id="cb63-9"><a href="motivating-example.html#cb63-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(shared, <span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span>
+<span id="cb63-10"><a href="motivating-example.html#cb63-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="shiny-1" class="section level3 hasAnchor" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Shiny<a href="motivating-example.html#shiny-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="motivating-example.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb64-2"><a href="motivating-example.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb64-3"><a href="motivating-example.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstalk)</span>
+<span id="cb64-4"><a href="motivating-example.html#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="motivating-example.html#cb64-5" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb64-6"><a href="motivating-example.html#cb64-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb64-7"><a href="motivating-example.html#cb64-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">uiOutput</span>(<span class="st">&quot;text&quot;</span>)),</span>
+<span id="cb64-8"><a href="motivating-example.html#cb64-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">8</span>, <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>))</span>
+<span id="cb64-9"><a href="motivating-example.html#cb64-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb64-10"><a href="motivating-example.html#cb64-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-11"><a href="motivating-example.html#cb64-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-12"><a href="motivating-example.html#cb64-12" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb64-13"><a href="motivating-example.html#cb64-13" aria-hidden="true" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> SharedData<span class="sc">$</span><span class="fu">new</span>(cars)</span>
+<span id="cb64-14"><a href="motivating-example.html#cb64-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-15"><a href="motivating-example.html#cb64-15" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb64-16"><a href="motivating-example.html#cb64-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get selected rows</span></span>
+<span id="cb64-17"><a href="motivating-example.html#cb64-17" aria-hidden="true" tabindex="-1"></a>    n_selected <span class="ot">&lt;-</span> sd<span class="sc">$</span><span class="fu">data</span>(<span class="at">withSelection =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb64-18"><a href="motivating-example.html#cb64-18" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">filter</span>(selected_ <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb64-19"><a href="motivating-example.html#cb64-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">nrow</span>()</span>
+<span id="cb64-20"><a href="motivating-example.html#cb64-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-21"><a href="motivating-example.html#cb64-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">h3</span>(n_selected, <span class="st">&quot;selected items&quot;</span>)</span>
+<span id="cb64-22"><a href="motivating-example.html#cb64-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb64-23"><a href="motivating-example.html#cb64-23" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb64-24"><a href="motivating-example.html#cb64-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-25"><a href="motivating-example.html#cb64-25" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
+<span id="cb64-26"><a href="motivating-example.html#cb64-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(sd)</span>
+<span id="cb64-27"><a href="motivating-example.html#cb64-27" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">server =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb64-28"><a href="motivating-example.html#cb64-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-29"><a href="motivating-example.html#cb64-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-30"><a href="motivating-example.html#cb64-30" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="js-side-code.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linking-widgets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="how-crosstalk-talks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -549,7 +544,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/07.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/09.Rmd",
 "text": "Edit"
 },
 "history": {

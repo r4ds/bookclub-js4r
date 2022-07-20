@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7.4 Declaring Dependencies | JavaScript for R Book Club</title>
+  <title>9.3 Crosswalk with gio | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7.4 Declaring Dependencies | JavaScript for R Book Club" />
+  <meta property="og:title" content="9.3 Crosswalk with gio | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7.4 Declaring Dependencies | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="9.3 Crosswalk with gio | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="r-package.html"/>
-<link rel="next" href="js-side-code.html"/>
+<link rel="prev" href="how-crosstalk-talks.html"/>
+<link rel="next" href="meeting-videos-8.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -458,67 +458,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="declaring-dependencies" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Declaring Dependencies<a href="declaring-dependencies.html#declaring-dependencies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We use v2.0.0 of gio.js and v110 of three.js, as in the book</p>
-<p>We add a ./dev script to contain the code that downloaded the dependencies:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="declaring-dependencies.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ./dev/download-dependencies.R</span></span>
-<span id="cb31-2"><a href="declaring-dependencies.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="declaring-dependencies.html#cb31-3" aria-hidden="true" tabindex="-1"></a>versions <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb31-4"><a href="declaring-dependencies.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">three =</span> <span class="st">&quot;110&quot;</span>,</span>
-<span id="cb31-5"><a href="declaring-dependencies.html#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gio =</span> <span class="st">&quot;2.0.0&quot;</span></span>
-<span id="cb31-6"><a href="declaring-dependencies.html#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-7"><a href="declaring-dependencies.html#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="declaring-dependencies.html#cb31-8" aria-hidden="true" tabindex="-1"></a>dirs <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb31-9"><a href="declaring-dependencies.html#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">htmlwidgets =</span> <span class="fu">file.path</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;htmlwidgets&quot;</span>)</span>
-<span id="cb31-10"><a href="declaring-dependencies.html#cb31-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-11"><a href="declaring-dependencies.html#cb31-11" aria-hidden="true" tabindex="-1"></a>dirs<span class="sc">$</span>three <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>htmlwidgets, <span class="st">&quot;three&quot;</span>)</span>
-<span id="cb31-12"><a href="declaring-dependencies.html#cb31-12" aria-hidden="true" tabindex="-1"></a>dirs<span class="sc">$</span>gio <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>htmlwidgets, <span class="st">&quot;gio&quot;</span>)</span>
-<span id="cb31-13"><a href="declaring-dependencies.html#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-14"><a href="declaring-dependencies.html#cb31-14" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb31-15"><a href="declaring-dependencies.html#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">three =</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb31-16"><a href="declaring-dependencies.html#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/{versions$three}/three.min.js&quot;</span></span>
-<span id="cb31-17"><a href="declaring-dependencies.html#cb31-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb31-18"><a href="declaring-dependencies.html#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">gio =</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb31-19"><a href="declaring-dependencies.html#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://cdn.jsdelivr.net/npm/giojs@{versions$gio}/build/gio.min.js&quot;</span></span>
-<span id="cb31-20"><a href="declaring-dependencies.html#cb31-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-21"><a href="declaring-dependencies.html#cb31-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-22"><a href="declaring-dependencies.html#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-23"><a href="declaring-dependencies.html#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co"># create directory for JS dependencies</span></span>
-<span id="cb31-24"><a href="declaring-dependencies.html#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(dirs<span class="sc">$</span>three, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb31-25"><a href="declaring-dependencies.html#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(dirs<span class="sc">$</span>gio, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb31-26"><a href="declaring-dependencies.html#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-27"><a href="declaring-dependencies.html#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co"># download the JS dependencies</span></span>
-<span id="cb31-28"><a href="declaring-dependencies.html#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(urls<span class="sc">$</span>three, <span class="fu">file.path</span>(dirs<span class="sc">$</span>three, <span class="st">&quot;three.min.js&quot;</span>))</span>
-<span id="cb31-29"><a href="declaring-dependencies.html#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(urls<span class="sc">$</span>gio, <span class="fu">file.path</span>(dirs<span class="sc">$</span>gio, <span class="st">&quot;gio.min.js&quot;</span>))</span></code></pre></div>
-<p>We have done this before:</p>
+<div id="crosswalk-with-gio" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Crosswalk with <code>gio</code><a href="crosswalk-with-gio.html#crosswalk-with-gio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="r-code-1" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> R code<a href="crosswalk-with-gio.html#r-code-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What to change:</p>
 <ul>
-<li>Generate an R package</li>
-<li>with the scaffold for a widget</li>
-<li>and the dependencies of that widget downloaded into subdirectories.</li>
-</ul>
-<p>Now</p>
+<li>Accept shared data frame, rather than simple data frame: <code>if (crosstalk::is.SharedData(data))</code></li>
+<li>Extract original data from shared data object: <code>data &lt;- data$origData()</code></li>
+<li>Extract group: <code>group &lt;- data$groupName()</code></li>
+<li>Set <code>crosstalk</code> dependency:
 <ul>
-<li>Tell {htmlwidgets} where the libraries can be found:</li>
+<li><code>deps &lt;- crosstalk::crosstalkLibs()</code></li>
+<li><code>htmlwidgets::createWidget(dependencies = deps)</code></li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb32-1"><a href="declaring-dependencies.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
-<span id="cb32-2"><a href="declaring-dependencies.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> three</span></span>
-<span id="cb32-3"><a href="declaring-dependencies.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">110</span></span>
-<span id="cb32-4"><a href="declaring-dependencies.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/three</span></span>
-<span id="cb32-5"><a href="declaring-dependencies.html#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> three.min.js</span></span>
-<span id="cb32-6"><a href="declaring-dependencies.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> gio</span></span>
-<span id="cb32-7"><a href="declaring-dependencies.html#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.0</span></span>
-<span id="cb32-8"><a href="declaring-dependencies.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/gio</span></span>
-<span id="cb32-9"><a href="declaring-dependencies.html#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> gio.min.js</span></span></code></pre></div>
-<p>Put “three.js” first, since “gio.js” depends on “three.js”</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="crosswalk-with-gio.html#cb71-1" aria-hidden="true" tabindex="-1"></a>gio <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, </span>
+<span id="cb71-2"><a href="crosswalk-with-gio.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb71-3"><a href="crosswalk-with-gio.html#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="crosswalk-with-gio.html#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># defaults to NULL</span></span>
+<span id="cb71-5"><a href="crosswalk-with-gio.html#cb71-5" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb71-6"><a href="crosswalk-with-gio.html#cb71-6" aria-hidden="true" tabindex="-1"></a>  deps <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb71-7"><a href="crosswalk-with-gio.html#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="crosswalk-with-gio.html#cb71-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># uses crosstalk</span></span>
+<span id="cb71-9"><a href="crosswalk-with-gio.html#cb71-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (crosstalk<span class="sc">::</span><span class="fu">is.SharedData</span>(data)) {</span>
+<span id="cb71-10"><a href="crosswalk-with-gio.html#cb71-10" aria-hidden="true" tabindex="-1"></a>    group <span class="ot">&lt;-</span> data<span class="sc">$</span><span class="fu">groupName</span>()</span>
+<span id="cb71-11"><a href="crosswalk-with-gio.html#cb71-11" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> data<span class="sc">$</span><span class="fu">origData</span>()</span>
+<span id="cb71-12"><a href="crosswalk-with-gio.html#cb71-12" aria-hidden="true" tabindex="-1"></a>    deps <span class="ot">&lt;-</span> crosstalk<span class="sc">::</span><span class="fu">crosstalkLibs</span>()</span>
+<span id="cb71-13"><a href="crosswalk-with-gio.html#cb71-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb71-14"><a href="crosswalk-with-gio.html#cb71-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-15"><a href="crosswalk-with-gio.html#cb71-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># forward options using x</span></span>
+<span id="cb71-16"><a href="crosswalk-with-gio.html#cb71-16" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb71-17"><a href="crosswalk-with-gio.html#cb71-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data,</span>
+<span id="cb71-18"><a href="crosswalk-with-gio.html#cb71-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="st">&quot;default&quot;</span>,</span>
+<span id="cb71-19"><a href="crosswalk-with-gio.html#cb71-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">crosstalk =</span> <span class="fu">list</span>(<span class="at">group =</span> group) <span class="co"># pass group</span></span>
+<span id="cb71-20"><a href="crosswalk-with-gio.html#cb71-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb71-21"><a href="crosswalk-with-gio.html#cb71-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-22"><a href="crosswalk-with-gio.html#cb71-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">attr</span>(x, <span class="st">&#39;TOJSON_ARGS&#39;</span>) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">dataframe =</span> <span class="st">&quot;rows&quot;</span>)</span>
+<span id="cb71-23"><a href="crosswalk-with-gio.html#cb71-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-24"><a href="crosswalk-with-gio.html#cb71-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create widget</span></span>
+<span id="cb71-25"><a href="crosswalk-with-gio.html#cb71-25" aria-hidden="true" tabindex="-1"></a>  htmlwidgets<span class="sc">::</span><span class="fu">createWidget</span>(</span>
+<span id="cb71-26"><a href="crosswalk-with-gio.html#cb71-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&#39;gio&#39;</span>,</span>
+<span id="cb71-27"><a href="crosswalk-with-gio.html#cb71-27" aria-hidden="true" tabindex="-1"></a>    x,</span>
+<span id="cb71-28"><a href="crosswalk-with-gio.html#cb71-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> width,</span>
+<span id="cb71-29"><a href="crosswalk-with-gio.html#cb71-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> height,</span>
+<span id="cb71-30"><a href="crosswalk-with-gio.html#cb71-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">&#39;gio&#39;</span>,</span>
+<span id="cb71-31"><a href="crosswalk-with-gio.html#cb71-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">elementId =</span> elementId,</span>
+<span id="cb71-32"><a href="crosswalk-with-gio.html#cb71-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">sizingPolicy =</span> htmlwidgets<span class="sc">::</span><span class="fu">sizingPolicy</span>(</span>
+<span id="cb71-33"><a href="crosswalk-with-gio.html#cb71-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">padding =</span> <span class="dv">0</span>,</span>
+<span id="cb71-34"><a href="crosswalk-with-gio.html#cb71-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">browser.fill =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb71-35"><a href="crosswalk-with-gio.html#cb71-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">defaultWidth =</span> <span class="st">&quot;100%&quot;</span></span>
+<span id="cb71-36"><a href="crosswalk-with-gio.html#cb71-36" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb71-37"><a href="crosswalk-with-gio.html#cb71-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">preRenderHook =</span> render_gio,</span>
+<span id="cb71-38"><a href="crosswalk-with-gio.html#cb71-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add crosstalk dependency</span></span>
+<span id="cb71-39"><a href="crosswalk-with-gio.html#cb71-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">dependencies =</span> deps</span>
+<span id="cb71-40"><a href="crosswalk-with-gio.html#cb71-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb71-41"><a href="crosswalk-with-gio.html#cb71-41" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="js-code" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> JS code<a href="crosswalk-with-gio.html#js-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="register-selections" class="section level4 hasAnchor" number="9.3.2.1">
+<h4><span class="header-section-number">9.3.2.1</span> Register selections<a href="crosswalk-with-gio.html#register-selections" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>What to change:</p>
+<ul>
+<li>Create selection handler: <code>var sel_handle = new crosstalk.SelectionHandle();</code></li>
+<li>Set the group passed from R: <code>sel_handle.setGroup(x.crosstalk.group);</code></li>
+</ul>
+</div>
+<div id="send-selection-from-gio-to-another-widget" class="section level4 hasAnchor" number="9.3.2.2">
+<h4><span class="header-section-number">9.3.2.2</span> Send selection from <code>gio</code> to another widget<a href="crosswalk-with-gio.html#send-selection-from-gio-to-another-widget" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb72"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb72-1"><a href="crosswalk-with-gio.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">callback</span> (selectedCountry) {</span>
+<span id="cb72-2"><a href="crosswalk-with-gio.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  sel_handle<span class="op">.</span><span class="fu">set</span>([selectedCountry<span class="op">.</span><span class="at">ISOCode</span>])<span class="op">;</span></span>
+<span id="cb72-3"><a href="crosswalk-with-gio.html#cb72-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb72-4"><a href="crosswalk-with-gio.html#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="crosswalk-with-gio.html#cb72-5" aria-hidden="true" tabindex="-1"></a>controller<span class="op">.</span><span class="fu">onCountryPicked</span>(callback)<span class="op">;</span></span></code></pre></div>
+</div>
+<div id="receive-selection-from-another-widget-react-in-gio" class="section level4 hasAnchor" number="9.3.2.3">
+<h4><span class="header-section-number">9.3.2.3</span> Receive selection from another widget; react in <code>gio</code><a href="crosswalk-with-gio.html#receive-selection-from-another-widget-react-in-gio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb73"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb73-1"><a href="crosswalk-with-gio.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">// placed in factory function</span></span>
+<span id="cb73-2"><a href="crosswalk-with-gio.html#cb73-2" aria-hidden="true" tabindex="-1"></a>sel_handle<span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;change&quot;</span><span class="op">,</span> <span class="kw">function</span>(e) {</span>
+<span id="cb73-3"><a href="crosswalk-with-gio.html#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="crosswalk-with-gio.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// selection comes from another widget</span></span>
+<span id="cb73-5"><a href="crosswalk-with-gio.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (e<span class="op">.</span><span class="at">sender</span> <span class="op">!==</span> sel_handle) {</span>
+<span id="cb73-6"><a href="crosswalk-with-gio.html#cb73-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// clear the selection</span></span>
+<span id="cb73-7"><a href="crosswalk-with-gio.html#cb73-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// not possible with gio.js</span></span>
+<span id="cb73-8"><a href="crosswalk-with-gio.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb73-9"><a href="crosswalk-with-gio.html#cb73-9" aria-hidden="true" tabindex="-1"></a>  controller<span class="op">.</span><span class="fu">switchCountry</span>(e<span class="op">.</span><span class="at">value</span>[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb73-10"><a href="crosswalk-with-gio.html#cb73-10" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+</div>
+</div>
+<div id="usage-example" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Usage example<a href="crosswalk-with-gio.html#usage-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="crosswalk-with-gio.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb74-2"><a href="crosswalk-with-gio.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gio)</span>
+<span id="cb74-3"><a href="crosswalk-with-gio.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstalk)</span>
+<span id="cb74-4"><a href="crosswalk-with-gio.html#cb74-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="crosswalk-with-gio.html#cb74-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb74-6"><a href="crosswalk-with-gio.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://raw.githubusercontent.com/JohnCoene/&quot;</span>,</span>
+<span id="cb74-7"><a href="crosswalk-with-gio.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;javascript-for-r/master/data/countries.json&quot;</span></span>
+<span id="cb74-8"><a href="crosswalk-with-gio.html#cb74-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb74-9"><a href="crosswalk-with-gio.html#cb74-9" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(url)</span>
+<span id="cb74-10"><a href="crosswalk-with-gio.html#cb74-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-11"><a href="crosswalk-with-gio.html#cb74-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrap data frame in SharedData</span></span>
+<span id="cb74-12"><a href="crosswalk-with-gio.html#cb74-12" aria-hidden="true" tabindex="-1"></a><span class="co"># key is importing country</span></span>
+<span id="cb74-13"><a href="crosswalk-with-gio.html#cb74-13" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> SharedData<span class="sc">$</span><span class="fu">new</span>(arcs, <span class="at">key =</span> arcs<span class="sc">$</span>i)</span>
+<span id="cb74-14"><a href="crosswalk-with-gio.html#cb74-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-15"><a href="crosswalk-with-gio.html#cb74-15" aria-hidden="true" tabindex="-1"></a><span class="fu">bscols</span>(</span>
+<span id="cb74-16"><a href="crosswalk-with-gio.html#cb74-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gio</span>(sd),</span>
+<span id="cb74-17"><a href="crosswalk-with-gio.html#cb74-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(sd, <span class="at">width=</span><span class="st">&quot;100%&quot;</span>, <span class="at">selection =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb74-18"><a href="crosswalk-with-gio.html#cb74-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="js-side-code.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="how-crosstalk-talks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-8.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -549,7 +606,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/07.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/09.Rmd",
 "text": "Edit"
 },
 "history": {
