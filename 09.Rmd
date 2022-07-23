@@ -224,12 +224,16 @@ bscols(
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/8mgCUBGMzEc")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:01:04	LUCIO ENRIQUE CORNEJO RAM REZ:	Hello
+00:01:15	russ:	Hi everyone
+00:04:14	Ryan Metcalf:	Forgive my delayed joining.
+00:23:40	Ryan Metcalf:	https://r6.r-lib.org/articles/Introduction.html
+01:08:31	LUCIO ENRIQUE CORNEJO RAM REZ:	thanks!!
 ```
 </details>
