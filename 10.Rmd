@@ -1,13 +1,149 @@
 # Final Revisions
 
-**Learning objectives:**
+## Htmlwidgets and data
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+The different ways to call (visualisation) functions:
 
-## SLIDE 1
+```r
+qplot(x, price, data = diamonds)
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+ggplot2(diamonds, aes(x = x, y = price)) + geom_point()
+
+plot(price ~ x, data = diamonds)
+
+plot(diamonds$x, diamonds$price)
+```
+
+We have built a function `gio(data, width, height, elementId)`.
+
+But:
+
+- `data` _must_ be in a specific form (columns = e, i, v).
+
+User should be able to tell `gio` what columns to use
+
+```r
+gio <- function(data,
+                source, # new
+                target, # new
+                value, # new
+                width = NULL, height = NULL, elementId = NULL) {
+  # ... snip ... #
+  
+  data <- dplyr::select(
+    data,
+    i = {{ source }},
+    e = {{ target }},
+    v = {{ value }}
+  )
+  
+  x <- list(
+    data = data
+  )
+  
+  # ... snip .... #
+}
+```
+
+User can now use
+
+```
+gio(data, source = from, target = to, value = amount)
+```
+
+where 'data' has column names 'from', 'to', and 'amount'.
+
+Discuss:
+
+- `gio(df, source = notAColumn, ...)`
+  - catching user errors
+- `gio(df, ..., value = v / 100)`
+  - in-call data-modifications
+- `gio(df)`
+  - should default columns be assumed if user's data has 'source', 'target', 'value' columns?
+
+## Plethora of options
+
+Parameter list for gio.js: https://giojs.org/html/docs/configureParams.html
+
+- control
+- color
+- brightness
+
+Passed in as JSON
+
+- Many options
+- JS library may evolve
+- Users may want access to parts of the library you didn't anticipate
+
+We could:
+
+- port each option/param over to R
+  - gio(...snip..., control = controlArgs, color = colorArgs)
+  - gio(...snip..., controlStats, controlDisableUnmentioned, ...snip...)
+- use ["..."](https://adv-r.hadley.nz/functions.html#fun-dot-dot-dot)
+  - gio <- function(data, ...snip..., ..., width = NULL, ...snip...){}
+- (or introduce a parameter object?)
+
+```{r}
+g <- function(...) {
+  print(list(...))
+}
+
+g(1)
+g(a=2, 3, 4:5)
+g(control = list(initCountry = "DE"))
+```
+
+```r
+gio <- function(data, source, target, value,
+                ..., # new
+                width = NULL, height = NULL, elementId = NULL) {
+  # ... snip ...
+  
+  x = list(
+    data = data,
+    configs = list(...)
+  )
+  
+  # ... snip ...
+}
+```
+
+```js
+controller = new GIO.Controller(el, x.configs);
+// or
+controller = new GIO.Controller(el);
+controller.configure(x.configs);
+```
+
+Example:
+
+```r
+gio(
+  df, from, to, traded,
+  control = list(initCountry = "US"),
+  color = list(selected = "#ff4d4d")
+)
+```
+
+## Interface design
+
+Further design decisions:
+
+```r
+gio(~args~, halo = TRUE)
+
+# or
+gio(~args~) %>%
+  gio::addHalo()
+```
+
+Design for humans!
+
+But think ahead!
+
+Design for R Users (who are also humans)!
 
 ## Meeting Videos
 
