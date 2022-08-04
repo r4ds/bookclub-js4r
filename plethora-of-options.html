@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 19 Machine Learning | JavaScript for R Book Club</title>
+  <title>10.2 Plethora of options | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 19 Machine Learning | JavaScript for R Book Club" />
+  <meta property="og:title" content="10.2 Plethora of options | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 19 Machine Learning | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="10.2 Plethora of options | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-17.html"/>
-<link rel="next" href="slide-1-8.html"/>
+<link rel="prev" href="htmlwidgets-and-data.html"/>
+<link rel="next" href="interface-design.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -460,20 +460,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="machine-learning" class="section level1 hasAnchor" number="19">
-<h1><span class="header-section-number">Chapter 19</span> Machine Learning<a href="machine-learning.html#machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="plethora-of-options" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Plethora of options<a href="plethora-of-options.html#plethora-of-options" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Parameter list for gio.js: <a href="https://giojs.org/html/docs/configureParams.html" class="uri">https://giojs.org/html/docs/configureParams.html</a></p>
 <ul>
-<li>THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY</li>
+<li>control</li>
+<li>color</li>
+<li>brightness</li>
 </ul>
+<p>Passed in as JSON</p>
+<ul>
+<li>Many options</li>
+<li>JS library may evolve</li>
+<li>Users may want access to parts of the library you didn’t anticipate</li>
+</ul>
+<p>We could:</p>
+<ul>
+<li>port each option/param over to R
+<ul>
+<li>gio(…snip…, control = controlArgs, color = colorArgs)</li>
+<li>gio(…snip…, controlStats, controlDisableUnmentioned, …snip…)</li>
+</ul></li>
+<li>use <a href="https://adv-r.hadley.nz/functions.html#fun-dot-dot-dot">“…”</a>
+<ul>
+<li>gio &lt;- function(data, …snip…, …, width = NULL, …snip…){}</li>
+</ul></li>
+<li>(or introduce a parameter object?)</li>
+</ul>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="plethora-of-options.html#cb79-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb79-2"><a href="plethora-of-options.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">list</span>(...))</span>
+<span id="cb79-3"><a href="plethora-of-options.html#cb79-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb79-4"><a href="plethora-of-options.html#cb79-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-5"><a href="plethora-of-options.html#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="plethora-of-options.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(<span class="at">a=</span><span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## $a
+## [1] 2
+## 
+## [[2]]
+## [1] 3
+## 
+## [[3]]
+## [1] 4 5</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="plethora-of-options.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(<span class="at">control =</span> <span class="fu">list</span>(<span class="at">initCountry =</span> <span class="st">&quot;DE&quot;</span>))</span></code></pre></div>
+<pre><code>## $control
+## $control$initCountry
+## [1] &quot;DE&quot;</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="plethora-of-options.html#cb85-1" aria-hidden="true" tabindex="-1"></a>gio <span class="ot">&lt;-</span> <span class="cf">function</span>(data, source, target, value,</span>
+<span id="cb85-2"><a href="plethora-of-options.html#cb85-2" aria-hidden="true" tabindex="-1"></a>                ..., <span class="co"># new</span></span>
+<span id="cb85-3"><a href="plethora-of-options.html#cb85-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb85-4"><a href="plethora-of-options.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... snip ...</span></span>
+<span id="cb85-5"><a href="plethora-of-options.html#cb85-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb85-6"><a href="plethora-of-options.html#cb85-6" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb85-7"><a href="plethora-of-options.html#cb85-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data,</span>
+<span id="cb85-8"><a href="plethora-of-options.html#cb85-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">configs =</span> <span class="fu">list</span>(...)</span>
+<span id="cb85-9"><a href="plethora-of-options.html#cb85-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb85-10"><a href="plethora-of-options.html#cb85-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb85-11"><a href="plethora-of-options.html#cb85-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... snip ...</span></span>
+<span id="cb85-12"><a href="plethora-of-options.html#cb85-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb86-1"><a href="plethora-of-options.html#cb86-1" aria-hidden="true" tabindex="-1"></a>controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el<span class="op">,</span> x<span class="op">.</span><span class="at">configs</span>)<span class="op">;</span></span>
+<span id="cb86-2"><a href="plethora-of-options.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co">// or</span></span>
+<span id="cb86-3"><a href="plethora-of-options.html#cb86-3" aria-hidden="true" tabindex="-1"></a>controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb86-4"><a href="plethora-of-options.html#cb86-4" aria-hidden="true" tabindex="-1"></a>controller<span class="op">.</span><span class="fu">configure</span>(x<span class="op">.</span><span class="at">configs</span>)<span class="op">;</span></span></code></pre></div>
+<p>Example:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="plethora-of-options.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gio</span>(</span>
+<span id="cb87-2"><a href="plethora-of-options.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  df, from, to, traded,</span>
+<span id="cb87-3"><a href="plethora-of-options.html#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">initCountry =</span> <span class="st">&quot;US&quot;</span>),</span>
+<span id="cb87-4"><a href="plethora-of-options.html#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="fu">list</span>(<span class="at">selected =</span> <span class="st">&quot;#ff4d4d&quot;</span>)</span>
+<span id="cb87-5"><a href="plethora-of-options.html#cb87-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-17.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-1-8.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="htmlwidgets-and-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interface-design.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -504,7 +567,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/19.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/10.Rmd",
 "text": "Edit"
 },
 "history": {

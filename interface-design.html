@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 19 Machine Learning | JavaScript for R Book Club</title>
+  <title>10.3 Interface design | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 19 Machine Learning | JavaScript for R Book Club" />
+  <meta property="og:title" content="10.3 Interface design | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 19 Machine Learning | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="10.3 Interface design | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-17.html"/>
-<link rel="next" href="slide-1-8.html"/>
+<link rel="prev" href="plethora-of-options.html"/>
+<link rel="next" href="meeting-videos-9.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -460,20 +460,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="machine-learning" class="section level1 hasAnchor" number="19">
-<h1><span class="header-section-number">Chapter 19</span> Machine Learning<a href="machine-learning.html#machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
-<ul>
-<li>THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY</li>
-</ul>
+<div id="interface-design" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Interface design<a href="interface-design.html#interface-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Further design decisions:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="interface-design.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gio</span>(<span class="sc">~</span>args<span class="sc">~</span>, <span class="at">halo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb88-2"><a href="interface-design.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="interface-design.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb88-4"><a href="interface-design.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gio</span>(<span class="sc">~</span>args<span class="sc">~</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb88-5"><a href="interface-design.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  gio<span class="sc">::</span><span class="fu">addHalo</span>()</span></code></pre></div>
+<p>Design for humans!</p>
+<p>But think ahead!</p>
+<p>Design for R Users (who are also humans)!</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-17.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-1-8.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="plethora-of-options.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-9.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -504,7 +509,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/19.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/10.Rmd",
 "text": "Edit"
 },
 "history": {
