@@ -21,6 +21,7 @@ Imports:
     plotly,
     shiny,
     rmarkdown,
-    tidyverse
+    tidyverse,
+    DiagrammeR
 Remotes: 
     jcheng5/d3scatter
