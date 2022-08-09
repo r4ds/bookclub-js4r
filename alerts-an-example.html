@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11.3 Alerts, an example | JavaScript for R Book Club</title>
+  <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11.3 Alerts, an example | JavaScript for R Book Club" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
+  <meta name="github-repo" content="r4ds/bookclub-js4r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11.3 Alerts, an example | JavaScript for R Book Club" />
+  
+  <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
+  
+
+<meta name="author" content="The R4DS Online Learning Community" />
+
+
+<meta name="date" content="2022-08-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sessions.html"/>
+<link rel="next" href="meeting-videos-10.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/d3-3.5.9/d3.min.js"></script>
+<link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
+<script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
+<script src="libs/d3scatter-binding-0.1.0/d3scatter.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-grid-3.4.1/bootstrap-grid.min.css" rel="stylesheet" />
+<script src="libs/ionrangeslider-javascript-2.3.1/js/ion.rangeSlider.min.js"></script>
+<script src="libs/strftime-0.9.2/strftime-min.js"></script>
+<link href="libs/ionrangeslider-css-2.3.1/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="libs/selectize-0.12.4/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.4/js/selectize.min.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">JavaScript for R Book Club</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="book-club-meetings.html"><a href="book-club-meetings.html"><i class="fa fa-check"></i>Book club meetings</a></li>
+<li class="chapter" data-level="" data-path="pace.html"><a href="pace.html"><i class="fa fa-check"></i>Pace</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="integration-methods.html"><a href="integration-methods.html"><i class="fa fa-check"></i><b>1.2</b> Methods</a></li>
+<li class="chapter" data-level="1.3" data-path="methods-amiss.html"><a href="methods-amiss.html"><i class="fa fa-check"></i><b>1.3</b> Methods Amiss</a></li>
+<li class="chapter" data-level="1.4" data-path="some-code.html"><a href="some-code.html"><i class="fa fa-check"></i><b>1.4</b> Some code</a></li>
+<li class="chapter" data-level="1.5" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>1.5</b> Resources</a></li>
+<li class="chapter" data-level="1.6" data-path="meeting-videos.html"><a href="meeting-videos.html"><i class="fa fa-check"></i><b>1.6</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="meeting-videos.html"><a href="meeting-videos.html#cohort-1"><i class="fa fa-check"></i><b>1.6.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prerequisites.html"><a href="prerequisites.html"><i class="fa fa-check"></i><b>2</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="why-prerequisites-are-requisite.html"><a href="why-prerequisites-are-requisite.html"><i class="fa fa-check"></i><b>2.1</b> Why prerequisites are requisite</a></li>
+<li class="chapter" data-level="2.2" data-path="r-package-development.html"><a href="r-package-development.html"><i class="fa fa-check"></i><b>2.2</b> R package development</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="r-package-development.html"><a href="r-package-development.html#how-to-create-packages"><i class="fa fa-check"></i><b>2.2.1</b> How to create packages</a></li>
+<li class="chapter" data-level="2.2.2" data-path="r-package-development.html"><a href="r-package-development.html#what-constitutes-a-package"><i class="fa fa-check"></i><b>2.2.2</b> What constitutes a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="json.html"><a href="json.html"><i class="fa fa-check"></i><b>2.3</b> JSON</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="json.html"><a href="json.html#serializing"><i class="fa fa-check"></i><b>2.3.1</b> Serializing</a></li>
+<li class="chapter" data-level="2.3.2" data-path="json.html"><a href="json.html#tablular-data"><i class="fa fa-check"></i><b>2.3.2</b> Tablular data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="javascript.html"><a href="javascript.html"><i class="fa fa-check"></i><b>2.4</b> JavaScript</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="javascript.html"><a href="javascript.html#developer-tools"><i class="fa fa-check"></i><b>2.4.1</b> Developer tools</a></li>
+<li class="chapter" data-level="2.4.2" data-path="javascript.html"><a href="javascript.html#how-js-variables-differ-from-r"><i class="fa fa-check"></i><b>2.4.2</b> How JS variables differ from R</a></li>
+<li class="chapter" data-level="2.4.3" data-path="javascript.html"><a href="javascript.html#document-object-model-dom"><i class="fa fa-check"></i><b>2.4.3</b> Document Object Model (DOM)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>2.5</b> Shiny</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="shiny.html"><a href="shiny.html#serving-static-files"><i class="fa fa-check"></i><b>2.5.1</b> Serving static files</a></li>
+<li class="chapter" data-level="2.5.2" data-path="shiny.html"><a href="shiny.html#htmltools"><i class="fa fa-check"></i><b>2.5.2</b> htmltools</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="serving-files-v.-htmltools.html"><a href="serving-files-v.-htmltools.html"><i class="fa fa-check"></i><b>2.6</b> Serving files v. htmltools</a></li>
+<li class="chapter" data-level="2.7" data-path="meeting-videos-1.html"><a href="meeting-videos-1.html"><i class="fa fa-check"></i><b>2.7</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="meeting-videos-1.html"><a href="meeting-videos-1.html#cohort-1-1"><i class="fa fa-check"></i><b>2.7.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-widgets.html"><a href="introduction-to-widgets.html"><i class="fa fa-check"></i><b>3</b> Introduction to Widgets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="plotly-package.html"><a href="plotly-package.html"><i class="fa fa-check"></i><b>3.1</b> Plotly Package</a></li>
+<li class="chapter" data-level="3.2" data-path="dt-package.html"><a href="dt-package.html"><i class="fa fa-check"></i><b>3.2</b> DT Package</a></li>
+<li class="chapter" data-level="3.3" data-path="crosstalk.html"><a href="crosstalk.html"><i class="fa fa-check"></i><b>3.3</b> Crosstalk</a></li>
+<li class="chapter" data-level="3.4" data-path="wrap-up.html"><a href="wrap-up.html"><i class="fa fa-check"></i><b>3.4</b> Wrap-Up</a></li>
+<li class="chapter" data-level="3.5" data-path="meeting-videos-2.html"><a href="meeting-videos-2.html"><i class="fa fa-check"></i><b>3.5</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="meeting-videos-2.html"><a href="meeting-videos-2.html#cohort-1-2"><i class="fa fa-check"></i><b>3.5.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-building-widgets.html"><a href="basics-of-building-widgets.html"><i class="fa fa-check"></i><b>4</b> Basics of Building Widgets</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="read-and-study.html"><a href="read-and-study.html"><i class="fa fa-check"></i><b>4.1</b> Read and Study</a></li>
+<li class="chapter" data-level="4.2" data-path="candidate-libraries.html"><a href="candidate-libraries.html"><i class="fa fa-check"></i><b>4.2</b> Candidate Libraries</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="candidate-libraries.html"><a href="candidate-libraries.html#html-dom-recap"><i class="fa fa-check"></i><b>4.2.1</b> HTML / DOM recap</a></li>
+<li class="chapter" data-level="4.2.2" data-path="candidate-libraries.html"><a href="candidate-libraries.html#plotly.js"><i class="fa fa-check"></i><b>4.2.2</b> Plotly.js</a></li>
+<li class="chapter" data-level="4.2.3" data-path="candidate-libraries.html"><a href="candidate-libraries.html#highcharts.js"><i class="fa fa-check"></i><b>4.2.3</b> Highcharts.js</a></li>
+<li class="chapter" data-level="4.2.4" data-path="candidate-libraries.html"><a href="candidate-libraries.html#chart.js"><i class="fa fa-check"></i><b>4.2.4</b> Chart.js</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="compare-and-contrast.html"><a href="compare-and-contrast.html"><i class="fa fa-check"></i><b>4.3</b> Compare and Contrast</a></li>
+<li class="chapter" data-level="4.4" data-path="how-it-works.html"><a href="how-it-works.html"><i class="fa fa-check"></i><b>4.4</b> How it works</a></li>
+<li class="chapter" data-level="4.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4.5</b> Summary</a></li>
+<li class="chapter" data-level="4.6" data-path="meeting-videos-3.html"><a href="meeting-videos-3.html"><i class="fa fa-check"></i><b>4.6</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="meeting-videos-3.html"><a href="meeting-videos-3.html#cohort-1-3"><i class="fa fa-check"></i><b>4.6.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="your-first-widget.html"><a href="your-first-widget.html"><i class="fa fa-check"></i><b>5</b> Your First Widget</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="scaffold-in-2-lines-of-code.html"><a href="scaffold-in-2-lines-of-code.html"><i class="fa fa-check"></i><b>5.1</b> Scaffold in 2 lines of code</a></li>
+<li class="chapter" data-level="5.2" data-path="r-functions.html"><a href="r-functions.html"><i class="fa fa-check"></i><b>5.2</b> R functions</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-functions.html"><a href="r-functions.html#overview-1"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-functions.html"><a href="r-functions.html#output"><i class="fa fa-check"></i><b>5.2.2</b> Output</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="js-function.html"><a href="js-function.html"><i class="fa fa-check"></i><b>5.3</b> JS function</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="js-function.html"><a href="js-function.html#overview-2"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
+<li class="chapter" data-level="5.3.2" data-path="js-function.html"><a href="js-function.html#output-1"><i class="fa fa-check"></i><b>5.3.2</b> Output</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="js-dependencies.html"><a href="js-dependencies.html"><i class="fa fa-check"></i><b>5.4</b> JS dependencies</a></li>
+<li class="chapter" data-level="5.5" data-path="resources-1.html"><a href="resources-1.html"><i class="fa fa-check"></i><b>5.5</b> Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="meeting-videos-4.html"><a href="meeting-videos-4.html"><i class="fa fa-check"></i><b>5.6</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="meeting-videos-4.html"><a href="meeting-videos-4.html#cohort-1-4"><i class="fa fa-check"></i><b>5.6.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a-realistic-widget.html"><a href="a-realistic-widget.html"><i class="fa fa-check"></i><b>6</b> A Realistic Widget</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="dependencies.html"><a href="dependencies.html"><i class="fa fa-check"></i><b>6.1</b> Dependencies</a></li>
+<li class="chapter" data-level="6.2" data-path="implementation.html"><a href="implementation.html"><i class="fa fa-check"></i><b>6.2</b> Implementation</a></li>
+<li class="chapter" data-level="6.3" data-path="html-element.html"><a href="html-element.html"><i class="fa fa-check"></i><b>6.3</b> HTML Element</a></li>
+<li class="chapter" data-level="6.4" data-path="meeting-videos-5.html"><a href="meeting-videos-5.html"><i class="fa fa-check"></i><b>6.4</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="meeting-videos-5.html"><a href="meeting-videos-5.html#cohort-1-5"><i class="fa fa-check"></i><b>6.4.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="the-full-monty.html"><a href="the-full-monty.html"><i class="fa fa-check"></i><b>7</b> The Full Monty</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>7.1</b> Workflow</a></li>
+<li class="chapter" data-level="7.2" data-path="gio.js-in-.html"><a href="gio.js-in-.html"><i class="fa fa-check"></i><b>7.2</b> gio.js in .HTML</a></li>
+<li class="chapter" data-level="7.3" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>7.3</b> R package</a></li>
+<li class="chapter" data-level="7.4" data-path="declaring-dependencies.html"><a href="declaring-dependencies.html"><i class="fa fa-check"></i><b>7.4</b> Declaring Dependencies</a></li>
+<li class="chapter" data-level="7.5" data-path="js-side-code.html"><a href="js-side-code.html"><i class="fa fa-check"></i><b>7.5</b> JS-side code</a></li>
+<li class="chapter" data-level="7.6" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>7.6</b> Working with data</a></li>
+<li class="chapter" data-level="7.7" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>7.7</b> Transforming Data</a></li>
+<li class="chapter" data-level="7.8" data-path="on-print-method.html"><a href="on-print-method.html"><i class="fa fa-check"></i><b>7.8</b> On Print Method</a></li>
+<li class="chapter" data-level="7.9" data-path="meeting-videos-6.html"><a href="meeting-videos-6.html"><i class="fa fa-check"></i><b>7.9</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="meeting-videos-6.html"><a href="meeting-videos-6.html#cohort-1-6"><i class="fa fa-check"></i><b>7.9.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advanced-topics.html"><a href="advanced-topics.html"><i class="fa fa-check"></i><b>8</b> Advanced Topics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="sharing-variables-between-rendervalue-and-resize.html"><a href="sharing-variables-between-rendervalue-and-resize.html"><i class="fa fa-check"></i><b>8.1</b> Sharing variables between <code>renderValue</code> and <code>resize</code></a></li>
+<li class="chapter" data-level="8.2" data-path="sizing.html"><a href="sizing.html"><i class="fa fa-check"></i><b>8.2</b> Sizing</a></li>
+<li class="chapter" data-level="8.3" data-path="adding-html-content.html"><a href="adding-html-content.html"><i class="fa fa-check"></i><b>8.3</b> Adding HTML content</a></li>
+<li class="chapter" data-level="8.4" data-path="dependencies-1.html"><a href="dependencies-1.html"><i class="fa fa-check"></i><b>8.4</b> Dependencies</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="dependencies-1.html"><a href="dependencies-1.html#optional-dependencies-htmltoolshtmldependency"><i class="fa fa-check"></i><b>8.4.1</b> Optional dependencies &amp; htmltools::htmlDependency</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="efficient-data-transfer.html"><a href="efficient-data-transfer.html"><i class="fa fa-check"></i><b>8.5</b> Efficient data transfer</a></li>
+<li class="chapter" data-level="8.6" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html"><i class="fa fa-check"></i><b>8.6</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html#cohort-1-7"><i class="fa fa-check"></i><b>8.6.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="linking-widgets.html"><a href="linking-widgets.html"><i class="fa fa-check"></i><b>9</b> Linking Widgets</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="motivating-example.html"><a href="motivating-example.html"><i class="fa fa-check"></i><b>9.1</b> Motivating example</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="motivating-example.html"><a href="motivating-example.html#basic"><i class="fa fa-check"></i><b>9.1.1</b> Basic</a></li>
+<li class="chapter" data-level="9.1.2" data-path="motivating-example.html"><a href="motivating-example.html#shiny-1"><i class="fa fa-check"></i><b>9.1.2</b> Shiny</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="how-crosstalk-talks.html"><a href="how-crosstalk-talks.html"><i class="fa fa-check"></i><b>9.2</b> How <code>crosstalk</code> “talks”</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="how-crosstalk-talks.html"><a href="how-crosstalk-talks.html#shared-data"><i class="fa fa-check"></i><b>9.2.1</b> Shared data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="how-crosstalk-talks.html"><a href="how-crosstalk-talks.html#communication"><i class="fa fa-check"></i><b>9.2.2</b> Communication</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="crosswalk-with-gio.html"><a href="crosswalk-with-gio.html"><i class="fa fa-check"></i><b>9.3</b> Crosswalk with <code>gio</code></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="crosswalk-with-gio.html"><a href="crosswalk-with-gio.html#r-code-1"><i class="fa fa-check"></i><b>9.3.1</b> R code</a></li>
+<li class="chapter" data-level="9.3.2" data-path="crosswalk-with-gio.html"><a href="crosswalk-with-gio.html#js-code"><i class="fa fa-check"></i><b>9.3.2</b> JS code</a></li>
+<li class="chapter" data-level="9.3.3" data-path="crosswalk-with-gio.html"><a href="crosswalk-with-gio.html#usage-example"><i class="fa fa-check"></i><b>9.3.3</b> Usage example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="meeting-videos-8.html"><a href="meeting-videos-8.html"><i class="fa fa-check"></i><b>9.4</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="meeting-videos-8.html"><a href="meeting-videos-8.html#cohort-1-8"><i class="fa fa-check"></i><b>9.4.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="final-revisions.html"><a href="final-revisions.html"><i class="fa fa-check"></i><b>10</b> Final Revisions</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="htmlwidgets-and-data.html"><a href="htmlwidgets-and-data.html"><i class="fa fa-check"></i><b>10.1</b> Htmlwidgets and data</a></li>
+<li class="chapter" data-level="10.2" data-path="plethora-of-options.html"><a href="plethora-of-options.html"><i class="fa fa-check"></i><b>10.2</b> Plethora of options</a></li>
+<li class="chapter" data-level="10.3" data-path="interface-design.html"><a href="interface-design.html"><i class="fa fa-check"></i><b>10.3</b> Interface design</a></li>
+<li class="chapter" data-level="10.4" data-path="meeting-videos-9.html"><a href="meeting-videos-9.html"><i class="fa fa-check"></i><b>10.4</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="meeting-videos-9.html"><a href="meeting-videos-9.html#cohort-1-9"><i class="fa fa-check"></i><b>10.4.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="bidirectional-communication.html"><a href="bidirectional-communication.html"><i class="fa fa-check"></i><b>11</b> Bidirectional Communication</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="websocket-an-shiny.html"><a href="websocket-an-shiny.html"><i class="fa fa-check"></i><b>11.1</b> WebSocket an Shiny</a></li>
+<li class="chapter" data-level="11.2" data-path="sessions.html"><a href="sessions.html"><i class="fa fa-check"></i><b>11.2</b> Sessions</a></li>
+<li class="chapter" data-level="11.3" data-path="alerts-an-example.html"><a href="alerts-an-example.html"><i class="fa fa-check"></i><b>11.3</b> Alerts, an example</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="alerts-an-example.html"><a href="alerts-an-example.html#explore"><i class="fa fa-check"></i><b>11.3.1</b> Explore</a></li>
+<li class="chapter" data-level="11.3.2" data-path="alerts-an-example.html"><a href="alerts-an-example.html#from-r-to-javascript"><i class="fa fa-check"></i><b>11.3.2</b> From R to JavaScript</a></li>
+<li class="chapter" data-level="11.3.3" data-path="alerts-an-example.html"><a href="alerts-an-example.html#serialisation"><i class="fa fa-check"></i><b>11.3.3</b> Serialisation</a></li>
+<li class="chapter" data-level="11.3.4" data-path="alerts-an-example.html"><a href="alerts-an-example.html#javascript-to-r"><i class="fa fa-check"></i><b>11.3.4</b> JavaScript to R</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="meeting-videos-10.html"><a href="meeting-videos-10.html"><i class="fa fa-check"></i><b>11.4</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="meeting-videos-10.html"><a href="meeting-videos-10.html#cohort-1-10"><i class="fa fa-check"></i><b>11.4.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="a-complete-integration.html"><a href="a-complete-integration.html"><i class="fa fa-check"></i><b>12</b> A Complete Integration</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="slide-1.html"><a href="slide-1.html"><i class="fa fa-check"></i><b>12.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="12.2" data-path="meeting-videos-11.html"><a href="meeting-videos-11.html"><i class="fa fa-check"></i><b>12.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="meeting-videos-11.html"><a href="meeting-videos-11.html#cohort-1-11"><i class="fa fa-check"></i><b>12.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="tips-tricks.html"><a href="tips-tricks.html"><i class="fa fa-check"></i><b>13</b> Tips &amp; Tricks</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="slide-1-1.html"><a href="slide-1-1.html"><i class="fa fa-check"></i><b>13.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="13.2" data-path="meeting-videos-12.html"><a href="meeting-videos-12.html"><i class="fa fa-check"></i><b>13.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="meeting-videos-12.html"><a href="meeting-videos-12.html#cohort-1-12"><i class="fa fa-check"></i><b>13.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="custom-outputs.html"><a href="custom-outputs.html"><i class="fa fa-check"></i><b>14</b> Custom Outputs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="slide-1-2.html"><a href="slide-1-2.html"><i class="fa fa-check"></i><b>14.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="14.2" data-path="meeting-videos-13.html"><a href="meeting-videos-13.html"><i class="fa fa-check"></i><b>14.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="meeting-videos-13.html"><a href="meeting-videos-13.html#cohort-1-13"><i class="fa fa-check"></i><b>14.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="custom-inputs.html"><a href="custom-inputs.html"><i class="fa fa-check"></i><b>15</b> Custom Inputs</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="slide-1-3.html"><a href="slide-1-3.html"><i class="fa fa-check"></i><b>15.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="15.2" data-path="meeting-videos-14.html"><a href="meeting-videos-14.html"><i class="fa fa-check"></i><b>15.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="meeting-videos-14.html"><a href="meeting-videos-14.html#cohort-1-14"><i class="fa fa-check"></i><b>15.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="cookies.html"><a href="cookies.html"><i class="fa fa-check"></i><b>16</b> Cookies</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="slide-1-4.html"><a href="slide-1-4.html"><i class="fa fa-check"></i><b>16.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="16.2" data-path="meeting-videos-15.html"><a href="meeting-videos-15.html"><i class="fa fa-check"></i><b>16.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="meeting-videos-15.html"><a href="meeting-videos-15.html#cohort-1-15"><i class="fa fa-check"></i><b>16.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="widgets-with-shiny.html"><a href="widgets-with-shiny.html"><i class="fa fa-check"></i><b>17</b> Widgets with Shiny</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="slide-1-5.html"><a href="slide-1-5.html"><i class="fa fa-check"></i><b>17.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="17.2" data-path="meeting-videos-16.html"><a href="meeting-videos-16.html"><i class="fa fa-check"></i><b>17.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="meeting-videos-16.html"><a href="meeting-videos-16.html#cohort-1-16"><i class="fa fa-check"></i><b>17.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="the-v8-engine.html"><a href="the-v8-engine.html"><i class="fa fa-check"></i><b>18</b> The V8 Engine</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="slide-1-6.html"><a href="slide-1-6.html"><i class="fa fa-check"></i><b>18.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="18.2" data-path="meeting-videos-17.html"><a href="meeting-videos-17.html"><i class="fa fa-check"></i><b>18.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="meeting-videos-17.html"><a href="meeting-videos-17.html#cohort-1-17"><i class="fa fa-check"></i><b>18.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>19</b> Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="slide-1-7.html"><a href="slide-1-7.html"><i class="fa fa-check"></i><b>19.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="19.2" data-path="meeting-videos-18.html"><a href="meeting-videos-18.html"><i class="fa fa-check"></i><b>19.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="meeting-videos-18.html"><a href="meeting-videos-18.html#cohort-1-18"><i class="fa fa-check"></i><b>19.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="managing-javascript.html"><a href="managing-javascript.html"><i class="fa fa-check"></i><b>20</b> Managing JavaScript</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="slide-1-8.html"><a href="slide-1-8.html"><i class="fa fa-check"></i><b>20.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="20.2" data-path="meeting-videos-19.html"><a href="meeting-videos-19.html"><i class="fa fa-check"></i><b>20.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="meeting-videos-19.html"><a href="meeting-videos-19.html#cohort-1-19"><i class="fa fa-check"></i><b>20.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="discover-webpack-and-npm.html"><a href="discover-webpack-and-npm.html"><i class="fa fa-check"></i><b>21</b> Discover Webpack and NPM</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="slide-1-9.html"><a href="slide-1-9.html"><i class="fa fa-check"></i><b>21.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="21.2" data-path="meeting-videos-20.html"><a href="meeting-videos-20.html"><i class="fa fa-check"></i><b>21.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="meeting-videos-20.html"><a href="meeting-videos-20.html#cohort-1-20"><i class="fa fa-check"></i><b>21.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="webpack-with-r.html"><a href="webpack-with-r.html"><i class="fa fa-check"></i><b>22</b> Webpack with R</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="slide-1-10.html"><a href="slide-1-10.html"><i class="fa fa-check"></i><b>22.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="22.2" data-path="meeting-videos-21.html"><a href="meeting-videos-21.html"><i class="fa fa-check"></i><b>22.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="meeting-videos-21.html"><a href="meeting-videos-21.html#cohort-1-21"><i class="fa fa-check"></i><b>22.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="webpack-advanced.html"><a href="webpack-advanced.html"><i class="fa fa-check"></i><b>23</b> Webpack Advanced</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="slide-1-11.html"><a href="slide-1-11.html"><i class="fa fa-check"></i><b>23.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="23.2" data-path="meeting-videos-22.html"><a href="meeting-videos-22.html"><i class="fa fa-check"></i><b>23.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="meeting-videos-22.html"><a href="meeting-videos-22.html#cohort-1-22"><i class="fa fa-check"></i><b>23.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>24</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="slide-1-12.html"><a href="slide-1-12.html"><i class="fa fa-check"></i><b>24.1</b> SLIDE 1</a></li>
+<li class="chapter" data-level="24.2" data-path="meeting-videos-23.html"><a href="meeting-videos-23.html"><i class="fa fa-check"></i><b>24.2</b> Meeting Videos</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="meeting-videos-23.html"><a href="meeting-videos-23.html#cohort-1-23"><i class="fa fa-check"></i><b>24.2.1</b> Cohort 1</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">JavaScript for R Book Club</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="alerts-an-example" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Alerts, an example<a href="alerts-an-example.html#alerts-an-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Goals:</p>
+<ul>
+<li>Build a Shiny application using the <strong>jBox</strong> JavaScript library.</li>
+<li>Such application will display a notification at the click of an
+<code>actionButton</code> and will <em>tell</em> the server when such notification is closed.</li>
+</ul>
+<div class="sourceCode" id="cb91"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb91-1"><a href="alerts-an-example.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Type into the browser console</span></span>
+<span id="cb91-2"><a href="alerts-an-example.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">alert</span>(<span class="st">&quot;Alert message&quot;</span>)</span></code></pre></div>
+<div id="explore" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> Explore<a href="alerts-an-example.html#explore" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s load <strong>jBox</strong> into a Shiny app, in order to play around with its features.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="alerts-an-example.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb92-2"><a href="alerts-an-example.html#cb92-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="alerts-an-example.html#cb92-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb92-4"><a href="alerts-an-example.html#cb92-4" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb92-5"><a href="alerts-an-example.html#cb92-5" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb92-6"><a href="alerts-an-example.html#cb92-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load jBox&#39;s script</span></span>
+<span id="cb92-7"><a href="alerts-an-example.html#cb92-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">paste0</span>(</span>
+<span id="cb92-8"><a href="alerts-an-example.html#cb92-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb92-9"><a href="alerts-an-example.html#cb92-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.js&quot;</span></span>
+<span id="cb92-10"><a href="alerts-an-example.html#cb92-10" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb92-11"><a href="alerts-an-example.html#cb92-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb92-12"><a href="alerts-an-example.html#cb92-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load jBox&#39;s styling</span></span>
+<span id="cb92-13"><a href="alerts-an-example.html#cb92-13" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">link</span>(</span>
+<span id="cb92-14"><a href="alerts-an-example.html#cb92-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">rel =</span> <span class="st">&quot;stylesheet&quot;</span>,</span>
+<span id="cb92-15"><a href="alerts-an-example.html#cb92-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">href =</span> <span class="fu">paste0</span>(</span>
+<span id="cb92-16"><a href="alerts-an-example.html#cb92-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb92-17"><a href="alerts-an-example.html#cb92-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.css&quot;</span></span>
+<span id="cb92-18"><a href="alerts-an-example.html#cb92-18" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb92-19"><a href="alerts-an-example.html#cb92-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb92-20"><a href="alerts-an-example.html#cb92-20" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb92-21"><a href="alerts-an-example.html#cb92-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a jBox alert</span></span>
+<span id="cb92-22"><a href="alerts-an-example.html#cb92-22" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">script</span>(<span class="st">&quot;</span></span>
+<span id="cb92-23"><a href="alerts-an-example.html#cb92-23" aria-hidden="true" tabindex="-1"></a><span class="st">    new jBox(&#39;Notice&#39;, {</span></span>
+<span id="cb92-24"><a href="alerts-an-example.html#cb92-24" aria-hidden="true" tabindex="-1"></a><span class="st">      content: &#39;Hurray! A notice!&#39;</span></span>
+<span id="cb92-25"><a href="alerts-an-example.html#cb92-25" aria-hidden="true" tabindex="-1"></a><span class="st">    });&quot;</span></span>
+<span id="cb92-26"><a href="alerts-an-example.html#cb92-26" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb92-27"><a href="alerts-an-example.html#cb92-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a title and set its HTML element identifier </span></span>
+<span id="cb92-28"><a href="alerts-an-example.html#cb92-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">h1</span>(<span class="st">&quot;Exploring jBox&quot;</span>, <span class="at">id =</span> <span class="st">&quot;title&quot;</span>)</span>
+<span id="cb92-29"><a href="alerts-an-example.html#cb92-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb92-30"><a href="alerts-an-example.html#cb92-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-31"><a href="alerts-an-example.html#cb92-31" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {}</span>
+<span id="cb92-32"><a href="alerts-an-example.html#cb92-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-33"><a href="alerts-an-example.html#cb92-33" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>Be careful when searching for <strong>jBox</strong>’s
+<a href="https://stephanwagner.me/jBox/documentation">documentation</a>,
+do not Google <strong>jBox</strong>; type <strong>jBox js</strong> instead.</p>
+<p>A couple more <strong>jBox</strong> features:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb93-1"><a href="alerts-an-example.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Type into the browser console</span></span>
+<span id="cb93-2"><a href="alerts-an-example.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">jBox</span>(</span>
+<span id="cb93-3"><a href="alerts-an-example.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Set plugin: Tooltip, Modal, Notice, ... </span></span>
+<span id="cb93-4"><a href="alerts-an-example.html#cb93-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;Tooltip&#39;</span><span class="op">,</span> </span>
+<span id="cb93-5"><a href="alerts-an-example.html#cb93-5" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb93-6"><a href="alerts-an-example.html#cb93-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attach</span><span class="op">:</span> <span class="st">&#39;#title&#39;</span><span class="op">,</span></span>
+<span id="cb93-7"><a href="alerts-an-example.html#cb93-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">trigger</span><span class="op">:</span> <span class="st">&#39;click&#39;</span><span class="op">,</span></span>
+<span id="cb93-8"><a href="alerts-an-example.html#cb93-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onCreated</span><span class="op">:</span> <span class="kw">function</span> () {</span>
+<span id="cb93-9"><a href="alerts-an-example.html#cb93-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">this</span><span class="op">.</span><span class="fu">setContent</span>(<span class="st">&#39;This is my jBox!&#39;</span>)<span class="op">;</span></span>
+<span id="cb93-10"><a href="alerts-an-example.html#cb93-10" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb93-11"><a href="alerts-an-example.html#cb93-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onOpen</span><span class="op">:</span> <span class="kw">function</span> () {</span>
+<span id="cb93-12"><a href="alerts-an-example.html#cb93-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">new</span> <span class="fu">jBox</span>(<span class="st">&#39;Notice&#39;</span><span class="op">,</span> {<span class="dt">content</span><span class="op">:</span> <span class="st">&#39;Here I come!&#39;</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;green&#39;</span>})<span class="op">;</span></span>
+<span id="cb93-13"><a href="alerts-an-example.html#cb93-13" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb93-14"><a href="alerts-an-example.html#cb93-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onClose</span><span class="op">:</span> <span class="kw">function</span> () {</span>
+<span id="cb93-15"><a href="alerts-an-example.html#cb93-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">new</span> <span class="fu">jBox</span>(<span class="st">&#39;Notice&#39;</span><span class="op">,</span> {<span class="dt">content</span><span class="op">:</span> <span class="st">&#39;See ya later!&#39;</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;red&#39;</span>})<span class="op">;</span></span>
+<span id="cb93-16"><a href="alerts-an-example.html#cb93-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb93-17"><a href="alerts-an-example.html#cb93-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb93-18"><a href="alerts-an-example.html#cb93-18" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div>
+</div>
+<div id="from-r-to-javascript" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> From R to JavaScript<a href="alerts-an-example.html#from-r-to-javascript" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Goal: Dynamically set the message in the alert created with <strong>jBox</strong>.</p>
+<p>Data can be sent (through the WebSocket) from the server to the client,<br />
+via <strong>R</strong>’s <code>session</code> object and its <code>sendCustomMessage</code> method/function.</p>
+<p>Let’s update the <code>server</code> function of our previous app</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="alerts-an-example.html#cb94-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb94-2"><a href="alerts-an-example.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(</span>
+<span id="cb94-3"><a href="alerts-an-example.html#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set the identifier to send-notice,</span></span>
+<span id="cb94-4"><a href="alerts-an-example.html#cb94-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for JavaScript to &quot;catch&quot;</span></span>
+<span id="cb94-5"><a href="alerts-an-example.html#cb94-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;send-notice&quot;</span>, </span>
+<span id="cb94-6"><a href="alerts-an-example.html#cb94-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Data to send to JavaScript</span></span>
+<span id="cb94-7"><a href="alerts-an-example.html#cb94-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> <span class="st">&quot;Hi there!&quot;</span></span>
+<span id="cb94-8"><a href="alerts-an-example.html#cb94-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb94-9"><a href="alerts-an-example.html#cb94-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>JavaScript’s <code>Shiny</code> object and its method <code>addCustomMessageHandler</code>
+provides to JavaScript the instructions for when data is sent
+from the server, with a certain <em>type</em>/<em>identifier</em>.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb95-1"><a href="alerts-an-example.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tags$script</span>(</span>
+<span id="cb95-2"><a href="alerts-an-example.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Shiny.addCustomMessageHandler(</span></span>
+<span id="cb95-3"><a href="alerts-an-example.html#cb95-3" aria-hidden="true" tabindex="-1"></a>    type <span class="op">=</span> <span class="st">&#39;send-notice&#39;</span><span class="op">,</span> </span>
+<span id="cb95-4"><a href="alerts-an-example.html#cb95-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> (message) {</span>
+<span id="cb95-5"><a href="alerts-an-example.html#cb95-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">new</span> <span class="fu">jBox</span>(<span class="st">&#39;Notice&#39;</span><span class="op">,</span> {</span>
+<span id="cb95-6"><a href="alerts-an-example.html#cb95-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">content</span><span class="op">:</span> message</span>
+<span id="cb95-7"><a href="alerts-an-example.html#cb95-7" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb95-8"><a href="alerts-an-example.html#cb95-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb95-9"><a href="alerts-an-example.html#cb95-9" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span><span class="st">&quot;</span></span>
+<span id="cb95-10"><a href="alerts-an-example.html#cb95-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Similar example:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="alerts-an-example.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb96-2"><a href="alerts-an-example.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="alerts-an-example.html#cb96-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb96-4"><a href="alerts-an-example.html#cb96-4" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb96-5"><a href="alerts-an-example.html#cb96-5" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb96-6"><a href="alerts-an-example.html#cb96-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">paste0</span>(</span>
+<span id="cb96-7"><a href="alerts-an-example.html#cb96-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb96-8"><a href="alerts-an-example.html#cb96-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.js&quot;</span></span>
+<span id="cb96-9"><a href="alerts-an-example.html#cb96-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb96-10"><a href="alerts-an-example.html#cb96-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb96-11"><a href="alerts-an-example.html#cb96-11" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">link</span>(</span>
+<span id="cb96-12"><a href="alerts-an-example.html#cb96-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">rel =</span> <span class="st">&quot;stylesheet&quot;</span>,</span>
+<span id="cb96-13"><a href="alerts-an-example.html#cb96-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">href =</span> <span class="fu">paste0</span>(</span>
+<span id="cb96-14"><a href="alerts-an-example.html#cb96-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb96-15"><a href="alerts-an-example.html#cb96-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.css&quot;</span></span>
+<span id="cb96-16"><a href="alerts-an-example.html#cb96-16" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb96-17"><a href="alerts-an-example.html#cb96-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb96-18"><a href="alerts-an-example.html#cb96-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb96-19"><a href="alerts-an-example.html#cb96-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;msg&quot;</span>, <span class="st">&quot;notice&quot;</span>),</span>
+<span id="cb96-20"><a href="alerts-an-example.html#cb96-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;notify&quot;</span>, <span class="st">&quot;Notify myself&quot;</span>),</span>
+<span id="cb96-21"><a href="alerts-an-example.html#cb96-21" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb96-22"><a href="alerts-an-example.html#cb96-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Shiny.addCustomMessageHandler(</span></span>
+<span id="cb96-23"><a href="alerts-an-example.html#cb96-23" aria-hidden="true" tabindex="-1"></a><span class="st">      type = &#39;send-notice&#39;, </span></span>
+<span id="cb96-24"><a href="alerts-an-example.html#cb96-24" aria-hidden="true" tabindex="-1"></a><span class="st">      function (message) {</span></span>
+<span id="cb96-25"><a href="alerts-an-example.html#cb96-25" aria-hidden="true" tabindex="-1"></a><span class="st">        new jBox(&#39;Notice&#39;, {</span></span>
+<span id="cb96-26"><a href="alerts-an-example.html#cb96-26" aria-hidden="true" tabindex="-1"></a><span class="st">          content: message</span></span>
+<span id="cb96-27"><a href="alerts-an-example.html#cb96-27" aria-hidden="true" tabindex="-1"></a><span class="st">        });</span></span>
+<span id="cb96-28"><a href="alerts-an-example.html#cb96-28" aria-hidden="true" tabindex="-1"></a><span class="st">        // How was the message data converted?</span></span>
+<span id="cb96-29"><a href="alerts-an-example.html#cb96-29" aria-hidden="true" tabindex="-1"></a><span class="st">        console.log(message, typeof message);</span></span>
+<span id="cb96-30"><a href="alerts-an-example.html#cb96-30" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
+<span id="cb96-31"><a href="alerts-an-example.html#cb96-31" aria-hidden="true" tabindex="-1"></a><span class="st">    );&quot;</span></span>
+<span id="cb96-32"><a href="alerts-an-example.html#cb96-32" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb96-33"><a href="alerts-an-example.html#cb96-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb96-34"><a href="alerts-an-example.html#cb96-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-35"><a href="alerts-an-example.html#cb96-35" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb96-36"><a href="alerts-an-example.html#cb96-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>notify, {</span>
+<span id="cb96-37"><a href="alerts-an-example.html#cb96-37" aria-hidden="true" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(</span>
+<span id="cb96-38"><a href="alerts-an-example.html#cb96-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;send-notice&quot;</span>,</span>
+<span id="cb96-39"><a href="alerts-an-example.html#cb96-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">message =</span> <span class="fu">paste0</span>(input<span class="sc">$</span>msg, <span class="st">&quot;!!!&quot;</span>)</span>
+<span id="cb96-40"><a href="alerts-an-example.html#cb96-40" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb96-41"><a href="alerts-an-example.html#cb96-41" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb96-42"><a href="alerts-an-example.html#cb96-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb96-43"><a href="alerts-an-example.html#cb96-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-44"><a href="alerts-an-example.html#cb96-44" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:shiny-alert-diagram"></span>
+<div id="htmlwidget-d7721c2c899f063fcb22" style="width:100%;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d7721c2c899f063fcb22">{"x":{"diagram":"\ndigraph{\n  graph [rankdir=LR]\n  node [shape=record fontsize=10];\n  subgraph cluster_0 {\n    textInput\n    handler [label=\"message handler\"]\n    notice [label = \"show notice\"]\n    label=\"Client\"\n    color=gold\n  }\n  subgraph cluster_1 {\n    send[label=\"sendCustomMessage\"]\n    label=\"Server\"\n    color=royalBlue\n  }\n  textInput -> send [label=\"value\"];\n  send -> handler [label=\"message\"];\n  handler -> notice;\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 11.3: Shiny alert with custom messages
+</p>
+</div>
+</div>
+<div id="serialisation" class="section level3 hasAnchor" number="11.3.3">
+<h3><span class="header-section-number">11.3.3</span> Serialisation<a href="alerts-an-example.html#serialisation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Note that the <strong>jBox</strong> notice is configured using a JSON object:</li>
+</ul>
+<div class="sourceCode" id="cb97"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb97-1"><a href="alerts-an-example.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">jBox</span>(<span class="st">&#39;Notice&#39;</span><span class="op">,</span> {</span>
+<span id="cb97-2"><a href="alerts-an-example.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">content</span><span class="op">:</span> <span class="st">&#39;Hurray! A notice!&#39;</span><span class="op">,</span></span>
+<span id="cb97-3"><a href="alerts-an-example.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;color&quot;</span><span class="op">:</span> <span class="st">&#39;red&#39;</span></span>
+<span id="cb97-4"><a href="alerts-an-example.html#cb97-4" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<ul>
+<li><strong>R</strong>’s analogue for JSON object:</li>
+</ul>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="alerts-an-example.html#cb98-1" aria-hidden="true" tabindex="-1"></a>options <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb98-2"><a href="alerts-an-example.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">content =</span> <span class="st">&#39;Hurray! A notice!&#39;</span>,</span>
+<span id="cb98-3"><a href="alerts-an-example.html#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&#39;red&#39;</span></span>
+<span id="cb98-4"><a href="alerts-an-example.html#cb98-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb98-5"><a href="alerts-an-example.html#cb98-5" aria-hidden="true" tabindex="-1"></a>jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(options, <span class="at">pretty =</span> <span class="cn">TRUE</span>, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>{
+  &quot;content&quot;: &quot;Hurray! A notice!&quot;,
+  &quot;color&quot;: &quot;red&quot;
+}</code></pre>
+<ul>
+<li>Using <strong>R</strong>’s lists for sending data in JSON format:</li>
+</ul>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="alerts-an-example.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb100-2"><a href="alerts-an-example.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="alerts-an-example.html#cb100-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb100-4"><a href="alerts-an-example.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb100-5"><a href="alerts-an-example.html#cb100-5" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb100-6"><a href="alerts-an-example.html#cb100-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">paste0</span>(</span>
+<span id="cb100-7"><a href="alerts-an-example.html#cb100-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb100-8"><a href="alerts-an-example.html#cb100-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.js&quot;</span></span>
+<span id="cb100-9"><a href="alerts-an-example.html#cb100-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb100-10"><a href="alerts-an-example.html#cb100-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb100-11"><a href="alerts-an-example.html#cb100-11" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">link</span>(</span>
+<span id="cb100-12"><a href="alerts-an-example.html#cb100-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">rel =</span> <span class="st">&quot;stylesheet&quot;</span>,</span>
+<span id="cb100-13"><a href="alerts-an-example.html#cb100-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">href =</span> <span class="fu">paste0</span>(</span>
+<span id="cb100-14"><a href="alerts-an-example.html#cb100-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb100-15"><a href="alerts-an-example.html#cb100-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.css&quot;</span></span>
+<span id="cb100-16"><a href="alerts-an-example.html#cb100-16" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb100-17"><a href="alerts-an-example.html#cb100-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb100-18"><a href="alerts-an-example.html#cb100-18" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb100-19"><a href="alerts-an-example.html#cb100-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.addCustomMessageHandler(</span></span>
+<span id="cb100-20"><a href="alerts-an-example.html#cb100-20" aria-hidden="true" tabindex="-1"></a><span class="st">        type = &#39;send-notice&#39;,</span></span>
+<span id="cb100-21"><a href="alerts-an-example.html#cb100-21" aria-hidden="true" tabindex="-1"></a><span class="st">        function (message) {</span></span>
+<span id="cb100-22"><a href="alerts-an-example.html#cb100-22" aria-hidden="true" tabindex="-1"></a><span class="st">          // Use notice sent from the server</span></span>
+<span id="cb100-23"><a href="alerts-an-example.html#cb100-23" aria-hidden="true" tabindex="-1"></a><span class="st">          new jBox(&#39;Notice&#39;, message);</span></span>
+<span id="cb100-24"><a href="alerts-an-example.html#cb100-24" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb100-25"><a href="alerts-an-example.html#cb100-25" aria-hidden="true" tabindex="-1"></a><span class="st">      );&quot;</span></span>
+<span id="cb100-26"><a href="alerts-an-example.html#cb100-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb100-27"><a href="alerts-an-example.html#cb100-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb100-28"><a href="alerts-an-example.html#cb100-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb100-29"><a href="alerts-an-example.html#cb100-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-30"><a href="alerts-an-example.html#cb100-30" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session){</span>
+<span id="cb100-31"><a href="alerts-an-example.html#cb100-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define notice options</span></span>
+<span id="cb100-32"><a href="alerts-an-example.html#cb100-32" aria-hidden="true" tabindex="-1"></a>  notice <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb100-33"><a href="alerts-an-example.html#cb100-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">content =</span> <span class="st">&#39;Hello from the server&#39;</span>,</span>
+<span id="cb100-34"><a href="alerts-an-example.html#cb100-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;black&#39;</span></span>
+<span id="cb100-35"><a href="alerts-an-example.html#cb100-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb100-36"><a href="alerts-an-example.html#cb100-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Send the notice</span></span>
+<span id="cb100-37"><a href="alerts-an-example.html#cb100-37" aria-hidden="true" tabindex="-1"></a>  session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(</span>
+<span id="cb100-38"><a href="alerts-an-example.html#cb100-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;send-notice&quot;</span>,</span>
+<span id="cb100-39"><a href="alerts-an-example.html#cb100-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> notice</span>
+<span id="cb100-40"><a href="alerts-an-example.html#cb100-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb100-41"><a href="alerts-an-example.html#cb100-41" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb100-42"><a href="alerts-an-example.html#cb100-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-43"><a href="alerts-an-example.html#cb100-43" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+</div>
+<div id="javascript-to-r" class="section level3 hasAnchor" number="11.3.4">
+<h3><span class="header-section-number">11.3.4</span> JavaScript to R<a href="alerts-an-example.html#javascript-to-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Goal:</strong> Send data from JavaScript to R when the notice is closed.</p>
+<p>Remember that such event (notice gets closed) can be used like this:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb101-1"><a href="alerts-an-example.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Type into the browser console</span></span>
+<span id="cb101-2"><a href="alerts-an-example.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">jBox</span>(</span>
+<span id="cb101-3"><a href="alerts-an-example.html#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Set plugin: Tooltip, Modal, Notice, ... </span></span>
+<span id="cb101-4"><a href="alerts-an-example.html#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;Tooltip&#39;</span><span class="op">,</span> </span>
+<span id="cb101-5"><a href="alerts-an-example.html#cb101-5" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb101-6"><a href="alerts-an-example.html#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attach</span><span class="op">:</span> <span class="st">&#39;#title&#39;</span><span class="op">,</span></span>
+<span id="cb101-7"><a href="alerts-an-example.html#cb101-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">trigger</span><span class="op">:</span> <span class="st">&#39;click&#39;</span><span class="op">,</span></span>
+<span id="cb101-8"><a href="alerts-an-example.html#cb101-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onCreated</span><span class="op">:</span> <span class="kw">function</span> () {</span>
+<span id="cb101-9"><a href="alerts-an-example.html#cb101-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">this</span><span class="op">.</span><span class="fu">setContent</span>(<span class="st">&#39;This is my jBox!&#39;</span>)<span class="op">;</span></span>
+<span id="cb101-10"><a href="alerts-an-example.html#cb101-10" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb101-11"><a href="alerts-an-example.html#cb101-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onOpen</span><span class="op">:</span> <span class="kw">function</span> () {</span>
+<span id="cb101-12"><a href="alerts-an-example.html#cb101-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">new</span> <span class="fu">jBox</span>(<span class="st">&#39;Notice&#39;</span><span class="op">,</span> {<span class="dt">content</span><span class="op">:</span> <span class="st">&#39;Here I come!&#39;</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;green&#39;</span>})<span class="op">;</span></span>
+<span id="cb101-13"><a href="alerts-an-example.html#cb101-13" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb101-14"><a href="alerts-an-example.html#cb101-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onClose</span><span class="op">:</span> <span class="kw">function</span> () {</span>
+<span id="cb101-15"><a href="alerts-an-example.html#cb101-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">new</span> <span class="fu">jBox</span>(<span class="st">&#39;Notice&#39;</span><span class="op">,</span> {<span class="dt">content</span><span class="op">:</span> <span class="st">&#39;See ya later!&#39;</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;red&#39;</span>})<span class="op">;</span></span>
+<span id="cb101-16"><a href="alerts-an-example.html#cb101-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb101-17"><a href="alerts-an-example.html#cb101-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb101-18"><a href="alerts-an-example.html#cb101-18" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div>
+<ul>
+<li>We’ll send data from JavaScript to the R Server, via
+a <strong>simplified Shiny input</strong>.</li>
+</ul>
+<div class="sourceCode" id="cb102"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb102-1"><a href="alerts-an-example.html#cb102-1" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="fu">setInputValue</span>(<span class="st">&#39;inputId&#39;</span><span class="op">,</span> inputValue)</span></code></pre></div>
+<ul>
+<li>Example app different than the one provided in the main book:</li>
+</ul>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="alerts-an-example.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb103-2"><a href="alerts-an-example.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="alerts-an-example.html#cb103-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb103-4"><a href="alerts-an-example.html#cb103-4" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb103-5"><a href="alerts-an-example.html#cb103-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load jBox dependencies</span></span>
+<span id="cb103-6"><a href="alerts-an-example.html#cb103-6" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb103-7"><a href="alerts-an-example.html#cb103-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">paste0</span>(</span>
+<span id="cb103-8"><a href="alerts-an-example.html#cb103-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb103-9"><a href="alerts-an-example.html#cb103-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.js&quot;</span></span>
+<span id="cb103-10"><a href="alerts-an-example.html#cb103-10" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb103-11"><a href="alerts-an-example.html#cb103-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb103-12"><a href="alerts-an-example.html#cb103-12" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">link</span>(</span>
+<span id="cb103-13"><a href="alerts-an-example.html#cb103-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">rel =</span> <span class="st">&quot;stylesheet&quot;</span>,</span>
+<span id="cb103-14"><a href="alerts-an-example.html#cb103-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">href =</span> <span class="fu">paste0</span>(</span>
+<span id="cb103-15"><a href="alerts-an-example.html#cb103-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/gh/StephanWagner/&quot;</span>,</span>
+<span id="cb103-16"><a href="alerts-an-example.html#cb103-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;jBox@v1.2.0/dist/jBox.all.min.css&quot;</span></span>
+<span id="cb103-17"><a href="alerts-an-example.html#cb103-17" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb103-18"><a href="alerts-an-example.html#cb103-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb103-19"><a href="alerts-an-example.html#cb103-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set custom message handler</span></span>
+<span id="cb103-20"><a href="alerts-an-example.html#cb103-20" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb103-21"><a href="alerts-an-example.html#cb103-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.addCustomMessageHandler(</span></span>
+<span id="cb103-22"><a href="alerts-an-example.html#cb103-22" aria-hidden="true" tabindex="-1"></a><span class="st">        type = &#39;send-notice&#39;, function (message) {</span></span>
+<span id="cb103-23"><a href="alerts-an-example.html#cb103-23" aria-hidden="true" tabindex="-1"></a><span class="st">          message.onClose = function () {</span></span>
+<span id="cb103-24"><a href="alerts-an-example.html#cb103-24" aria-hidden="true" tabindex="-1"></a><span class="st">            Shiny.setInputValue(</span></span>
+<span id="cb103-25"><a href="alerts-an-example.html#cb103-25" aria-hidden="true" tabindex="-1"></a><span class="st">              &#39;notice_close&#39;, </span></span>
+<span id="cb103-26"><a href="alerts-an-example.html#cb103-26" aria-hidden="true" tabindex="-1"></a><span class="st">              document.getElementById(&#39;time&#39;).innerText</span></span>
+<span id="cb103-27"><a href="alerts-an-example.html#cb103-27" aria-hidden="true" tabindex="-1"></a><span class="st">            );</span></span>
+<span id="cb103-28"><a href="alerts-an-example.html#cb103-28" aria-hidden="true" tabindex="-1"></a><span class="st">          }</span></span>
+<span id="cb103-29"><a href="alerts-an-example.html#cb103-29" aria-hidden="true" tabindex="-1"></a><span class="st">          new jBox(&#39;Notice&#39;, message);</span></span>
+<span id="cb103-30"><a href="alerts-an-example.html#cb103-30" aria-hidden="true" tabindex="-1"></a><span class="st">      });&quot;</span></span>
+<span id="cb103-31"><a href="alerts-an-example.html#cb103-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb103-32"><a href="alerts-an-example.html#cb103-32" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb103-33"><a href="alerts-an-example.html#cb103-33" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">body</span>(</span>
+<span id="cb103-34"><a href="alerts-an-example.html#cb103-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Show time counter</span></span>
+<span id="cb103-35"><a href="alerts-an-example.html#cb103-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">div</span>(</span>
+<span id="cb103-36"><a href="alerts-an-example.html#cb103-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">span</span>(<span class="st">&quot;Time counter (in seconds): &quot;</span>, <span class="at">style =</span> <span class="st">&quot;font-weight: bold&quot;</span>),</span>
+<span id="cb103-37"><a href="alerts-an-example.html#cb103-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">span</span>(<span class="st">&quot;&quot;</span>, <span class="at">id =</span> <span class="st">&quot;time&quot;</span>)</span>
+<span id="cb103-38"><a href="alerts-an-example.html#cb103-38" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb103-39"><a href="alerts-an-example.html#cb103-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">br</span>(),</span>
+<span id="cb103-40"><a href="alerts-an-example.html#cb103-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Show notice</span></span>
+<span id="cb103-41"><a href="alerts-an-example.html#cb103-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">actionButton</span>(<span class="st">&quot;show&quot;</span>, <span class="st">&quot;Show the notice&quot;</span>),</span>
+<span id="cb103-42"><a href="alerts-an-example.html#cb103-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Update the time after each second</span></span>
+<span id="cb103-43"><a href="alerts-an-example.html#cb103-43" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb103-44"><a href="alerts-an-example.html#cb103-44" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;let time = 0;</span></span>
+<span id="cb103-45"><a href="alerts-an-example.html#cb103-45" aria-hidden="true" tabindex="-1"></a><span class="st">      setInterval(</span></span>
+<span id="cb103-46"><a href="alerts-an-example.html#cb103-46" aria-hidden="true" tabindex="-1"></a><span class="st">        // Update second counter</span></span>
+<span id="cb103-47"><a href="alerts-an-example.html#cb103-47" aria-hidden="true" tabindex="-1"></a><span class="st">        function () {</span></span>
+<span id="cb103-48"><a href="alerts-an-example.html#cb103-48" aria-hidden="true" tabindex="-1"></a><span class="st">          time += 1;</span></span>
+<span id="cb103-49"><a href="alerts-an-example.html#cb103-49" aria-hidden="true" tabindex="-1"></a><span class="st">          document.getElementById(&#39;time&#39;).innerText = time;</span></span>
+<span id="cb103-50"><a href="alerts-an-example.html#cb103-50" aria-hidden="true" tabindex="-1"></a><span class="st">        },</span></span>
+<span id="cb103-51"><a href="alerts-an-example.html#cb103-51" aria-hidden="true" tabindex="-1"></a><span class="st">        // Repeat every second</span></span>
+<span id="cb103-52"><a href="alerts-an-example.html#cb103-52" aria-hidden="true" tabindex="-1"></a><span class="st">        1000</span></span>
+<span id="cb103-53"><a href="alerts-an-example.html#cb103-53" aria-hidden="true" tabindex="-1"></a><span class="st">      );</span></span>
+<span id="cb103-54"><a href="alerts-an-example.html#cb103-54" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>),</span>
+<span id="cb103-55"><a href="alerts-an-example.html#cb103-55" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb103-56"><a href="alerts-an-example.html#cb103-56" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb103-57"><a href="alerts-an-example.html#cb103-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-58"><a href="alerts-an-example.html#cb103-58" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session){</span>
+<span id="cb103-59"><a href="alerts-an-example.html#cb103-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>show, {</span>
+<span id="cb103-60"><a href="alerts-an-example.html#cb103-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Define notice options</span></span>
+<span id="cb103-61"><a href="alerts-an-example.html#cb103-61" aria-hidden="true" tabindex="-1"></a>    notice <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb103-62"><a href="alerts-an-example.html#cb103-62" aria-hidden="true" tabindex="-1"></a>      <span class="at">content =</span> <span class="st">&quot;Click to send data to the R Server&quot;</span>,</span>
+<span id="cb103-63"><a href="alerts-an-example.html#cb103-63" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">&#39;black&#39;</span></span>
+<span id="cb103-64"><a href="alerts-an-example.html#cb103-64" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb103-65"><a href="alerts-an-example.html#cb103-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Send the notice</span></span>
+<span id="cb103-66"><a href="alerts-an-example.html#cb103-66" aria-hidden="true" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(</span>
+<span id="cb103-67"><a href="alerts-an-example.html#cb103-67" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;send-notice&quot;</span>, <span class="at">message =</span> notice</span>
+<span id="cb103-68"><a href="alerts-an-example.html#cb103-68" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb103-69"><a href="alerts-an-example.html#cb103-69" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb103-70"><a href="alerts-an-example.html#cb103-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-71"><a href="alerts-an-example.html#cb103-71" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print the output of the notice_close event (when fired)</span></span>
+<span id="cb103-72"><a href="alerts-an-example.html#cb103-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>notice_close, {</span>
+<span id="cb103-73"><a href="alerts-an-example.html#cb103-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(input<span class="sc">$</span>notice_close)</span>
+<span id="cb103-74"><a href="alerts-an-example.html#cb103-74" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb103-75"><a href="alerts-an-example.html#cb103-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb103-76"><a href="alerts-an-example.html#cb103-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-77"><a href="alerts-an-example.html#cb103-77" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:shiny-js-to-r-diagram"></span>
+<div id="htmlwidget-cca586bae1d006be89d3" style="width:100%;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cca586bae1d006be89d3">{"x":{"diagram":"\ndigraph{\n  graph [rankdir=LR]\n  node [shape=record fontsize=10];\n  subgraph cluster_0 {\n    actionButton\n    handler [label=\"message handler\"]\n    notice [label = \"show notice\"]\n    onClose\n    notice_close_Input\n    label=\"Client\"\n    color=gold\n  }\n  subgraph cluster_1 {\n    send[label=\"sendCustomMessage\"]\n    label=\"Server\"\n    color=royalBlue\n  }\n  actionButton -> send [label=\"value\"];\n  send -> handler [label=\"message\"];\n  handler -> notice;\n  notice -> onClose;\n  onClose -> notice_close_Input;\n  notice_close_Input -> send [label=\"Shiny.setInputValue()\"];\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 11.4: JS (eventually) sends data to R server
+</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sessions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-10.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/11.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
