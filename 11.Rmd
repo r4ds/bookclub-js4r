@@ -2,12 +2,490 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Explore Shiny's ability to communicate the R server and the user interface.
+- Lean how to include JavaScript in Shiny applications.
 
-## SLIDE 1
+## WebSocket an Shiny
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+- A **WebSocket** is a persistent connection which will allow us
+to communicate Shiny's main components:
+    - **user interface** (`ui`)
+    - **server function** (`server`)
+
+```{r, websocket-diag}
+#| echo: false 
+#| fig.pos: "H"
+#| fig.align: center
+#| out.width: "100%"
+#| fig.dim: c(3,6)
+#| fig.cap: 'Websocket visualised'
+DiagrammeR::grViz("
+digraph{
+  node [shape=record fontsize=10];
+  w1 [label=Websocket];
+  w2 [label=Websocket];
+  w3 [label=Websocket];
+  w4 [label=Websocket];
+  b1 [label='Browser' color=gold];
+  b2 [label='Browser' color=gold];
+  b3 [label='Browser' color=gold];
+  b4 [label='Browser' color=gold];
+  s [label='R server' color=royalBlue];
+  s -> w1 -> b1 [dir=both color=dimGray arrowsize=.3];
+  s -> w2 -> b2 [dir=both color=dimGray arrowsize=.3];
+  s -> w3 -> b3 [dir=both color=dimGray arrowsize=.3];
+  s -> w4 -> b4 [dir=both color=dimGray arrowsize=.3];
+}
+")
+```
+
+Basic example of bidirectional communication:
+  
+- Send text input value to the R server, 
+and then send it back to the UI.
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  textInput("nameInput", "Your name"),
+  textOutput("nameOutput")
+)
+
+server <- function(input, output) {
+  output$nameOutput <- renderText({
+    input$nameInput
+  })
+}
+
+shinyApp(ui, server)
+```
+
+- WebSocket in action
+
+```{r, shiny-websocket-diagram}
+#| fig.pos: "H"
+#| echo: false
+#| out.width: "100%"
+#| fig.dim: c(3, 6)
+#| fig.align: center
+#| fig.cap: 'Shiny websocket visualised'
+DiagrammeR::grViz("
+digraph {
+  graph[rankdir=LR fontsize = 10]
+  node[shape=record fontsize = 9]
+  subgraph cluster_0 {
+    textInput
+    textOutput
+    label='User Interface'
+    color=gold
+  }
+  subgraph cluster_1 {
+    'input list'
+    renderOutput
+    label='R server'
+    color=royalBlue
+  }
+  textInput -> 'input list' [xlabel=websocket fontsize = 8]
+  'input list' -> renderOutput
+  renderOutput -> textOutput [label=websocket fontsize = 8]
+}
+")
+```
+
+JavaScript is required for the communication between the
+R server and the user interface.
+
+## Sessions
+
+As seen in \@ref(fig:websocket-diag), for any Shiny application,
+Shiny isolates its users into what it referes to as a **session**.
+
+This way, any valid user interaction with a Shiny application
+updates only what is being shown in his or her screen.
+
+## Alerts, an example
+
+Goals:
+
+- Build a Shiny application using the **jBox** JavaScript library.
+- Such application will display a notification at the click of an
+`actionButton` and will *tell* the server when such notification is closed.
+
+```js
+// Type into the browser console
+alert("Alert message")
+```
+
+### Explore
+
+Let's load **jBox** into a Shiny app, in order to play around with its features.
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  tags$head(
+    tags$script(
+    # Load jBox's script
+      src = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.js"
+      )
+    ),
+    # Load jBox's styling
+    tags$link(
+      rel = "stylesheet",
+      href = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.css"
+      )
+    )
+  ),
+  # Create a jBox alert
+  tags$script("
+    new jBox('Notice', {
+      content: 'Hurray! A notice!'
+    });"
+  ),
+  # Add a title and set its HTML element identifier 
+  h1("Exploring jBox", id = "title")
+)
+
+server <- function(input, output) {}
+
+shinyApp(ui, server)
+```
+
+Be careful when searching for **jBox**'s 
+[documentation](https://stephanwagner.me/jBox/documentation),
+do not Google **jBox**; type **jBox js** instead.
+
+A couple more **jBox** features:
+
+```js
+// Type into the browser console
+new jBox(
+  // Set plugin: Tooltip, Modal, Notice, ... 
+  'Tooltip', 
+  {
+    attach: '#title',
+    trigger: 'click',
+    onCreated: function () {
+      this.setContent('This is my jBox!');
+    },
+    onOpen: function () {
+      new jBox('Notice', {content: 'Here I come!', color: 'green'});
+    },
+    onClose: function () {
+      new jBox('Notice', {content: 'See ya later!', color: 'red'});
+    }
+  }
+);
+```
+
+### From R to JavaScript
+
+Goal: Dynamically set the message in the alert created with **jBox**.
+
+Data can be sent (through the WebSocket) from the server to the client,  
+via **R**'s `session` object and its `sendCustomMessage` method/function.
+
+Let's update the `server` function of our previous app
+
+```r
+server <- function(input, output, session) {
+  session$sendCustomMessage(
+    # Set the identifier to send-notice,
+    # for JavaScript to "catch"
+    type = "send-notice", 
+    # Data to send to JavaScript
+    message = "Hi there!"
+  )
+}
+```
+
+JavaScript's `Shiny` object and its method `addCustomHandler`
+provides to JavaScript the instructions for when data is sent
+from the server, with a certain *type*/*identifier*.
+
+```js
+tags$script(
+  "Shiny.addCustomMessageHandler(
+    type = 'send-notice', 
+    function (message) {
+      new jBox('Notice', {
+        content: message
+      });
+    }
+  );"
+)
+```
+
+Similar example:
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  tags$head(
+    tags$script(
+      src = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.js"
+      )
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.css"
+      )
+    )
+  ),
+  textInput("msg", "notice"),
+  actionButton("notify", "Notify myself"),
+  tags$script(
+    "Shiny.addCustomMessageHandler(
+      type = 'send-notice', 
+      function (message) {
+        new jBox('Notice', {
+          content: message
+        });
+        // How was the message data converted?
+        console.log(message, typeof message);
+      }
+    );"
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$notify, {
+    session$sendCustomMessage(
+      type = "send-notice",
+      message = paste0(input$msg, "!!!")
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r, shiny-alert-diagram}
+#| fig.pos: "H"
+#| echo: false
+#| fig.align: 'center'
+#| out.width: "100%"
+#| fig.dim: c(3, 6)
+#| fig.cap: 'Shiny alert with custom messages'
+DiagrammeR::grViz("
+digraph{
+  graph [rankdir=LR]
+  node [shape=record fontsize=10];
+  subgraph cluster_0 {
+    textInput
+    handler [label='message handler']
+    notice [label = 'show notice']
+    label='Client'
+    color=gold
+  }
+  subgraph cluster_1 {
+    send[label='sendCustomMessage']
+    label='Server'
+    color=royalBlue
+  }
+  textInput -> send [label='value'];
+  send -> handler [label='message'];
+  handler -> notice;
+}
+")
+```
+
+### Serialisation
+
+- Note that the **jBox** notice is configured using a JSON object:
+
+```js
+new jBox('Notice', {
+  content: 'Hurray! A notice!',
+  "color": 'red'
+});
+```
+
+- **R**'s analogue for JSON object:
+
+```{r}
+#| comment: ""
+options <- list(
+  content = 'Hurray! A notice!',
+  color = 'red'
+)
+jsonlite::toJSON(options, pretty = TRUE, auto_unbox = TRUE)
+```
+
+- Using **R**'s lists for sending data in JSON format:
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  tags$head(
+    tags$script(
+      src = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.js"
+      )
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.css"
+      )
+    ),
+    tags$script(
+      "Shiny.addCustomMessageHandler(
+        type = 'send-notice',
+        function (message) {
+          // Use notice sent from the server
+          new jBox('Notice', message);
+        }
+      );"
+    )
+  )
+)
+
+server <- function(input, output, session){
+  # Define notice options
+  notice = list(
+    content = 'Hello from the server',
+    color = 'black'
+  )
+  # Send the notice
+  session$sendCustomMessage(
+    type = "send-notice",
+    message = notice
+  )
+}
+
+shinyApp(ui, server)
+```
+
+### JavaScript to R
+
+**Goal:** Send data from JavaScript to R when the notice is closed.
+
+Remember that such event (notice gets closed) can be used like this:
+
+```js
+// Type into the browser console
+new jBox(
+  // Set plugin: Tooltip, Modal, Notice, ... 
+  'Tooltip', 
+  {
+    attach: '#title',
+    trigger: 'click',
+    onCreated: function () {
+      this.setContent('This is my jBox!');
+    },
+    onOpen: function () {
+      new jBox('Notice', {content: 'Here I come!', color: 'green'});
+    },
+    onClose: function () {
+      new jBox('Notice', {content: 'See ya later!', color: 'red'});
+    }
+  }
+);
+```
+
+- We'll send data from JavaScript to the R Server, via 
+a **simplified Shiny input**.
+
+```js
+Shiny.setInputValue('inputId', inputValue)
+```
+
+- Example app different than the one provided in the main book:
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  tags$head(
+    # Load jBox dependencies
+    tags$script(
+      src = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.js"
+      )
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = paste0(
+        "https://cdn.jsdelivr.net/gh/StephanWagner/",
+        "jBox@v1.2.0/dist/jBox.all.min.css"
+      )
+    ),
+    # Set custom message handler
+    tags$script(
+      "Shiny.addCustomMessageHandler(
+        type = 'send-notice', function (message) {
+          message.onClose = function (){
+            Shiny.setInputValue(
+              'notice_close', 
+              document.getElementById('time').innerText
+            );
+          }
+          new jBox('Notice', message);
+      });"
+    )
+  ),
+  tags$body(
+    # Show time counter
+    div(
+      span("Time counter (in seconds): ", style = "font-weight: bold"),
+      span("", id = "time")
+    ),
+    br(),
+    # Show notice
+    actionButton("show", "Show the notice"),
+    # Update the time after each second
+    tags$script(
+      "let time = 0;
+      setInterval(
+        // Update second counter
+        function () {
+          time += 1;
+          document.getElementById('time').innerText = time;
+        },
+        // Repeat every second
+        1000
+      );
+    "),
+  )
+)
+
+server <- function(input, output, session){
+  observeEvent(input$show, {
+    # Define notice options
+    notice = list(
+      content = "Click to send data to the R Server",
+      color = 'black'
+    )
+    # Send the notice
+    session$sendCustomMessage(
+      type = "send-notice", message = notice
+    )
+  })
+
+  # Print the output of the notice_close event (when fired)
+  observeEvent(input$notice_close, {
+    print(input$notice_close)
+  })
+}
+
+shinyApp(ui, server)
+```
 
 ## Meeting Videos
 
