@@ -19,7 +19,9 @@ Imports:
     jsonify,
     jsonlite,
     plotly,
+    shiny,
     rmarkdown,
-    tidyverse
-Remotes:  
+    tidyverse,
+    DiagrammeR
+Remotes: 
     jcheng5/d3scatter
