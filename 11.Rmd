@@ -205,7 +205,7 @@ server <- function(input, output, session) {
 }
 ```
 
-JavaScript's `Shiny` object and its method `addCustomHandler`
+JavaScript's `Shiny` object and its method `addCustomMessageHandler`
 provides to JavaScript the instructions for when data is sent
 from the server, with a certain *type*/*identifier*.
 
@@ -430,7 +430,7 @@ ui <- fluidPage(
     tags$script(
       "Shiny.addCustomMessageHandler(
         type = 'send-notice', function (message) {
-          message.onClose = function (){
+          message.onClose = function () {
             Shiny.setInputValue(
               'notice_close', 
               document.getElementById('time').innerText
@@ -485,6 +485,41 @@ server <- function(input, output, session){
 }
 
 shinyApp(ui, server)
+```
+
+```{r, shiny-js-to-r-diagram}
+#| fig.pos: "H"
+#| echo: false
+#| fig.align: 'center'
+#| out.width: "100%"
+#| fig.dim: c(3, 6)
+#| fig.cap: 'JS (eventually) sends data to R server'
+DiagrammeR::grViz("
+digraph{
+  graph [rankdir=LR]
+  node [shape=record fontsize=10];
+  subgraph cluster_0 {
+    actionButton
+    handler [label='message handler']
+    notice [label = 'show notice']
+    onClose
+    notice_close_Input
+    label='Client'
+    color=gold
+  }
+  subgraph cluster_1 {
+    send[label='sendCustomMessage']
+    label='Server'
+    color=royalBlue
+  }
+  actionButton -> send [label='value'];
+  send -> handler [label='message'];
+  handler -> notice;
+  notice -> onClose;
+  onClose -> notice_close_Input;
+  notice_close_Input -> send [label='Shiny.setInputValue()'];
+}
+")
 ```
 
 ## Meeting Videos
