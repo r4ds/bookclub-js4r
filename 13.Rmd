@@ -2,12 +2,360 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Explore tools already available in Shiny by default.
 
-## SLIDE 1
+## Shiny events
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+- **GOAL**: Create a notification whenever the Shiny
+server is busy.
+
+- List of JavaScript 
+[events](https://shiny.rstudio.com/articles/js-events.html)
+in Shiny.
+
+- Code for gif to show when Shiny is busy:
+
+```r
+dir.create("www")
+file.create("www/script.js")
+file.create("www/style.css")
+
+# gif
+gif <- paste0(
+  "https://github.com/JohnCoene/javascript-for-r/",
+  "raw/master/code/events/www/typing.gif"
+)
+download.file(gif, "www/typing.gif")
+```
+
+It may be necessary to manually 
+[download](https://raw.githubusercontent.com/JohnCoene/javascript-for-r/master/code/events/www/typing.gif).
+such gif.
+
+- Code for Shiny app (`app.R`):
+
+```r
+library(shiny)
+
+shiny::addResourcePath("www", "www")
+
+ui <- fluidPage(
+  # import dependencies
+  tags$head(
+    tags$link(href = "www/style.css", rel = "stylesheet"),
+    tags$script(src = "www/script.js")
+  ),
+  # gif indicator
+  tags$img(src = "www/typing.gif", id = "loading"),
+  plotOutput("plot"),
+  actionButton("render", "render")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    input$render # redraw on click
+
+    # simulate time consuming computations
+    Sys.sleep(2) 
+    plot(cars)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+- Style the gif (`styles.css`):
+
+```css
+#loading{
+  top: 20px;
+  right: 20px;
+  height: 200px;
+  z-index: 9999;
+  position: absolute;
+  visibility: hidden;
+}
+```
+
+- Show the gif when Shiny is **busy** (`script.js`):
+
+```js
+$(document).on('shiny:busy', function(event) {
+  // Retrieve gif
+  const gif = document.getElementById("loading");
+
+  // Make it visible
+  gif.style.visibility = "visible";
+});
+```
+
+- Hide the gid when Shiny is **idle** (`script.js`):
+
+```js
+$(document).on('shiny:idle', function(event) {
+  const gif = document.getElementById("loading");
+
+  // Hide gif
+  gif.style.visibility = "hidden";
+});
+```
+
+## Table buttons
+
+- **GOAL**: Add to a table a column of 
+one button per row.
+
+- Code for new Shiny app (`app.R`):
+
+```r
+library(DT)
+library(shiny)
+
+ui <- fluidPage(
+  DTOutput("table")
+)
+
+server <- function(input, output) {
+  output$table <- renderDT({
+    datatable(
+      mtcars, 
+      escape = FALSE, 
+      selection = "none", 
+      rownames = FALSE, 
+      style = "bootstrap"
+    )
+  })
+
+}
+
+shinyApp(ui, server)
+```
+
+Only the `escape = FALSE` is necessary.
+It will allow us to insert **HTML** code into
+the table, and have it **appear as is**,
+instead of as a string.
+
+The HTML code we will insert is of the form:
+
+```html
+<a class="btn btn-primary" onclick="Shiny.setInputValue('click', 'Mazda RX4')">Click me</a>
+```
+
+- The book uses the `sprintf` function to create
+each of those buttons, changing the row name value,
+but the app did not work properly, due to an issue
+with the '"' symbols.  
+An alternative solution will be presented,
+when necessary.
+
+```r
+# On click function
+onclick <- sprintf(
+  "Shiny.setInputValue('click', '%s')",
+  rownames(mtcars)
+)
+```
+
+```r
+# Button with onClick function
+
+# Book version
+button <- sprintf(
+  "<a class='btn btn-primary' onClick='%s'>Click me</a>",
+  onclick
+)
+
+# Alternative version
+button <- paste0(
+  '<a class="btn btn-primary" onClick="',
+  onclick,
+  '">Click me</a>'
+)
+```
+
+Finally, we add a column of *buttons* and show the
+value of the `click` input.
+
+Final code (`app.R`):
+
+```r
+library(DT)
+library(shiny)
+
+ui <- fluidPage(
+  br(),
+  DTOutput("table"),
+  strong("Clicked Model:"),
+  verbatimTextOutput("model")
+)
+
+server <- function(input, output) {
+  output$table <- renderDT({
+    # On click function
+    onclick <- sprintf(
+      "Shiny.setInputValue('click', '%s')",
+      rownames(mtcars)
+    )
+
+    # 'Button' with onClick function
+    button <- paste0(
+      '<a class="btn btn-primary" onClick="',
+      onclick,
+      '">Click me</a>'
+    )
+
+    # Add 'buttons' to data.frame
+    mtcars$button <- button
+
+    datatable(
+      mtcars, 
+      escape = FALSE, 
+      selection = "none", 
+      rownames = FALSE, 
+      style = "bootstrap"
+    )
+  })
+
+  output$model <- renderPrint({
+    print(input$click)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## jQuery
+
+- **GOAL**: Use jQuery to toggle
+the display of HTML element(s), via
+a **message handler**.
+
+- The **jQuery** library allows for 
+easier DOM manipulation, event handling and
+CSS animations.
+
+- Shiny imports **jQuery** by default.
+
+Go to this 
+[website](https://shiny.rstudio.com/articles/js-events.html)
+and execute the following lines of code,
+separately,  in the browser console:
+
+```js
+// Exploring CSS selectors
+$("#rStudioHeader").toggle(); // id
+$(".highlight").toggle();  // class
+$("p").toggle();  // HTML element
+```
+
+- Code for the Shiny app:
+
+```{r}
+#| echo: true
+#| eval: false
+library(shiny)
+
+ui <- fluidPage(
+  tags$head(
+    tags$script(
+      "Shiny.addCustomMessageHandler(
+        'jquery', function(selector) {
+          $(selector).toggle();
+      });"
+    )
+  ),
+  actionButton("toggle", "Toggle text"),
+  h1("This text is shown!", id = "title", class = "to-toggle"),
+  tags$div(class = "to-toggle", verbatimTextOutput("text"))
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$toggle, {
+    session$sendCustomMessage('jquery', ".to-toggle")
+  })
+
+  output$text <- renderPrint(print(input$toggle))
+}
+
+shinyApp(ui, server)
+```
+
+## Extra
+
+- **GOAL**: Explore a couple more Shiny events to gain
+further insight into the bidirectional communication
+between JavaScript and R.
+
+- `shiny::message` event
+    - Triggered when any messages are received from the server.
+
+Run the previous app and execute the following code 
+in the browser console (in *different sessions*):
+
+```js
+$(document).on("shiny:message", function (event) {
+  console.log(event);
+});
+```
+
+We can even **change the data** sent via the *custom message*.
+
+```js
+$(document).on("shiny:message", function (event) {
+  if(event.message.custom.jquery) {
+    event.message.custom.jquery = "#title";
+  }
+});
+```
+
+- `shiny::value` event
+    -  Triggered when an output receives a value from the server.
+
+> Suppose you have an output x which takes a reactive dependency on y
+> (this could be an input or another reactive object). When y changes, the first
+> thing that happens is that x is invalidated (and the shiny:outputinvalidated 
+> event for x is fired). The shiny:recalculating event is the next one to be fired
+> for x. This may happen either immediately after the previous event, or it can take
+> a while, depending on whether or not there are other previously invalidated objects
+> also waiting to be recalculated. Once the value of x has finished recalculating,
+> its shiny:recalculated event is fired. The last event to be fired for x is 
+> shiny:value (or shiny:error if the recalculation resulted in an error).  
+>
+> Source: https://shiny.rstudio.com/articles/js-events.html
+
+```js
+$(document).on("shiny:value", function (event) {
+  console.log(event);
+});
+```
+
+We can even **change the value** sent from the server.
+
+```js
+$(document).on("shiny:value", function (event) {
+  event.value = "Oh Hi Mark";
+});
+```
+
+- `shiny::inputchanged` event
+    -  Triggered when an input **possibly** has a new value.
+
+```js
+$(document).on('shiny:inputchanged', function(event) {
+  console.log(event);
+});
+```
+
+You alreday know what's coming next ...
+
+```js
+$(document).on('shiny:inputchanged', function(event) {
+  if (event.name === "toggle") {
+    event.value += 2;
+  }
+});
+```
 
 ## Meeting Videos
 
