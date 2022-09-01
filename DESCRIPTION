@@ -14,14 +14,14 @@ Depends:
 Imports: 
     bookdown,
     d3scatter (>= 0.1.0),
+    DiagrammeR,
     DT,
     ggplot2,
     jsonify,
     jsonlite,
     plotly,
-    shiny,
     rmarkdown,
-    tidyverse,
-    DiagrammeR
+    shiny,
+    tidyverse
 Remotes: 
     jcheng5/d3scatter
