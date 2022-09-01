@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22.1 SLIDE 1 | JavaScript for R Book Club</title>
+  <title>13.3 jQuery | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta property="og:title" content="13.3 jQuery | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="13.3 jQuery | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="webpack-with-r.html"/>
-<link rel="next" href="meeting-videos-21.html"/>
+<link rel="prev" href="table-buttons.html"/>
+<link rel="next" href="extra.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -474,20 +474,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-1-9" class="section level2 hasAnchor" number="22.1">
-<h2><span class="header-section-number">22.1</span> SLIDE 1<a href="slide-1-9.html#slide-1-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="jquery" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> jQuery<a href="jquery.html#jquery" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>ADD SLIDES AS SECTIONS (<code>##</code>).</li>
-<li>TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.</li>
+<li><p><strong>GOAL</strong>: Use jQuery to toggle
+the display of HTML element(s), via
+a <strong>message handler</strong>.</p></li>
+<li><p>The <strong>jQuery</strong> library allows for
+easier DOM manipulation, event handling and
+CSS animations.</p></li>
+<li><p>Shiny imports <strong>jQuery</strong> by default.</p></li>
 </ul>
+<p>Go to this
+<a href="https://shiny.rstudio.com/articles/js-events.html">website</a>
+and execute the following lines of code,
+separately, in the browser console:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb116-1"><a href="jquery.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Exploring CSS selectors</span></span>
+<span id="cb116-2"><a href="jquery.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="st">&quot;#rStudioHeader&quot;</span>)<span class="op">.</span><span class="fu">toggle</span>()<span class="op">;</span> <span class="co">// id</span></span>
+<span id="cb116-3"><a href="jquery.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="st">&quot;.highlight&quot;</span>)<span class="op">.</span><span class="fu">toggle</span>()<span class="op">;</span>  <span class="co">// class</span></span>
+<span id="cb116-4"><a href="jquery.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="st">&quot;p&quot;</span>)<span class="op">.</span><span class="fu">toggle</span>()<span class="op">;</span>  <span class="co">// HTML element</span></span></code></pre></div>
+<ul>
+<li>Code for the Shiny app:</li>
+</ul>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="jquery.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb117-2"><a href="jquery.html#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-3"><a href="jquery.html#cb117-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb117-4"><a href="jquery.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb117-5"><a href="jquery.html#cb117-5" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb117-6"><a href="jquery.html#cb117-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.addCustomMessageHandler(</span></span>
+<span id="cb117-7"><a href="jquery.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="st">        &#39;jquery&#39;, function(selector) {</span></span>
+<span id="cb117-8"><a href="jquery.html#cb117-8" aria-hidden="true" tabindex="-1"></a><span class="st">          $(selector).toggle();</span></span>
+<span id="cb117-9"><a href="jquery.html#cb117-9" aria-hidden="true" tabindex="-1"></a><span class="st">      });&quot;</span></span>
+<span id="cb117-10"><a href="jquery.html#cb117-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb117-11"><a href="jquery.html#cb117-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb117-12"><a href="jquery.html#cb117-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;toggle&quot;</span>, <span class="st">&quot;Toggle text&quot;</span>),</span>
+<span id="cb117-13"><a href="jquery.html#cb117-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">h1</span>(<span class="st">&quot;This text is shown!&quot;</span>, <span class="at">id =</span> <span class="st">&quot;title&quot;</span>, <span class="at">class =</span> <span class="st">&quot;to-toggle&quot;</span>),</span>
+<span id="cb117-14"><a href="jquery.html#cb117-14" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">div</span>(<span class="at">class =</span> <span class="st">&quot;to-toggle&quot;</span>, <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;text&quot;</span>))</span>
+<span id="cb117-15"><a href="jquery.html#cb117-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb117-16"><a href="jquery.html#cb117-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-17"><a href="jquery.html#cb117-17" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb117-18"><a href="jquery.html#cb117-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>toggle, {</span>
+<span id="cb117-19"><a href="jquery.html#cb117-19" aria-hidden="true" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(<span class="st">&#39;jquery&#39;</span>, <span class="st">&quot;.to-toggle&quot;</span>)</span>
+<span id="cb117-20"><a href="jquery.html#cb117-20" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb117-21"><a href="jquery.html#cb117-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-22"><a href="jquery.html#cb117-22" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>(<span class="fu">print</span>(input<span class="sc">$</span>toggle))</span>
+<span id="cb117-23"><a href="jquery.html#cb117-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb117-24"><a href="jquery.html#cb117-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-25"><a href="jquery.html#cb117-25" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="webpack-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="meeting-videos-21.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="table-buttons.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extra.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -518,7 +559,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/22.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/13.Rmd",
 "text": "Edit"
 },
 "history": {

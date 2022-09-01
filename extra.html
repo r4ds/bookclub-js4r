@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22.1 SLIDE 1 | JavaScript for R Book Club</title>
+  <title>13.4 Extra | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta property="og:title" content="13.4 Extra | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22.1 SLIDE 1 | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="13.4 Extra | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="webpack-with-r.html"/>
-<link rel="next" href="meeting-videos-21.html"/>
+<link rel="prev" href="jquery.html"/>
+<link rel="next" href="meeting-videos-12.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -474,20 +474,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-1-9" class="section level2 hasAnchor" number="22.1">
-<h2><span class="header-section-number">22.1</span> SLIDE 1<a href="slide-1-9.html#slide-1-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="extra" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Extra<a href="extra.html#extra" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>ADD SLIDES AS SECTIONS (<code>##</code>).</li>
-<li>TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.</li>
+<li><p><strong>GOAL</strong>: Explore a couple more Shiny events to gain
+further insight into the bidirectional communication
+between JavaScript and R.</p></li>
+<li><p><code>shiny::message</code> event</p>
+<ul>
+<li>Triggered when any messages are received from the server.</li>
+</ul></li>
 </ul>
+<p>Run the previous app and execute the following code
+in the browser console (in <em>different sessions</em>):</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb118-1"><a href="extra.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;shiny:message&quot;</span><span class="op">,</span> <span class="kw">function</span> (<span class="bu">event</span>) {</span>
+<span id="cb118-2"><a href="extra.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">event</span>)<span class="op">;</span></span>
+<span id="cb118-3"><a href="extra.html#cb118-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>We can even <strong>change the data</strong> sent via the <em>custom message</em>.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb119-1"><a href="extra.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;shiny:message&quot;</span><span class="op">,</span> <span class="kw">function</span> (<span class="bu">event</span>) {</span>
+<span id="cb119-2"><a href="extra.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="bu">event</span><span class="op">.</span><span class="at">message</span><span class="op">.</span><span class="at">custom</span><span class="op">.</span><span class="at">jquery</span>) {</span>
+<span id="cb119-3"><a href="extra.html#cb119-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">event</span><span class="op">.</span><span class="at">message</span><span class="op">.</span><span class="at">custom</span><span class="op">.</span><span class="at">jquery</span> <span class="op">=</span> <span class="st">&quot;#title&quot;</span><span class="op">;</span></span>
+<span id="cb119-4"><a href="extra.html#cb119-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb119-5"><a href="extra.html#cb119-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<ul>
+<li><code>shiny::value</code> event
+<ul>
+<li>Triggered when an output receives a value from the server.</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>Suppose you have an output x which takes a reactive dependency on y
+(this could be an input or another reactive object). When y changes, the first
+thing that happens is that x is invalidated (and the shiny:outputinvalidated
+event for x is fired). The shiny:recalculating event is the next one to be fired
+for x. This may happen either immediately after the previous event, or it can take
+a while, depending on whether or not there are other previously invalidated objects
+also waiting to be recalculated. Once the value of x has finished recalculating,
+its shiny:recalculated event is fired. The last event to be fired for x is
+shiny:value (or shiny:error if the recalculation resulted in an error).</p>
+<p>Source: <a href="https://shiny.rstudio.com/articles/js-events.html" class="uri">https://shiny.rstudio.com/articles/js-events.html</a></p>
+</blockquote>
+<div class="sourceCode" id="cb120"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb120-1"><a href="extra.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;shiny:value&quot;</span><span class="op">,</span> <span class="kw">function</span> (<span class="bu">event</span>) {</span>
+<span id="cb120-2"><a href="extra.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">event</span>)<span class="op">;</span></span>
+<span id="cb120-3"><a href="extra.html#cb120-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>We can even <strong>change the value</strong> sent from the server.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb121-1"><a href="extra.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;shiny:value&quot;</span><span class="op">,</span> <span class="kw">function</span> (<span class="bu">event</span>) {</span>
+<span id="cb121-2"><a href="extra.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">value</span> <span class="op">=</span> <span class="st">&quot;Oh Hi Mark&quot;</span><span class="op">;</span></span>
+<span id="cb121-3"><a href="extra.html#cb121-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<ul>
+<li><code>shiny::inputchanged</code> event
+<ul>
+<li>Triggered when an input <strong>possibly</strong> has a new value.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb122"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb122-1"><a href="extra.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&#39;shiny:inputchanged&#39;</span><span class="op">,</span> <span class="kw">function</span>(<span class="bu">event</span>) {</span>
+<span id="cb122-2"><a href="extra.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">event</span>)<span class="op">;</span></span>
+<span id="cb122-3"><a href="extra.html#cb122-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>You alreday know what’s coming next …</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb123-1"><a href="extra.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&#39;shiny:inputchanged&#39;</span><span class="op">,</span> <span class="kw">function</span>(<span class="bu">event</span>) {</span>
+<span id="cb123-2"><a href="extra.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="bu">event</span><span class="op">.</span><span class="at">name</span> <span class="op">===</span> <span class="st">&quot;toggle&quot;</span>) {</span>
+<span id="cb123-3"><a href="extra.html#cb123-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">event</span><span class="op">.</span><span class="at">value</span> <span class="op">+=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb123-4"><a href="extra.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb123-5"><a href="extra.html#cb123-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="webpack-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="meeting-videos-21.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="jquery.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-12.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -518,7 +574,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/22.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/13.Rmd",
 "text": "Edit"
 },
 "history": {
