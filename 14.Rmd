@@ -2,23 +2,636 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Define custom `render*()` and `*Output()` functions
+- Describe the purpose of `render*()` and `*Output()` functions
+- Explain "output binding"s in JavaScript
+- Explain how to conditionally / dynamically load dependencies
 
-## SLIDE 1
+## Setup
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+- In the book they make an app and add functions `boxxy`, `renderBoxxy` and `boxxyOutput` to the
+  R/ directory
+- Here, we'll make a package containing the `boxxy` functions and add an app to demonstrate it
+
+```r
+library(usethis)
+create_package("boxxy")
+use_package("shiny")
+use_mit_license()
+```
+
+```bash
+# BASH
+# See https://www.npmjs.com/package/gitignore
+gitignore r
+```
+
+```r
+# Copied a function from Dean attali's blog to run a named app from
+# ./inst/shiny-examples/app-name/
+# - See https://deanattali.com/2015/04/21/r-package-shiny-app/
+# - called it run_example(app_name)
+usethis::use_r("run_example")
+```
+
+```bash
+# BASH
+# Added a shiny app to ./inst/shiny-examples/boxxy-demo
+mkdir -p ./inst/shiny-examples/boxxy-demo
+touch ./inst/shiny-examples/boxxy-demo/app.R
+```
+
+```bash
+# BASH
+# The dependencies of `boxxy` will be put into `./inst/assets`
+mkdir -p ./inst/assets
+```
+
+```r
+# I'd probably put this in ./dev/setup_dependencies.R
+dirs <- list(
+  assets = file.path("inst", "assets")
+)
+
+urls <- list(
+  countup = paste0(
+    "https://cdn.jsdelivr.net/npm/countup@1.8.2/countUp.js"
+  )
+)
+
+paths <- list(
+  countup = file.path(dirs$assets, "countup.js"),
+  binding = file.path(dirs$assets, "binding.js"),
+  css = file.path(dirs$assets, "styles.css")
+)
+
+# Download countUp.js
+download.file(urls$countup, paths$countup)
+
+# create  binding file
+file.create(paths$binding)
+
+# create CSS file
+file.create(paths$css)
+```
+
+So our package outline looks like this (before we've added the `boxxy()` functions).
+
+```bash
+tree .
+.
+├── boxxy.Rproj
+├── DESCRIPTION
+├── inst
+│   ├── assets
+│   │   ├── binding.js
+│   │   ├── countup.js
+│   │   └── styles.css
+│   └── shiny-examples
+│       └── boxxy-demo
+│           └── app.R
+├── LICENSE
+├── LICENSE.md
+├── man
+│   └── run_example.Rd
+├── NAMESPACE
+└── R
+    └── run_example.R
+
+6 directories, 11 files
+```
+
+## Output R functions
+
+We are making an animated box, containing a count, for which the user can specify a title, value
+and color.
+
+We will write the following functions:
+
+- `boxxy()`
+  - stores the data for generating the box (creates a boxxy object)
+- `boxxyOutput()`
+  - defines the HTML to be added to the app for the boxxy element
+- `renderBoxxy()`
+  - creates R logic that executes when a matching boxxy output is requested by the browser
+
+We will also have to write a JS binding function to define how a rendered boxxy element should be
+displayed inside the app.
+
+If you've used shiny before, you should be used to the naming conventions.
+
+The functions will be called like this:
+
+```r
+# In the shiny UI:
+boxxyOutput("boxxyID")
+
+# ... snip ...
+
+# In the shiny server:
+output$boxxyID <- renderBoxxy({
+  boxxy(title, value, color)
+})
+```
+
+```r
+usethis::use_r("boxxy")
+```
+
+The skeleton for the R functions:
+
+```r
+#' Stores data for creating an animated, counted, box
+#'
+#' @param   title,value,color   title, value and color for the box
+#' @export
+
+boxxy <- function(title, value, color = "#ef476f") {
+  list(title = title, value = value, color = color)
+}
+
+#' Create the HTML skeleton within which a boxxy element sits
+#'
+#' @param   id   A shiny identifier
+#' @export
+
+boxxyOutput <- function(id) {
+  shiny::tags$div(id = id, class = "boxxy")
+}
+
+#' Render a 'boxxy' object for output in a shiny app
+#'
+#' @param   expr   a shiny expression for creating a 'boxxy' object.
+#' @param   env   the environment in which to evaluate \code{expr}.
+#' @export
+
+renderBoxxy <- function(expr, env = parent.frame()) {
+  function() {}
+}
+```
+
+## Generate Output HTML
+
+`boxxyOutput(id)`
+
+- returns an HTML tag which
+- ... should have an `id` or a `data-input-id` attribute
+- ... and a `class` 
+
+```{r output_generated_html, results="asis"}
+# The ID passed into a *Output is the ID in the created element
+# - Note that the parameter is `outputId` not `id` (as in the book)
+message(
+  shiny::plotOutput(outputId = "my_plot")
+)
+```
+
+JS uses the `class` to find elements in the DOM and to generate output.
+
+The simplest output function:
+
+```r
+#' Create the HTML skeleton within which a boxxy element sits
+#'
+#' @param   outputId   A shiny identifier
+#' @export
+
+boxxyOutput <- function(outputId) {
+  shiny::tags$div(id = outputId, class = "boxxy")
+}
+```
+
+But, the boxes are supposed to have a title and value (and color - see later):
+
+```{r boxxy_output_with_value_and_title}
+# ./R/boxxy.R
+boxxyOutput <- function(outputId) {
+  shiny::tags$div(
+    id = outputId, class = "boxxy",
+    shiny::h1(
+      id = sprintf("%s-boxxy-value", outputId),
+      class = "boxxy-value"
+    ),
+    shiny::p(
+      id = sprintf("%s-boxxy-title", outputId),
+      class = "boxxy-title"
+    )
+  )
+}
+```
+
+```{r boxxy_output_example}
+message(
+  boxxyOutput("my_box")
+)
+```
+
+The `class`es can be used within CSS to help with styling
+
+```css
+/* ./inst/assets/styles.css */
+.boxxy {
+  text-align: center;
+  border-left: 6px solid #073b4c;
+  padding: 1em;
+}
+
+.boxxy-title {
+  text-transform: uppercase;
+}
+
+.boxxy-value {
+  font-size: 3em;
+}
+```
+
+Dependencies:
+
+- in {boxxy}, we have assets/{countup,binding}.js and assets/styles.css
+- these need to be attached to the DOM if boxxyOutput() is called by a shiny app
+- so let's attach them when `boxxyOutput()` is called ...
+
+```{r boxxy_output_with_deps}
+boxxyOutput <- function(outputId) {
+  value_el <- shiny::h1(
+    id = sprintf("%s-boxxy-value", outputId), class = "boxxy-value"
+  )
+  title_el <- shiny::p(
+    id = sprintf("%s-boxxy-title", outputId), class = "boxxy-title"
+  )
+  
+  boxxy_el <- shiny::tags$div(id = outputId, class = "boxxy", value_el, title_el)
+  
+  deps <- list(
+    htmltools::htmlDependency(
+      name = "boxxy",
+      version = "1.0.0",
+      src = c(file = "assets"),
+      script = c("countup.js", "binding.js"),
+      stylesheet = "styles.css",
+      package = "boxxy"
+    )
+  )
+  
+  htmltools::attachDependencies(boxxy_el, deps)
+}
+```
+
+Here, {boxxy} is a package not an app, so some of the code is different to the book's version.
+We take the `htmlDependency` from the package `boxxy`, rather than using a normalised path.
+The `src` directory needs to be indicated relative to the installed package (`assets`, rather than
+`inst/assets`).
+
+Note that the dependencies aren't seen when `boxxyOutput()` is called.
+
+```{r boxxy_output_doesnt_display_dependencies}
+message(
+  boxxyOutput("a_fantastic_box")
+)
+```
+
+## Output R function
+
+```{r define_boxxy}
+boxxy <- function(title, value, color = "#ef476f") {
+  list(title = title, value = value, color = color)
+}
+```
+
+## Output renderer
+
+Shiny `render*()` functions accept an expression:
+
+```r
+output$myPlot <- renderPlot({
+  cars %>% head() %>% plot()
+})
+```
+
+... and they return a function:
+
+```{r class_returned_by_renderX}
+class(
+  shiny::renderPlot({
+    cars %>% head() %>% plot()
+  })
+)
+```
+
+shiny has a function for converting expressions (and their environments) to a function:
+
+```{r expr_to_function}
+shiny::exprToFunction({
+  cars %>% head() %>% plot()
+})
+```
+
+So we can define a render function for `boxxy` like this:
+
+```{r renderBoxxy1}
+renderBoxxy <- function(expr, env = parent.frame(), quoted = FALSE) {
+  func <- shiny::exprToFunction(expr, env, quoted)
+  
+  function() {
+    func()
+  }
+}
+```
+
+But isn't that equivalent to:
+
+```{r renderBoxxy2}
+renderBoxxy <- function(expr, env = parent.frame(), quoted = FALSE) {
+  func <- shiny::exprToFunction(expr, env, quoted)
+  func  
+}
+```
+
+Looking at the source code for a few render functions shows quite a bit of variability:
+
+- renderXXX as templated by htmlwidgets
+  - https://github.com/jbkunst/highcharter/blob/main/R/highcharter.R#L113
+- `htmlwidgets::shinyRenderWidget` (which powers renderXXX for htmlwidgets)
+  - https://github.com/ramnathv/htmlwidgets/blob/400cf1ad78cf106950525d3b70971c28029e2288/R/htmlwidgets.R#L550
+- `shiny::renderPlot`
+  - https://github.com/rstudio/shiny/blob/d4527cdc289c897b92a0b06eef4200537c0d98b1/R/render-plot.R#L60
+
+Why is createRenderFunction not used here?
+
+- Docs: https://shiny.rstudio.com/reference/shiny/1.6.0/createRenderFunction.html
+
+## JavaScript Output binding
+
+What is an "Output binding"?
+
+- JS object
+- Tells shiny how to find the output component
+- ... and how to interact with it
+
+See the RStudio [article on building outputs](https://shiny.rstudio.com/articles/building-outputs.html)
+
+    (Note that each instance of the output component doesn’t need
+    its own output binding object; rather, all instances of a
+    particular type of output component share a single output
+    binding object.)
+    
+    - RStudio article
+
+```js
+// ./inst/assets/binding.js
+const boxxyBinding = new Shiny.OutputBinding();
+```
+
+Code [definition](https://github.com/rstudio/shiny/blob/a8c14dab9623c984a66fcd4824d8d448afb151e7/srcts/src/bindings/output/outputBinding.ts) for `Shiny.OutputBinding`
+
+Default methods:
+
+- `find` (find all elements of the same class as the required output)
+- `renderValue`
+- `getId`
+- `onValueChange`
+- `onValueError`
+- `renderError`
+- `clearError`
+- `showProgress`
+
+Of these, you _must_ define `find()`
+
+Adding a method to an existing target-object using JQuery's `$.extend(target, object)`
+
+```js
+// ./inst/assets/binding.js
+const boxxyBinding = new Shiny.OutputBinding();
+
+$.extend(boxxyBinding, {
+  find: function(scope) {
+    // JQuery to get an array of elements of class "boxxy"
+    return $(scope).find(".boxxy");
+  }
+});
+```
+
+You also need a way to get the HTML ID for a given element
+
+```js
+// getId default
+this.getId = function(el) {
+  return el["data-input-id"] || el.id;
+}
+```
+
+You also need to define a `renderValue(el, data)` method which converts the data passed by the
+R-side `renderBoxxy()` function and attaches it to the element created by `boxxyOutput()`
+
+And, register the output binding with shiny.
+
+Difficulties here:
+
+- For boxxy, `find` returns an array of elements of class `boxxy`
+- `getId` returns the ID of a given one of those elements
+- So when I change the data passed to a boxxy element in shiny
+- ... how does it know which of the DOM's boxxy elements to update?
+
+For each registered OutputBinding:
+
+- JS-side shiny iterates over all elements that are returned by `.find()`
+- .. and makes an adapter that connects the element to it's OutputBinding
+- see the [bind.ts source code](https://github.com/rstudio/shiny/blob/a8c14dab9623c984a66fcd4824d8d448afb151e7/srcts/src/shiny/bind.ts#L122)
+
+We now fill in the `renderValue` method (to tell JS what to do when new data is received)
+
+Remember what `boxxyOutput()` returns:
+
+```{r calling_boxxy_output}
+message(
+  boxxyOutput("my_id")
+)
+```
+
+Remember what `boxxy()` receives and outputs:
+
+```{r calling_boxxy}
+boxxy(title = "Some title", value = 87, color = "#FF00FF")
+```
+
+The 'title'  needs to be presented by the `<p id="<the_id>-boxxy_title" class="boxxy-title">`
+element.
+
+```js
+// ./inst/assets/binding.js
+const boxxyBinding = new Shiny.OutputBinding();
+
+$.extend(boxxyBinding, {
+  // ... snip ...
+  renderValue: function(el, data) {
+    // insert the title
+    const titleId = el.id + "-boxxy-title";
+    document.getElementById(titleId).innerText = data.title;
+  }
+});
+```
+
+Similarly, we can set the counter value and the background color for the element:
+
+```js
+// ./inst/assets/binding.js
+const boxxyBinding = new Shiny.OutputBinding();
+
+$.extend(boxxyBinding, {
+  // ... snip ...
+  renderValue: function(el, data) {
+    // insert the title
+    const titleId = el.id + "-boxxy-title";
+    document.getElementById(titleId).innerText = data.title;
+    
+    // place counter in elementId
+    // start at 0 and count up to 123
+    const counterId = el.id + "-boxxy-value";
+    const counter = new CountUp(counterId, 0, data.value);
+    counter.start();
+    
+    // background color
+    el.style.backgroundColor = data.color;
+  }
+});
+```
+
+To register an OutputBinding with shiny, we use the following code:
+
+```js
+// ./inst/assets/binding.js
+//
+// The second argument doesn't do anything yet
+Shiny.outputBindings.register(boxxyBinding, "john.boxxy");
+```
+
+## Boxxy Usage
+
+In the book a standalone app was made (`./app.R`, `./assets/*`).
+
+Here, we made a package `{boxxy}` that contains:
+
+- the `boxxy`, `renderBoxxy`, `boxxyOutput` R functions
+- the external countup.js dependency (`./inst/assets/countup.js`)
+- some css styling (`./inst/assets/styles.css`)
+- a custom binding.js file that tells JS-Shiny how to update any boxxy output elements 
+(`./inst/assets/binding.js`)
+
+Since this is a package, our demo app looks simpler than that in the book:
+
+```r
+library(shiny)
+library(boxxy)
+
+ui <- function() {
+  fluidPage(
+    h2("Custom outputs"),
+    fluidRow(
+      column(3, boxxyOutput("countries")),
+      column(3, boxxyOutput("employees")),
+      column(3, boxxyOutput("customers")),
+      column(3, boxxyOutput("subs"))
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  output$countries <- renderBoxxy({
+    boxxy("Countries", 95, color = "#ef476f")
+  })
+
+  output$employees <- renderBoxxy({
+    boxxy("Thing", 650, color = "#06d6a0")
+  })
+
+  output$customers <- renderBoxxy({
+    boxxy("Customers", 13592, color = "#118ab2")
+  })
+
+  output$subs <- renderBoxxy({
+    boxxy("Subscriptions", 16719, color = "#ffd166")
+  })
+}
+
+shinyApp(ui(), server)
+```
+
+## Injecting dependencies
+
+Where are our dependencies specified at present?
+
+- custom and third-party scripts are in `./inst/assets/`
+- `htmlDependency` for these is defined in `boxxyOutput()`
+
+`countup.js` is required for the animation ... and only for the animation.
+
+Imagine you don't _always_ want to use animation.
+
+Easy:
+
+  - change `boxxy(..., animate = FALSE)`
+  - put a switch in `renderValue()` that prevents animation if `data.animate` is `false`
+
+But:
+
+  - `countup.js` is not required if we aren't animating the numbers
+  - neither `boxxy()` nor `renderValue()` are used in `boxxyOutput`
+  - so we would need a second user-specified `animate = FALSE` argument in `boxxyOutput()` to
+  control the dependencies.
+  
+An alternative:
+
+  - specify optional dependencies in the `renderBoxxy()` function
+
+Workflow:
+
+- optionally ...
+- define an `htmlDependency()` in your `render<OutputName>()` function
+- serialise that `htmlDependency()` using `shiny::createWebDependency()`
+- run `Shiny.renderDependencies()` in the browser to attach the dependency
+- (and tweak the logic of your `renderValue()` method)
+
+With this, the dependency is not transferred unless it is required.
+
+Note that we used `htmltools::attachDependencies()` to specify the fixed dependencies in
+`boxxyOutput()`
+
+## Summary
+
+With a custom output you have to:
+
+- create the data you want to use (`boxxy()`)
+- serialise that data and transmit it to the front end (`renderBoxxy()`)
+- construct the HTML skeleton within which the data/images will be presented (`boxxyOutput`)
+- tell front-end shiny what to do with the data you have sent it
+  - create an OutputBinding (one for each type of custom output)
+  - add a `find` method to the OutputBinding (how to find output elements _of this type_)
+  - add a `renderValue` method to the OutputBinding (how to update an output element in response to
+  new data)
+  - register the OutputBinding with front-end shiny
+- and also transfer any custom or third-party scripts that are required for the above
 
 ## Meeting Videos
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+Week 1 video:
+
+`r knitr::include_url("https://www.youtube.com/embed/pPau7AzQAww")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+Week 1
+00:47:06	Ryan Metcalf:	Absolute versus Relative paths: https://www.computerhope.com/issues/ch001708.htm
+01:01:55	LUCIO ENRIQUE CORNEJO RAM REZ:	I have an idea why the author did not use shiny::createRenderFunction
+01:02:42	Arthur Shaw:	@lucio, please jump in! I'm just as confused as Russ.
+01:12:26	LUCIO ENRIQUE CORNEJO RAM REZ:	I hope i get sick again so I can come to this sessions, instead of going to class :)
+
+Week 2
+00:14:24	Info Training:	https://shiny.rstudio.com/articles/building-outputs.html
+00:22:29	Ryan Metcalf:	I apologize team. I must drop. I'll catch the recording post production. Multitasking on my end ;). Have a great day!
+00:22:38	Info Training:	No problem
 ```
 </details>
