@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7.6 Working with data | JavaScript for R Book Club</title>
+  <title>14.6 JavaScript Output binding | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7.6 Working with data | JavaScript for R Book Club" />
+  <meta property="og:title" content="14.6 JavaScript Output binding | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7.6 Working with data | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="14.6 JavaScript Output binding | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="js-side-code.html"/>
-<link rel="next" href="transforming-data.html"/>
+<link rel="prev" href="output-renderer.html"/>
+<link rel="next" href="boxxy-usage.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -482,89 +482,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="working-with-data" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Working with data<a href="working-with-data.html#working-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The data expected by GIO is as follows:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb34-1"><a href="working-with-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Array[Object{e: ISO2CODE, i: ISO2CODE, v: number}]</span></span>
-<span id="cb34-2"><a href="working-with-data.html#cb34-2" aria-hidden="true" tabindex="-1"></a>[</span>
-<span id="cb34-3"><a href="working-with-data.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb34-4"><a href="working-with-data.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="st">&quot;CN&quot;</span><span class="op">,</span> <span class="co">// exporting country</span></span>
-<span id="cb34-5"><a href="working-with-data.html#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="st">&quot;US&quot;</span><span class="op">,</span> <span class="co">// importing country</span></span>
-<span id="cb34-6"><a href="working-with-data.html#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">3300000</span> <span class="co">// value</span></span>
-<span id="cb34-7"><a href="working-with-data.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb34-8"><a href="working-with-data.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb34-9"><a href="working-with-data.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="st">&quot;CN&quot;</span><span class="op">,</span></span>
-<span id="cb34-10"><a href="working-with-data.html#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="st">&quot;RU&quot;</span><span class="op">,</span></span>
-<span id="cb34-11"><a href="working-with-data.html#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">10000</span></span>
-<span id="cb34-12"><a href="working-with-data.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb34-13"><a href="working-with-data.html#cb34-13" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
-<p><a href="https://giojs.org/html/docs/dataAdd.html" class="uri">https://giojs.org/html/docs/dataAdd.html</a></p>
-<p>R reads that as a data-frame:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(r<span class="st">&quot;([</span></span>
-<span id="cb35-2"><a href="working-with-data.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="st">  {</span></span>
-<span id="cb35-3"><a href="working-with-data.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>e<span class="st">&quot;: &quot;</span>CN<span class="st">&quot;, // exporting country</span></span>
-<span id="cb35-4"><a href="working-with-data.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>i<span class="st">&quot;: &quot;</span>US<span class="st">&quot;, // importing country</span></span>
-<span id="cb35-5"><a href="working-with-data.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>v<span class="st">&quot;: 3300000 // value</span></span>
-<span id="cb35-6"><a href="working-with-data.html#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
-<span id="cb35-7"><a href="working-with-data.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">  {</span></span>
-<span id="cb35-8"><a href="working-with-data.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>e<span class="st">&quot;: &quot;</span>CN<span class="st">&quot;,</span></span>
-<span id="cb35-9"><a href="working-with-data.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>i<span class="st">&quot;: &quot;</span>RU<span class="st">&quot;,</span></span>
-<span id="cb35-10"><a href="working-with-data.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>v<span class="st">&quot;: 10000</span></span>
-<span id="cb35-11"><a href="working-with-data.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb35-12"><a href="working-with-data.html#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="st">])&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="working-with-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a>arcs</span></code></pre></div>
-<pre><code>##    e  i       v
-## 1 CN US 3300000
-## 2 CN RU   10000</code></pre>
-<p>Conflict between R-style datasets and GIO-expected / JS-style datasets</p>
+<div id="javascript-output-binding" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> JavaScript Output binding<a href="javascript-output-binding.html#javascript-output-binding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What is an “Output binding”?</p>
 <ul>
-<li>Objects in the JS array ~ Rows of the R data-frame</li>
+<li>JS object</li>
+<li>Tells shiny how to find the output component</li>
+<li>… and how to interact with it</li>
 </ul>
-<p>Widget changes:
-- use <code>data</code> param rather than <code>message</code> in R function
-- include this as <code>x.data</code> in the object passed to JS
-- Use <code>x.data</code> in the <code>controller.addData()</code> call</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb38-1"><a href="working-with-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ... snip ...</span></span>
-<span id="cb38-2"><a href="working-with-data.html#cb38-2" aria-hidden="true" tabindex="-1"></a>factory<span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
-<span id="cb38-3"><a href="working-with-data.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
-<span id="cb38-4"><a href="working-with-data.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
-<span id="cb38-5"><a href="working-with-data.html#cb38-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> controller <span class="op">=</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
-<span id="cb38-6"><a href="working-with-data.html#cb38-6" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">addData</span>(x<span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
-<span id="cb38-7"><a href="working-with-data.html#cb38-7" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">init</span>()<span class="op">;</span></span>
-<span id="cb38-8"><a href="working-with-data.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb38-9"><a href="working-with-data.html#cb38-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb38-10"><a href="working-with-data.html#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
-<span id="cb38-11"><a href="working-with-data.html#cb38-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="working-with-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a>newGio <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb39-2"><a href="working-with-data.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="working-with-data.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># forward options using x</span></span>
-<span id="cb39-4"><a href="working-with-data.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">list</span>(</span>
-<span id="cb39-5"><a href="working-with-data.html#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
-<span id="cb39-6"><a href="working-with-data.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb39-7"><a href="working-with-data.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span></code></pre></div>
-<p>Look in devtools at the contents of the dataset:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb40-1"><a href="working-with-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;application/json&quot;</span> data<span class="op">-</span><span class="cf">for</span><span class="op">=</span><span class="st">&quot;htmlwidget-b97f43c69fa089f58c24&quot;</span><span class="op">&gt;</span></span>
-<span id="cb40-2"><a href="working-with-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb40-3"><a href="working-with-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;x&quot;</span><span class="op">:</span> {</span>
-<span id="cb40-4"><a href="working-with-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;data&quot;</span><span class="op">:</span>{</span>
-<span id="cb40-5"><a href="working-with-data.html#cb40-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;e&quot;</span><span class="op">:</span>[<span class="st">&quot;CN&quot;</span><span class="op">,</span><span class="st">&quot;CN&quot;</span>]<span class="op">,</span></span>
-<span id="cb40-6"><a href="working-with-data.html#cb40-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;i&quot;</span><span class="op">:</span>[<span class="st">&quot;US&quot;</span><span class="op">,</span><span class="st">&quot;RU&quot;</span>]<span class="op">,</span></span>
-<span id="cb40-7"><a href="working-with-data.html#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;v&quot;</span><span class="op">:</span>[<span class="dv">3300000</span><span class="op">,</span><span class="dv">10000</span>]</span>
-<span id="cb40-8"><a href="working-with-data.html#cb40-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb40-9"><a href="working-with-data.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb40-10"><a href="working-with-data.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;evals&quot;</span><span class="op">:</span>[]<span class="op">,</span></span>
-<span id="cb40-11"><a href="working-with-data.html#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;jsHooks&quot;</span><span class="op">:</span>[]</span>
-<span id="cb40-12"><a href="working-with-data.html#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-13"><a href="working-with-data.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
-<p>Columns in R have become the elements in <code>x.data</code></p>
+<p>See the RStudio <a href="https://shiny.rstudio.com/articles/building-outputs.html">article on building outputs</a></p>
+<pre><code>(Note that each instance of the output component doesn’t need
+its own output binding object; rather, all instances of a
+particular type of output component share a single output
+binding object.)
+
+- RStudio article</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb154-1"><a href="javascript-output-binding.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ./inst/assets/binding.js</span></span>
+<span id="cb154-2"><a href="javascript-output-binding.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> boxxyBinding <span class="op">=</span> <span class="kw">new</span> Shiny<span class="op">.</span><span class="fu">OutputBinding</span>()<span class="op">;</span></span></code></pre></div>
+<p>Code <a href="https://github.com/rstudio/shiny/blob/a8c14dab9623c984a66fcd4824d8d448afb151e7/srcts/src/bindings/output/outputBinding.ts">definition</a> for <code>Shiny.OutputBinding</code></p>
+<p>Default methods:</p>
+<ul>
+<li><code>find</code> (find all elements of the same class as the required output)</li>
+<li><code>renderValue</code></li>
+<li><code>getId</code></li>
+<li><code>onValueChange</code></li>
+<li><code>onValueError</code></li>
+<li><code>renderError</code></li>
+<li><code>clearError</code></li>
+<li><code>showProgress</code></li>
+</ul>
+<p>Of these, you <em>must</em> define <code>find()</code></p>
+<p>Adding a method to an existing target-object using JQuery’s <code>$.extend(target, object)</code></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb155-1"><a href="javascript-output-binding.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ./inst/assets/binding.js</span></span>
+<span id="cb155-2"><a href="javascript-output-binding.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> boxxyBinding <span class="op">=</span> <span class="kw">new</span> Shiny<span class="op">.</span><span class="fu">OutputBinding</span>()<span class="op">;</span></span>
+<span id="cb155-3"><a href="javascript-output-binding.html#cb155-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-4"><a href="javascript-output-binding.html#cb155-4" aria-hidden="true" tabindex="-1"></a>$<span class="op">.</span><span class="fu">extend</span>(boxxyBinding<span class="op">,</span> {</span>
+<span id="cb155-5"><a href="javascript-output-binding.html#cb155-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">find</span><span class="op">:</span> <span class="kw">function</span>(scope) {</span>
+<span id="cb155-6"><a href="javascript-output-binding.html#cb155-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// JQuery to get an array of elements of class &quot;boxxy&quot;</span></span>
+<span id="cb155-7"><a href="javascript-output-binding.html#cb155-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">$</span>(scope)<span class="op">.</span><span class="fu">find</span>(<span class="st">&quot;.boxxy&quot;</span>)<span class="op">;</span></span>
+<span id="cb155-8"><a href="javascript-output-binding.html#cb155-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb155-9"><a href="javascript-output-binding.html#cb155-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>You also need a way to get the HTML ID for a given element</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb156-1"><a href="javascript-output-binding.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co">// getId default</span></span>
+<span id="cb156-2"><a href="javascript-output-binding.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="kw">this</span><span class="op">.</span><span class="at">getId</span> <span class="op">=</span> <span class="kw">function</span>(el) {</span>
+<span id="cb156-3"><a href="javascript-output-binding.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> el[<span class="st">&quot;data-input-id&quot;</span>] <span class="op">||</span> el<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
+<span id="cb156-4"><a href="javascript-output-binding.html#cb156-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>You also need to define a <code>renderValue(el, data)</code> method which converts the data passed by the
+R-side <code>renderBoxxy()</code> function and attaches it to the element created by <code>boxxyOutput()</code></p>
+<p>And, register the output binding with shiny.</p>
+<p>Difficulties here:</p>
+<ul>
+<li>For boxxy, <code>find</code> returns an array of elements of class <code>boxxy</code></li>
+<li><code>getId</code> returns the ID of a given one of those elements</li>
+<li>So when I change the data passed to a boxxy element in shiny</li>
+<li>… how does it know which of the DOM’s boxxy elements to update?</li>
+</ul>
+<p>For each registered OutputBinding:</p>
+<ul>
+<li>JS-side shiny iterates over all elements that are returned by <code>.find()</code></li>
+<li>.. and makes an adapter that connects the element to it’s OutputBinding</li>
+<li>see the <a href="https://github.com/rstudio/shiny/blob/a8c14dab9623c984a66fcd4824d8d448afb151e7/srcts/src/shiny/bind.ts#L122">bind.ts source code</a></li>
+</ul>
+<p>We now fill in the <code>renderValue</code> method (to tell JS what to do when new data is received)</p>
+<p>Remember what <code>boxxyOutput()</code> returns:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="javascript-output-binding.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(</span>
+<span id="cb157-2"><a href="javascript-output-binding.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxxyOutput</span>(<span class="st">&quot;my_id&quot;</span>)</span>
+<span id="cb157-3"><a href="javascript-output-binding.html#cb157-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## &lt;div id=&quot;my_id&quot; class=&quot;boxxy&quot;&gt;
+##   &lt;h1 id=&quot;my_id-boxxy-value&quot; class=&quot;boxxy-value&quot;&gt;&lt;/h1&gt;
+##   &lt;p id=&quot;my_id-boxxy-title&quot; class=&quot;boxxy-title&quot;&gt;&lt;/p&gt;
+## &lt;/div&gt;</code></pre>
+<p>Remember what <code>boxxy()</code> receives and outputs:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="javascript-output-binding.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxxy</span>(<span class="at">title =</span> <span class="st">&quot;Some title&quot;</span>, <span class="at">value =</span> <span class="dv">87</span>, <span class="at">color =</span> <span class="st">&quot;#FF00FF&quot;</span>)</span></code></pre></div>
+<pre><code>## $title
+## [1] &quot;Some title&quot;
+## 
+## $value
+## [1] 87
+## 
+## $color
+## [1] &quot;#FF00FF&quot;</code></pre>
+<p>The ‘title’ needs to be presented by the <code>&lt;p id="&lt;the_id&gt;-boxxy_title" class="boxxy-title"&gt;</code>
+element.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb161-1"><a href="javascript-output-binding.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ./inst/assets/binding.js</span></span>
+<span id="cb161-2"><a href="javascript-output-binding.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> boxxyBinding <span class="op">=</span> <span class="kw">new</span> Shiny<span class="op">.</span><span class="fu">OutputBinding</span>()<span class="op">;</span></span>
+<span id="cb161-3"><a href="javascript-output-binding.html#cb161-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-4"><a href="javascript-output-binding.html#cb161-4" aria-hidden="true" tabindex="-1"></a>$<span class="op">.</span><span class="fu">extend</span>(boxxyBinding<span class="op">,</span> {</span>
+<span id="cb161-5"><a href="javascript-output-binding.html#cb161-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
+<span id="cb161-6"><a href="javascript-output-binding.html#cb161-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> data) {</span>
+<span id="cb161-7"><a href="javascript-output-binding.html#cb161-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// insert the title</span></span>
+<span id="cb161-8"><a href="javascript-output-binding.html#cb161-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> titleId <span class="op">=</span> el<span class="op">.</span><span class="at">id</span> <span class="op">+</span> <span class="st">&quot;-boxxy-title&quot;</span><span class="op">;</span></span>
+<span id="cb161-9"><a href="javascript-output-binding.html#cb161-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(titleId)<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> data<span class="op">.</span><span class="at">title</span><span class="op">;</span></span>
+<span id="cb161-10"><a href="javascript-output-binding.html#cb161-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb161-11"><a href="javascript-output-binding.html#cb161-11" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>Similarly, we can set the counter value and the background color for the element:</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb162-1"><a href="javascript-output-binding.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ./inst/assets/binding.js</span></span>
+<span id="cb162-2"><a href="javascript-output-binding.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> boxxyBinding <span class="op">=</span> <span class="kw">new</span> Shiny<span class="op">.</span><span class="fu">OutputBinding</span>()<span class="op">;</span></span>
+<span id="cb162-3"><a href="javascript-output-binding.html#cb162-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-4"><a href="javascript-output-binding.html#cb162-4" aria-hidden="true" tabindex="-1"></a>$<span class="op">.</span><span class="fu">extend</span>(boxxyBinding<span class="op">,</span> {</span>
+<span id="cb162-5"><a href="javascript-output-binding.html#cb162-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
+<span id="cb162-6"><a href="javascript-output-binding.html#cb162-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> data) {</span>
+<span id="cb162-7"><a href="javascript-output-binding.html#cb162-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// insert the title</span></span>
+<span id="cb162-8"><a href="javascript-output-binding.html#cb162-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> titleId <span class="op">=</span> el<span class="op">.</span><span class="at">id</span> <span class="op">+</span> <span class="st">&quot;-boxxy-title&quot;</span><span class="op">;</span></span>
+<span id="cb162-9"><a href="javascript-output-binding.html#cb162-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(titleId)<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> data<span class="op">.</span><span class="at">title</span><span class="op">;</span></span>
+<span id="cb162-10"><a href="javascript-output-binding.html#cb162-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb162-11"><a href="javascript-output-binding.html#cb162-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// place counter in elementId</span></span>
+<span id="cb162-12"><a href="javascript-output-binding.html#cb162-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// start at 0 and count up to 123</span></span>
+<span id="cb162-13"><a href="javascript-output-binding.html#cb162-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> counterId <span class="op">=</span> el<span class="op">.</span><span class="at">id</span> <span class="op">+</span> <span class="st">&quot;-boxxy-value&quot;</span><span class="op">;</span></span>
+<span id="cb162-14"><a href="javascript-output-binding.html#cb162-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> counter <span class="op">=</span> <span class="kw">new</span> <span class="fu">CountUp</span>(counterId<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> data<span class="op">.</span><span class="at">value</span>)<span class="op">;</span></span>
+<span id="cb162-15"><a href="javascript-output-binding.html#cb162-15" aria-hidden="true" tabindex="-1"></a>    counter<span class="op">.</span><span class="fu">start</span>()<span class="op">;</span></span>
+<span id="cb162-16"><a href="javascript-output-binding.html#cb162-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb162-17"><a href="javascript-output-binding.html#cb162-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// background color</span></span>
+<span id="cb162-18"><a href="javascript-output-binding.html#cb162-18" aria-hidden="true" tabindex="-1"></a>    el<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">backgroundColor</span> <span class="op">=</span> data<span class="op">.</span><span class="at">color</span><span class="op">;</span></span>
+<span id="cb162-19"><a href="javascript-output-binding.html#cb162-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb162-20"><a href="javascript-output-binding.html#cb162-20" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>To register an OutputBinding with shiny, we use the following code:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb163-1"><a href="javascript-output-binding.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ./inst/assets/binding.js</span></span>
+<span id="cb163-2"><a href="javascript-output-binding.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb163-3"><a href="javascript-output-binding.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="co">// The second argument doesn&#39;t do anything yet</span></span>
+<span id="cb163-4"><a href="javascript-output-binding.html#cb163-4" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="at">outputBindings</span><span class="op">.</span><span class="fu">register</span>(boxxyBinding<span class="op">,</span> <span class="st">&quot;john.boxxy&quot;</span>)<span class="op">;</span></span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="js-side-code.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="transforming-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="output-renderer.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="boxxy-usage.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -595,7 +639,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/07.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/14.Rmd",
 "text": "Edit"
 },
 "history": {

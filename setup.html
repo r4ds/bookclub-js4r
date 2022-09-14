@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7.6 Working with data | JavaScript for R Book Club</title>
+  <title>14.1 Setup | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7.6 Working with data | JavaScript for R Book Club" />
+  <meta property="og:title" content="14.1 Setup | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7.6 Working with data | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="14.1 Setup | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="js-side-code.html"/>
-<link rel="next" href="transforming-data.html"/>
+<link rel="prev" href="custom-outputs.html"/>
+<link rel="next" href="output-r-functions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -482,89 +482,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="working-with-data" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Working with data<a href="working-with-data.html#working-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The data expected by GIO is as follows:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb34-1"><a href="working-with-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Array[Object{e: ISO2CODE, i: ISO2CODE, v: number}]</span></span>
-<span id="cb34-2"><a href="working-with-data.html#cb34-2" aria-hidden="true" tabindex="-1"></a>[</span>
-<span id="cb34-3"><a href="working-with-data.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb34-4"><a href="working-with-data.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="st">&quot;CN&quot;</span><span class="op">,</span> <span class="co">// exporting country</span></span>
-<span id="cb34-5"><a href="working-with-data.html#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="st">&quot;US&quot;</span><span class="op">,</span> <span class="co">// importing country</span></span>
-<span id="cb34-6"><a href="working-with-data.html#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">3300000</span> <span class="co">// value</span></span>
-<span id="cb34-7"><a href="working-with-data.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb34-8"><a href="working-with-data.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb34-9"><a href="working-with-data.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="st">&quot;CN&quot;</span><span class="op">,</span></span>
-<span id="cb34-10"><a href="working-with-data.html#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="st">&quot;RU&quot;</span><span class="op">,</span></span>
-<span id="cb34-11"><a href="working-with-data.html#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">10000</span></span>
-<span id="cb34-12"><a href="working-with-data.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb34-13"><a href="working-with-data.html#cb34-13" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
-<p><a href="https://giojs.org/html/docs/dataAdd.html" class="uri">https://giojs.org/html/docs/dataAdd.html</a></p>
-<p>R reads that as a data-frame:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(r<span class="st">&quot;([</span></span>
-<span id="cb35-2"><a href="working-with-data.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="st">  {</span></span>
-<span id="cb35-3"><a href="working-with-data.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>e<span class="st">&quot;: &quot;</span>CN<span class="st">&quot;, // exporting country</span></span>
-<span id="cb35-4"><a href="working-with-data.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>i<span class="st">&quot;: &quot;</span>US<span class="st">&quot;, // importing country</span></span>
-<span id="cb35-5"><a href="working-with-data.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>v<span class="st">&quot;: 3300000 // value</span></span>
-<span id="cb35-6"><a href="working-with-data.html#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
-<span id="cb35-7"><a href="working-with-data.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">  {</span></span>
-<span id="cb35-8"><a href="working-with-data.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>e<span class="st">&quot;: &quot;</span>CN<span class="st">&quot;,</span></span>
-<span id="cb35-9"><a href="working-with-data.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>i<span class="st">&quot;: &quot;</span>RU<span class="st">&quot;,</span></span>
-<span id="cb35-10"><a href="working-with-data.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;</span>v<span class="st">&quot;: 10000</span></span>
-<span id="cb35-11"><a href="working-with-data.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb35-12"><a href="working-with-data.html#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="st">])&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="working-with-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a>arcs</span></code></pre></div>
-<pre><code>##    e  i       v
-## 1 CN US 3300000
-## 2 CN RU   10000</code></pre>
-<p>Conflict between R-style datasets and GIO-expected / JS-style datasets</p>
+<div id="setup" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Setup<a href="setup.html#setup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Objects in the JS array ~ Rows of the R data-frame</li>
+<li>In the book they make an app and add functions <code>boxxy</code>, <code>renderBoxxy</code> and <code>boxxyOutput</code> to the
+R/ directory</li>
+<li>Here, we’ll make a package containing the <code>boxxy</code> functions and add an app to demonstrate it</li>
 </ul>
-<p>Widget changes:
-- use <code>data</code> param rather than <code>message</code> in R function
-- include this as <code>x.data</code> in the object passed to JS
-- Use <code>x.data</code> in the <code>controller.addData()</code> call</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb38-1"><a href="working-with-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ... snip ...</span></span>
-<span id="cb38-2"><a href="working-with-data.html#cb38-2" aria-hidden="true" tabindex="-1"></a>factory<span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
-<span id="cb38-3"><a href="working-with-data.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
-<span id="cb38-4"><a href="working-with-data.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
-<span id="cb38-5"><a href="working-with-data.html#cb38-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> controller <span class="op">=</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
-<span id="cb38-6"><a href="working-with-data.html#cb38-6" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">addData</span>(x<span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
-<span id="cb38-7"><a href="working-with-data.html#cb38-7" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">init</span>()<span class="op">;</span></span>
-<span id="cb38-8"><a href="working-with-data.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb38-9"><a href="working-with-data.html#cb38-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb38-10"><a href="working-with-data.html#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
-<span id="cb38-11"><a href="working-with-data.html#cb38-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="working-with-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a>newGio <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb39-2"><a href="working-with-data.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="working-with-data.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># forward options using x</span></span>
-<span id="cb39-4"><a href="working-with-data.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">list</span>(</span>
-<span id="cb39-5"><a href="working-with-data.html#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
-<span id="cb39-6"><a href="working-with-data.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb39-7"><a href="working-with-data.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span></code></pre></div>
-<p>Look in devtools at the contents of the dataset:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb40-1"><a href="working-with-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;application/json&quot;</span> data<span class="op">-</span><span class="cf">for</span><span class="op">=</span><span class="st">&quot;htmlwidget-b97f43c69fa089f58c24&quot;</span><span class="op">&gt;</span></span>
-<span id="cb40-2"><a href="working-with-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb40-3"><a href="working-with-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;x&quot;</span><span class="op">:</span> {</span>
-<span id="cb40-4"><a href="working-with-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;data&quot;</span><span class="op">:</span>{</span>
-<span id="cb40-5"><a href="working-with-data.html#cb40-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;e&quot;</span><span class="op">:</span>[<span class="st">&quot;CN&quot;</span><span class="op">,</span><span class="st">&quot;CN&quot;</span>]<span class="op">,</span></span>
-<span id="cb40-6"><a href="working-with-data.html#cb40-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;i&quot;</span><span class="op">:</span>[<span class="st">&quot;US&quot;</span><span class="op">,</span><span class="st">&quot;RU&quot;</span>]<span class="op">,</span></span>
-<span id="cb40-7"><a href="working-with-data.html#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;v&quot;</span><span class="op">:</span>[<span class="dv">3300000</span><span class="op">,</span><span class="dv">10000</span>]</span>
-<span id="cb40-8"><a href="working-with-data.html#cb40-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb40-9"><a href="working-with-data.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb40-10"><a href="working-with-data.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;evals&quot;</span><span class="op">:</span>[]<span class="op">,</span></span>
-<span id="cb40-11"><a href="working-with-data.html#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;jsHooks&quot;</span><span class="op">:</span>[]</span>
-<span id="cb40-12"><a href="working-with-data.html#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-13"><a href="working-with-data.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
-<p>Columns in R have become the elements in <code>x.data</code></p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="setup.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
+<span id="cb125-2"><a href="setup.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_package</span>(<span class="st">&quot;boxxy&quot;</span>)</span>
+<span id="cb125-3"><a href="setup.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="fu">use_package</span>(<span class="st">&quot;shiny&quot;</span>)</span>
+<span id="cb125-4"><a href="setup.html#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_mit_license</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb126-1"><a href="setup.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BASH</span></span>
+<span id="cb126-2"><a href="setup.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="co"># See https://www.npmjs.com/package/gitignore</span></span>
+<span id="cb126-3"><a href="setup.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="ex">gitignore</span> r</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="setup.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copied a function from Dean attali&#39;s blog to run a named app from</span></span>
+<span id="cb127-2"><a href="setup.html#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ./inst/shiny-examples/app-name/</span></span>
+<span id="cb127-3"><a href="setup.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - See https://deanattali.com/2015/04/21/r-package-shiny-app/</span></span>
+<span id="cb127-4"><a href="setup.html#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - called it run_example(app_name)</span></span>
+<span id="cb127-5"><a href="setup.html#cb127-5" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">&quot;run_example&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb128-1"><a href="setup.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BASH</span></span>
+<span id="cb128-2"><a href="setup.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Added a shiny app to ./inst/shiny-examples/boxxy-demo</span></span>
+<span id="cb128-3"><a href="setup.html#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ./inst/shiny-examples/boxxy-demo</span>
+<span id="cb128-4"><a href="setup.html#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> ./inst/shiny-examples/boxxy-demo/app.R</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb129-1"><a href="setup.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BASH</span></span>
+<span id="cb129-2"><a href="setup.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The dependencies of `boxxy` will be put into `./inst/assets`</span></span>
+<span id="cb129-3"><a href="setup.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ./inst/assets</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="setup.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I&#39;d probably put this in ./dev/setup_dependencies.R</span></span>
+<span id="cb130-2"><a href="setup.html#cb130-2" aria-hidden="true" tabindex="-1"></a>dirs <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb130-3"><a href="setup.html#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">assets =</span> <span class="fu">file.path</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;assets&quot;</span>)</span>
+<span id="cb130-4"><a href="setup.html#cb130-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb130-5"><a href="setup.html#cb130-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-6"><a href="setup.html#cb130-6" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb130-7"><a href="setup.html#cb130-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">countup =</span> <span class="fu">paste0</span>(</span>
+<span id="cb130-8"><a href="setup.html#cb130-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://cdn.jsdelivr.net/npm/countup@1.8.2/countUp.js&quot;</span></span>
+<span id="cb130-9"><a href="setup.html#cb130-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb130-10"><a href="setup.html#cb130-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb130-11"><a href="setup.html#cb130-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-12"><a href="setup.html#cb130-12" aria-hidden="true" tabindex="-1"></a>paths <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb130-13"><a href="setup.html#cb130-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">countup =</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>assets, <span class="st">&quot;countup.js&quot;</span>),</span>
+<span id="cb130-14"><a href="setup.html#cb130-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">binding =</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>assets, <span class="st">&quot;binding.js&quot;</span>),</span>
+<span id="cb130-15"><a href="setup.html#cb130-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">css =</span> <span class="fu">file.path</span>(dirs<span class="sc">$</span>assets, <span class="st">&quot;styles.css&quot;</span>)</span>
+<span id="cb130-16"><a href="setup.html#cb130-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb130-17"><a href="setup.html#cb130-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-18"><a href="setup.html#cb130-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Download countUp.js</span></span>
+<span id="cb130-19"><a href="setup.html#cb130-19" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(urls<span class="sc">$</span>countup, paths<span class="sc">$</span>countup)</span>
+<span id="cb130-20"><a href="setup.html#cb130-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-21"><a href="setup.html#cb130-21" aria-hidden="true" tabindex="-1"></a><span class="co"># create  binding file</span></span>
+<span id="cb130-22"><a href="setup.html#cb130-22" aria-hidden="true" tabindex="-1"></a><span class="fu">file.create</span>(paths<span class="sc">$</span>binding)</span>
+<span id="cb130-23"><a href="setup.html#cb130-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-24"><a href="setup.html#cb130-24" aria-hidden="true" tabindex="-1"></a><span class="co"># create CSS file</span></span>
+<span id="cb130-25"><a href="setup.html#cb130-25" aria-hidden="true" tabindex="-1"></a><span class="fu">file.create</span>(paths<span class="sc">$</span>css)</span></code></pre></div>
+<p>So our package outline looks like this (before we’ve added the <code>boxxy()</code> functions).</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb131-1"><a href="setup.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> .</span>
+<span id="cb131-2"><a href="setup.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span></span>
+<span id="cb131-3"><a href="setup.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> boxxy.Rproj</span>
+<span id="cb131-4"><a href="setup.html#cb131-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> DESCRIPTION</span>
+<span id="cb131-5"><a href="setup.html#cb131-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> inst</span>
+<span id="cb131-6"><a href="setup.html#cb131-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── assets</span>
+<span id="cb131-7"><a href="setup.html#cb131-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── binding.js</span>
+<span id="cb131-8"><a href="setup.html#cb131-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── countup.js</span>
+<span id="cb131-9"><a href="setup.html#cb131-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── styles.css</span>
+<span id="cb131-10"><a href="setup.html#cb131-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── shiny-examples</span>
+<span id="cb131-11"><a href="setup.html#cb131-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── boxxy-demo</span>
+<span id="cb131-12"><a href="setup.html#cb131-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           └── app.R</span>
+<span id="cb131-13"><a href="setup.html#cb131-13" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> LICENSE</span>
+<span id="cb131-14"><a href="setup.html#cb131-14" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> LICENSE.md</span>
+<span id="cb131-15"><a href="setup.html#cb131-15" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> man</span>
+<span id="cb131-16"><a href="setup.html#cb131-16" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── run_example.Rd</span>
+<span id="cb131-17"><a href="setup.html#cb131-17" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> NAMESPACE</span>
+<span id="cb131-18"><a href="setup.html#cb131-18" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> R</span>
+<span id="cb131-19"><a href="setup.html#cb131-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> run_example.R</span>
+<span id="cb131-20"><a href="setup.html#cb131-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-21"><a href="setup.html#cb131-21" aria-hidden="true" tabindex="-1"></a><span class="ex">6</span> directories, 11 files</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="js-side-code.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="transforming-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="custom-outputs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="output-r-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -595,7 +593,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/07.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/14.Rmd",
 "text": "Edit"
 },
 "history": {
