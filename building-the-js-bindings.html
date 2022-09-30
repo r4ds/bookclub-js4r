@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22.2 Meeting Videos | JavaScript for R Book Club</title>
+  <title>15.6 Building the JS bindings | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22.2 Meeting Videos | JavaScript for R Book Club" />
+  <meta property="og:title" content="15.6 Building the JS bindings | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22.2 Meeting Videos | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="15.6 Building the JS bindings | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="slide-1-7.html"/>
-<link rel="next" href="webpack-advanced.html"/>
+<link rel="prev" href="desired-functionalityjs-bindings.html"/>
+<link rel="next" href="meeting-videos-14.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -493,29 +493,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="meeting-videos-21" class="section level2 hasAnchor" number="22.2">
-<h2><span class="header-section-number">22.2</span> Meeting Videos<a href="meeting-videos-21.html#meeting-videos-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="cohort-1-21" class="section level3 hasAnchor" number="22.2.1">
-<h3><span class="header-section-number">22.2.1</span> Cohort 1<a href="meeting-videos-21.html#cohort-1-21" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<iframe src="https://www.youtube.com/embed/URL" width="100%" height="400px" data-external="1">
-</iframe>
-<details>
-<summary>
-Meeting chat log
-</summary>
-<pre><code>LOG</code></pre>
-</details>
-
+<div id="building-the-js-bindings" class="section level2 hasAnchor" number="15.6">
+<h2><span class="header-section-number">15.6</span> Building the JS bindings<a href="building-the-js-bindings.html#building-the-js-bindings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb174"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb174-1"><a href="building-the-js-bindings.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co">// set bindings</span></span>
+<span id="cb174-2"><a href="building-the-js-bindings.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> switchInput <span class="op">=</span> <span class="kw">new</span> Shiny<span class="op">.</span><span class="fu">InputBinding</span>()<span class="op">;</span></span>
+<span id="cb174-3"><a href="building-the-js-bindings.html#cb174-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-4"><a href="building-the-js-bindings.html#cb174-4" aria-hidden="true" tabindex="-1"></a><span class="co">// extend bindings</span></span>
+<span id="cb174-5"><a href="building-the-js-bindings.html#cb174-5" aria-hidden="true" tabindex="-1"></a>$<span class="op">.</span><span class="fu">extend</span>(switchInput<span class="op">,</span> {</span>
+<span id="cb174-6"><a href="building-the-js-bindings.html#cb174-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// find elements in DOM with switchInput class (i.e., class of switch UI input)</span></span>
+<span id="cb174-7"><a href="building-the-js-bindings.html#cb174-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">find</span><span class="op">:</span> <span class="kw">function</span>(scope) {</span>
+<span id="cb174-8"><a href="building-the-js-bindings.html#cb174-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">$</span>(scope)<span class="op">.</span><span class="fu">find</span>(<span class="st">&quot;.switchInput&quot;</span>)<span class="op">;</span></span>
+<span id="cb174-9"><a href="building-the-js-bindings.html#cb174-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb174-10"><a href="building-the-js-bindings.html#cb174-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// get the checked attribute of that element</span></span>
+<span id="cb174-11"><a href="building-the-js-bindings.html#cb174-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// normally, would want to use val() to get the value</span></span>
+<span id="cb174-12"><a href="building-the-js-bindings.html#cb174-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// but the input is a checkbox and has a checked attribute</span></span>
+<span id="cb174-13"><a href="building-the-js-bindings.html#cb174-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">getValue</span><span class="op">:</span> <span class="kw">function</span>(el) {</span>
+<span id="cb174-14"><a href="building-the-js-bindings.html#cb174-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">$</span>(el)<span class="op">.</span><span class="fu">prop</span>(<span class="st">&quot;checked&quot;</span>)<span class="op">;</span></span>
+<span id="cb174-15"><a href="building-the-js-bindings.html#cb174-15" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb174-16"><a href="building-the-js-bindings.html#cb174-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// change the checked attribute to the desired value: true/false</span></span>
+<span id="cb174-17"><a href="building-the-js-bindings.html#cb174-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// see more here for prop: https://www.w3schools.com/jquery/html_prop.asp</span></span>
+<span id="cb174-18"><a href="building-the-js-bindings.html#cb174-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// see more here for change event: https://www.w3schools.com/jquery/jquery_events.asp</span></span>
+<span id="cb174-19"><a href="building-the-js-bindings.html#cb174-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">setValue</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> value) {</span>
+<span id="cb174-20"><a href="building-the-js-bindings.html#cb174-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">$</span>(el)<span class="op">.</span><span class="fu">prop</span>(<span class="st">&quot;checked&quot;</span><span class="op">,</span> value)<span class="op">.</span><span class="fu">change</span>()<span class="op">;</span></span>
+<span id="cb174-21"><a href="building-the-js-bindings.html#cb174-21" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb174-22"><a href="building-the-js-bindings.html#cb174-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// handle messages sent from the server</span></span>
+<span id="cb174-23"><a href="building-the-js-bindings.html#cb174-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">// change the input accordingly by invoking setValue method</span></span>
+<span id="cb174-24"><a href="building-the-js-bindings.html#cb174-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">receiveMessage</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> value){</span>
+<span id="cb174-25"><a href="building-the-js-bindings.html#cb174-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="fu">setValue</span>(el<span class="op">,</span> value)<span class="op">;</span></span>
+<span id="cb174-26"><a href="building-the-js-bindings.html#cb174-26" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb174-27"><a href="building-the-js-bindings.html#cb174-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">// set an event listener on switchInput</span></span>
+<span id="cb174-28"><a href="building-the-js-bindings.html#cb174-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">// notify Shiny to update the value on the server when checked values changes in DOM</span></span>
+<span id="cb174-29"><a href="building-the-js-bindings.html#cb174-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">// see more on on() method here: https://www.w3schools.com/jquery/jquery_events.asp</span></span>
+<span id="cb174-30"><a href="building-the-js-bindings.html#cb174-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">subscribe</span><span class="op">:</span> <span class="kw">function</span> (el<span class="op">,</span> callback) {</span>
+<span id="cb174-31"><a href="building-the-js-bindings.html#cb174-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">$</span>(el)<span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;change.switchInput&quot;</span><span class="op">,</span> <span class="kw">function</span>(){</span>
+<span id="cb174-32"><a href="building-the-js-bindings.html#cb174-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">callback</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb174-33"><a href="building-the-js-bindings.html#cb174-33" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb174-34"><a href="building-the-js-bindings.html#cb174-34" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb174-35"><a href="building-the-js-bindings.html#cb174-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">// stop Shiny from updating the server</span></span>
+<span id="cb174-36"><a href="building-the-js-bindings.html#cb174-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsubscribe</span><span class="op">:</span> <span class="kw">function</span>(el) {</span>
+<span id="cb174-37"><a href="building-the-js-bindings.html#cb174-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">$</span>(el)<span class="op">.</span><span class="fu">off</span>(<span class="st">&quot;.switchInput&quot;</span>)<span class="op">;</span></span>
+<span id="cb174-38"><a href="building-the-js-bindings.html#cb174-38" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb174-39"><a href="building-the-js-bindings.html#cb174-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">getRatePolicy</span><span class="op">:</span> <span class="kw">function</span>(){</span>
+<span id="cb174-40"><a href="building-the-js-bindings.html#cb174-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb174-41"><a href="building-the-js-bindings.html#cb174-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">policy</span><span class="op">:</span> <span class="st">&#39;throttle&#39;</span><span class="op">,</span></span>
+<span id="cb174-42"><a href="building-the-js-bindings.html#cb174-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">delay</span><span class="op">:</span> <span class="dv">1000</span></span>
+<span id="cb174-43"><a href="building-the-js-bindings.html#cb174-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb174-44"><a href="building-the-js-bindings.html#cb174-44" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb174-45"><a href="building-the-js-bindings.html#cb174-45" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb174-46"><a href="building-the-js-bindings.html#cb174-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-47"><a href="building-the-js-bindings.html#cb174-47" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="at">inputBindings</span><span class="op">.</span><span class="fu">register</span>(switchInput<span class="op">,</span> <span class="st">&#39;john.switch&#39;</span>)<span class="op">;</span></span></code></pre></div>
 </div>
-</div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="slide-1-7.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="webpack-advanced.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="desired-functionalityjs-bindings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-14.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -546,7 +580,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/22.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/15.Rmd",
 "text": "Edit"
 },
 "history": {

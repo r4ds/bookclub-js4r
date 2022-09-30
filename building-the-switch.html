@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22.2 Meeting Videos | JavaScript for R Book Club</title>
+  <title>15.4 Building the switch | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22.2 Meeting Videos | JavaScript for R Book Club" />
+  <meta property="og:title" content="15.4 Building the switch | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22.2 Meeting Videos | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="15.4 Building the switch | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="slide-1-7.html"/>
-<link rel="next" href="webpack-advanced.html"/>
+<link rel="prev" href="desired-checkbox.html"/>
+<link rel="next" href="desired-functionalityjs-bindings.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -493,29 +493,121 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="meeting-videos-21" class="section level2 hasAnchor" number="22.2">
-<h2><span class="header-section-number">22.2</span> Meeting Videos<a href="meeting-videos-21.html#meeting-videos-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="cohort-1-21" class="section level3 hasAnchor" number="22.2.1">
-<h3><span class="header-section-number">22.2.1</span> Cohort 1<a href="meeting-videos-21.html#cohort-1-21" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<iframe src="https://www.youtube.com/embed/URL" width="100%" height="400px" data-external="1">
-</iframe>
-<details>
-<summary>
-Meeting chat log
-</summary>
-<pre><code>LOG</code></pre>
-</details>
-
+<div id="building-the-switch" class="section level2 hasAnchor" number="15.4">
+<h2><span class="header-section-number">15.4</span> Building the switch<a href="building-the-switch.html#building-the-switch" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="desired-input-tag" class="section level3 hasAnchor" number="15.4.1">
+<h3><span class="header-section-number">15.4.1</span> Desired input tag<a href="building-the-switch.html#desired-input-tag" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>&lt;label class=&quot;switch&quot;&gt;
+  &lt;input type=&quot;checkbox&quot;&gt;
+  &lt;span class=&quot;slider&quot;&gt;&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+</div>
+<div id="input-tag" class="section level3 hasAnchor" number="15.4.2">
+<h3><span class="header-section-number">15.4.2</span> Input tag<a href="building-the-switch.html#input-tag" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="building-the-switch.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app.R</span></span>
+<span id="cb171-2"><a href="building-the-switch.html#cb171-2" aria-hidden="true" tabindex="-1"></a>switchInput <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb171-3"><a href="building-the-switch.html#cb171-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-4"><a href="building-the-switch.html#cb171-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create input tag with appropriate type and class</span></span>
+<span id="cb171-5"><a href="building-the-switch.html#cb171-5" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">input</span>(</span>
+<span id="cb171-6"><a href="building-the-switch.html#cb171-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> id, </span>
+<span id="cb171-7"><a href="building-the-switch.html#cb171-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;checkbox&quot;</span>, </span>
+<span id="cb171-8"><a href="building-the-switch.html#cb171-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">&quot;switchInput&quot;</span></span>
+<span id="cb171-9"><a href="building-the-switch.html#cb171-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb171-10"><a href="building-the-switch.html#cb171-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-11"><a href="building-the-switch.html#cb171-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="switch-ui" class="section level3 hasAnchor" number="15.4.3">
+<h3><span class="header-section-number">15.4.3</span> Switch UI<a href="building-the-switch.html#switch-ui" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="building-the-switch.html#cb172-1" aria-hidden="true" tabindex="-1"></a>switchInput <span class="ot">&lt;-</span> <span class="cf">function</span>(id, label, <span class="at">checked =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb172-2"><a href="building-the-switch.html#cb172-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-3"><a href="building-the-switch.html#cb172-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create input tag with appropriate type and class</span></span>
+<span id="cb172-4"><a href="building-the-switch.html#cb172-4" aria-hidden="true" tabindex="-1"></a>  input <span class="ot">&lt;-</span> tags<span class="sc">$</span><span class="fu">input</span>(</span>
+<span id="cb172-5"><a href="building-the-switch.html#cb172-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> id, </span>
+<span id="cb172-6"><a href="building-the-switch.html#cb172-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;checkbox&quot;</span>, </span>
+<span id="cb172-7"><a href="building-the-switch.html#cb172-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">&quot;switchInput&quot;</span></span>
+<span id="cb172-8"><a href="building-the-switch.html#cb172-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb172-9"><a href="building-the-switch.html#cb172-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-10"><a href="building-the-switch.html#cb172-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(checked)</span>
+<span id="cb172-11"><a href="building-the-switch.html#cb172-11" aria-hidden="true" tabindex="-1"></a>    input <span class="ot">&lt;-</span> htmltools<span class="sc">::</span><span class="fu">tagAppendAttributes</span>(input, <span class="at">checked =</span> <span class="cn">NA</span>)</span>
+<span id="cb172-12"><a href="building-the-switch.html#cb172-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-13"><a href="building-the-switch.html#cb172-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compose switch input widget:</span></span>
+<span id="cb172-14"><a href="building-the-switch.html#cb172-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Text label</span></span>
+<span id="cb172-15"><a href="building-the-switch.html#cb172-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Label tag that contains</span></span>
+<span id="cb172-16"><a href="building-the-switch.html#cb172-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   - Input</span></span>
+<span id="cb172-17"><a href="building-the-switch.html#cb172-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   - Slider</span></span>
+<span id="cb172-18"><a href="building-the-switch.html#cb172-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Add classes where appropriate</span></span>
+<span id="cb172-19"><a href="building-the-switch.html#cb172-19" aria-hidden="true" tabindex="-1"></a>  form <span class="ot">&lt;-</span> <span class="fu">tagList</span>(</span>
+<span id="cb172-20"><a href="building-the-switch.html#cb172-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">p</span>(label),</span>
+<span id="cb172-21"><a href="building-the-switch.html#cb172-21" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">label</span>(</span>
+<span id="cb172-22"><a href="building-the-switch.html#cb172-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">class =</span> <span class="st">&quot;switch&quot;</span>,</span>
+<span id="cb172-23"><a href="building-the-switch.html#cb172-23" aria-hidden="true" tabindex="-1"></a>      input,</span>
+<span id="cb172-24"><a href="building-the-switch.html#cb172-24" aria-hidden="true" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">span</span>(<span class="at">class =</span> <span class="st">&quot;slider&quot;</span>)</span>
+<span id="cb172-25"><a href="building-the-switch.html#cb172-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb172-26"><a href="building-the-switch.html#cb172-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb172-27"><a href="building-the-switch.html#cb172-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-28"><a href="building-the-switch.html#cb172-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(form)</span>
+<span id="cb172-29"><a href="building-the-switch.html#cb172-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="dependencies-2" class="section level3 hasAnchor" number="15.4.4">
+<h3><span class="header-section-number">15.4.4</span> Dependencies<a href="building-the-switch.html#dependencies-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="building-the-switch.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Switch UI</span></span>
+<span id="cb173-2"><a href="building-the-switch.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; </span></span>
+<span id="cb173-3"><a href="building-the-switch.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Operates as a checkbox but styled as a switch</span></span>
+<span id="cb173-4"><a href="building-the-switch.html#cb173-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; </span></span>
+<span id="cb173-5"><a href="building-the-switch.html#cb173-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param id Character. Id of UI component.</span></span>
+<span id="cb173-6"><a href="building-the-switch.html#cb173-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param label Character. Label for UI component.</span></span>
+<span id="cb173-7"><a href="building-the-switch.html#cb173-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param checked Logical. Initial state of switch input.</span></span>
+<span id="cb173-8"><a href="building-the-switch.html#cb173-8" aria-hidden="true" tabindex="-1"></a>switchInput <span class="ot">&lt;-</span> <span class="cf">function</span>(id, label, <span class="at">checked =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb173-9"><a href="building-the-switch.html#cb173-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-10"><a href="building-the-switch.html#cb173-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create input tag with appropriate type and class</span></span>
+<span id="cb173-11"><a href="building-the-switch.html#cb173-11" aria-hidden="true" tabindex="-1"></a>  input <span class="ot">&lt;-</span> tags<span class="sc">$</span><span class="fu">input</span>(</span>
+<span id="cb173-12"><a href="building-the-switch.html#cb173-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> id, </span>
+<span id="cb173-13"><a href="building-the-switch.html#cb173-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;checkbox&quot;</span>, </span>
+<span id="cb173-14"><a href="building-the-switch.html#cb173-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">&quot;switchInput&quot;</span></span>
+<span id="cb173-15"><a href="building-the-switch.html#cb173-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb173-16"><a href="building-the-switch.html#cb173-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-17"><a href="building-the-switch.html#cb173-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(checked)</span>
+<span id="cb173-18"><a href="building-the-switch.html#cb173-18" aria-hidden="true" tabindex="-1"></a>    input <span class="ot">&lt;-</span> htmltools<span class="sc">::</span><span class="fu">tagAppendAttributes</span>(input, <span class="at">checked =</span> <span class="cn">NA</span>)</span>
+<span id="cb173-19"><a href="building-the-switch.html#cb173-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-20"><a href="building-the-switch.html#cb173-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compose switch input widget:</span></span>
+<span id="cb173-21"><a href="building-the-switch.html#cb173-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Text label</span></span>
+<span id="cb173-22"><a href="building-the-switch.html#cb173-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Label tag that contains</span></span>
+<span id="cb173-23"><a href="building-the-switch.html#cb173-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   - Input</span></span>
+<span id="cb173-24"><a href="building-the-switch.html#cb173-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   - Slider</span></span>
+<span id="cb173-25"><a href="building-the-switch.html#cb173-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Add classes where appropriate</span></span>
+<span id="cb173-26"><a href="building-the-switch.html#cb173-26" aria-hidden="true" tabindex="-1"></a>  form <span class="ot">&lt;-</span> <span class="fu">tagList</span>(</span>
+<span id="cb173-27"><a href="building-the-switch.html#cb173-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">p</span>(label),</span>
+<span id="cb173-28"><a href="building-the-switch.html#cb173-28" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">label</span>(</span>
+<span id="cb173-29"><a href="building-the-switch.html#cb173-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">class =</span> <span class="st">&quot;switch&quot;</span>,</span>
+<span id="cb173-30"><a href="building-the-switch.html#cb173-30" aria-hidden="true" tabindex="-1"></a>      input,</span>
+<span id="cb173-31"><a href="building-the-switch.html#cb173-31" aria-hidden="true" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">span</span>(<span class="at">class =</span> <span class="st">&quot;slider&quot;</span>)</span>
+<span id="cb173-32"><a href="building-the-switch.html#cb173-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb173-33"><a href="building-the-switch.html#cb173-33" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb173-34"><a href="building-the-switch.html#cb173-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-35"><a href="building-the-switch.html#cb173-35" aria-hidden="true" tabindex="-1"></a>  path <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(<span class="st">&quot;./assets&quot;</span>)</span>
+<span id="cb173-36"><a href="building-the-switch.html#cb173-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-37"><a href="building-the-switch.html#cb173-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create dependencies: CSS and JS</span></span>
+<span id="cb173-38"><a href="building-the-switch.html#cb173-38" aria-hidden="true" tabindex="-1"></a>  deps <span class="ot">&lt;-</span> htmltools<span class="sc">::</span><span class="fu">htmlDependency</span>(</span>
+<span id="cb173-39"><a href="building-the-switch.html#cb173-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;switchInput&quot;</span>,</span>
+<span id="cb173-40"><a href="building-the-switch.html#cb173-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">version =</span> <span class="st">&quot;1.0.0&quot;</span>,</span>
+<span id="cb173-41"><a href="building-the-switch.html#cb173-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">src =</span> <span class="fu">c</span>(<span class="at">file =</span> path),</span>
+<span id="cb173-42"><a href="building-the-switch.html#cb173-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">script =</span> <span class="st">&quot;binding.js&quot;</span>,</span>
+<span id="cb173-43"><a href="building-the-switch.html#cb173-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">stylesheet =</span> <span class="st">&quot;styles.css&quot;</span></span>
+<span id="cb173-44"><a href="building-the-switch.html#cb173-44" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb173-45"><a href="building-the-switch.html#cb173-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-46"><a href="building-the-switch.html#cb173-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># attaches dependencies to custom input</span></span>
+<span id="cb173-47"><a href="building-the-switch.html#cb173-47" aria-hidden="true" tabindex="-1"></a>  htmltools<span class="sc">::</span><span class="fu">attachDependencies</span>(form, deps)</span>
+<span id="cb173-48"><a href="building-the-switch.html#cb173-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb173-49"><a href="building-the-switch.html#cb173-49" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="slide-1-7.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="webpack-advanced.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="desired-checkbox.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="desired-functionalityjs-bindings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -546,7 +638,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/22.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/15.Rmd",
 "text": "Edit"
 },
 "history": {
