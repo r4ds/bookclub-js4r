@@ -110,7 +110,7 @@ shinyApp(ui, server)
 
 ### Requirements
 
-Mange values passed from Shiny by:
+Manage values passed from Shiny by:
 
 - Saving as cookies
 - Deleting cookies
