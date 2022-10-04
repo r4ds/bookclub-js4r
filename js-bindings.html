@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 The Full Monty | JavaScript for R Book Club</title>
+  <title>16.3 JS bindings | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta property="og:title" content="16.3 JS bindings | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 The Full Monty | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="16.3 JS bindings | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meeting-videos-5.html"/>
-<link rel="next" href="workflow.html"/>
+<link rel="prev" href="shiny-setup.html"/>
+<link rel="next" href="meeting-videos-15.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -503,24 +503,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-full-monty" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> The Full Monty<a href="the-full-monty.html#the-full-monty" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Learning objectives:</strong></p>
+<div id="js-bindings" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> JS bindings<a href="js-bindings.html#js-bindings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="requirements-1" class="section level3 hasAnchor" number="16.3.1">
+<h3><span class="header-section-number">16.3.1</span> Requirements<a href="js-bindings.html#requirements-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Manage values passed from Shiny by:</p>
 <ul>
-<li>The nature of column-oriented vs row-oriented data serialisation</li>
-<li>How to ensure that R serialises data appropriately for use by JS</li>
-<li>How to modify the object returned by createWidget</li>
-<li>What order should dependencies be specified in the yaml</li>
-<li>We also see how to wrap a complicated JS library using htmlwidgets</li>
+<li>Saving as cookies</li>
+<li>Deleting cookies</li>
+<li>Initializing cookies</li>
+<li>Getting values stored in cookie value for each operation above</li>
 </ul>
+</div>
+<div id="implementation-2" class="section level3 hasAnchor" number="16.3.2">
+<h3><span class="header-section-number">16.3.2</span> Implementation<a href="js-bindings.html#implementation-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb178"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb178-1"><a href="js-bindings.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co">// js-cookies on npm here: https://www.npmjs.com/package/js-cookie</span></span>
+<span id="cb178-2"><a href="js-bindings.html#cb178-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-3"><a href="js-bindings.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb178-4"><a href="js-bindings.html#cb178-4" aria-hidden="true" tabindex="-1"></a><span class="co">UPDATE SHINY INPUT</span></span>
+<span id="cb178-5"><a href="js-bindings.html#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="co">- Define Shiny input</span></span>
+<span id="cb178-6"><a href="js-bindings.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="co">- Fetch value of cookie</span></span>
+<span id="cb178-7"><a href="js-bindings.html#cb178-7" aria-hidden="true" tabindex="-1"></a><span class="co">- Pass value to Shiny</span></span>
+<span id="cb178-8"><a href="js-bindings.html#cb178-8" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb178-9"><a href="js-bindings.html#cb178-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-10"><a href="js-bindings.html#cb178-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getCookies</span>(){</span>
+<span id="cb178-11"><a href="js-bindings.html#cb178-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// for visible cookie(s), returns: { name: &#39;value&#39; }</span></span>
+<span id="cb178-12"><a href="js-bindings.html#cb178-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> res <span class="op">=</span> Cookies<span class="op">.</span><span class="fu">get</span>()<span class="op">;</span></span>
+<span id="cb178-13"><a href="js-bindings.html#cb178-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// pass result to Shiny input$cookies</span></span>
+<span id="cb178-14"><a href="js-bindings.html#cb178-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// note: input$cookies$name contains the value</span></span>
+<span id="cb178-15"><a href="js-bindings.html#cb178-15" aria-hidden="true" tabindex="-1"></a>  Shiny<span class="op">.</span><span class="fu">setInputValue</span>(<span class="st">&#39;cookies&#39;</span><span class="op">,</span> res)<span class="op">;</span></span>
+<span id="cb178-16"><a href="js-bindings.html#cb178-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb178-17"><a href="js-bindings.html#cb178-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-18"><a href="js-bindings.html#cb178-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-19"><a href="js-bindings.html#cb178-19" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb178-20"><a href="js-bindings.html#cb178-20" aria-hidden="true" tabindex="-1"></a><span class="co">SET VALUE OF COOKIE</span></span>
+<span id="cb178-21"><a href="js-bindings.html#cb178-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-22"><a href="js-bindings.html#cb178-22" aria-hidden="true" tabindex="-1"></a><span class="co">When intput$save changes in Shiny:</span></span>
+<span id="cb178-23"><a href="js-bindings.html#cb178-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-24"><a href="js-bindings.html#cb178-24" aria-hidden="true" tabindex="-1"></a><span class="co">- Receive value from Shiny</span></span>
+<span id="cb178-25"><a href="js-bindings.html#cb178-25" aria-hidden="true" tabindex="-1"></a><span class="co">- Set value in cookie</span></span>
+<span id="cb178-26"><a href="js-bindings.html#cb178-26" aria-hidden="true" tabindex="-1"></a><span class="co">- Update Shiny cookie input</span></span>
+<span id="cb178-27"><a href="js-bindings.html#cb178-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-28"><a href="js-bindings.html#cb178-28" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb178-29"><a href="js-bindings.html#cb178-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-30"><a href="js-bindings.html#cb178-30" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="fu">addCustomMessageHandler</span>(<span class="st">&#39;cookie-set&#39;</span><span class="op">,</span> <span class="kw">function</span>(msg){</span>
+<span id="cb178-31"><a href="js-bindings.html#cb178-31" aria-hidden="true" tabindex="-1"></a>  Cookies<span class="op">.</span><span class="fu">set</span>(msg<span class="op">.</span><span class="at">name</span><span class="op">,</span> msg<span class="op">.</span><span class="at">value</span>)<span class="op">;</span></span>
+<span id="cb178-32"><a href="js-bindings.html#cb178-32" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(msg)<span class="op">;</span></span>
+<span id="cb178-33"><a href="js-bindings.html#cb178-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getCookies</span>()<span class="op">;</span></span>
+<span id="cb178-34"><a href="js-bindings.html#cb178-34" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb178-35"><a href="js-bindings.html#cb178-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-36"><a href="js-bindings.html#cb178-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-37"><a href="js-bindings.html#cb178-37" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb178-38"><a href="js-bindings.html#cb178-38" aria-hidden="true" tabindex="-1"></a><span class="co">REMOVE COOKIE</span></span>
+<span id="cb178-39"><a href="js-bindings.html#cb178-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-40"><a href="js-bindings.html#cb178-40" aria-hidden="true" tabindex="-1"></a><span class="co">When input$remove changes in Shiny:</span></span>
+<span id="cb178-41"><a href="js-bindings.html#cb178-41" aria-hidden="true" tabindex="-1"></a><span class="co">- Receive from Shiny the name of cookie to delete</span></span>
+<span id="cb178-42"><a href="js-bindings.html#cb178-42" aria-hidden="true" tabindex="-1"></a><span class="co">- Delete the cookie</span></span>
+<span id="cb178-43"><a href="js-bindings.html#cb178-43" aria-hidden="true" tabindex="-1"></a><span class="co">- Update Shiny cookie input</span></span>
+<span id="cb178-44"><a href="js-bindings.html#cb178-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-45"><a href="js-bindings.html#cb178-45" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb178-46"><a href="js-bindings.html#cb178-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-47"><a href="js-bindings.html#cb178-47" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="fu">addCustomMessageHandler</span>(<span class="st">&#39;cookie-remove&#39;</span><span class="op">,</span> <span class="kw">function</span>(msg){</span>
+<span id="cb178-48"><a href="js-bindings.html#cb178-48" aria-hidden="true" tabindex="-1"></a>  Cookies<span class="op">.</span><span class="fu">remove</span>(msg<span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb178-49"><a href="js-bindings.html#cb178-49" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(msg<span class="op">.</span><span class="at">name</span>)</span>
+<span id="cb178-50"><a href="js-bindings.html#cb178-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getCookies</span>()<span class="op">;</span></span>
+<span id="cb178-51"><a href="js-bindings.html#cb178-51" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb178-52"><a href="js-bindings.html#cb178-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-53"><a href="js-bindings.html#cb178-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-54"><a href="js-bindings.html#cb178-54" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb178-55"><a href="js-bindings.html#cb178-55" aria-hidden="true" tabindex="-1"></a><span class="co">INITIALIZE COOKIE</span></span>
+<span id="cb178-56"><a href="js-bindings.html#cb178-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-57"><a href="js-bindings.html#cb178-57" aria-hidden="true" tabindex="-1"></a><span class="co">When Shiny session connects:</span></span>
+<span id="cb178-58"><a href="js-bindings.html#cb178-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-59"><a href="js-bindings.html#cb178-59" aria-hidden="true" tabindex="-1"></a><span class="co">- Update Shiny cookie input (i.e. draw from last value)</span></span>
+<span id="cb178-60"><a href="js-bindings.html#cb178-60" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb178-61"><a href="js-bindings.html#cb178-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-62"><a href="js-bindings.html#cb178-62" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(<span class="bu">document</span>)<span class="op">.</span><span class="fu">on</span>(<span class="st">&#39;shiny:connected&#39;</span><span class="op">,</span> <span class="kw">function</span>(ev){</span>
+<span id="cb178-63"><a href="js-bindings.html#cb178-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getCookies</span>()<span class="op">;</span></span>
+<span id="cb178-64"><a href="js-bindings.html#cb178-64" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meeting-videos-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="shiny-setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-15.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -551,7 +620,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/07.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/16.Rmd",
 "text": "Edit"
 },
 "history": {
