@@ -2,12 +2,190 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- See another use case for message handlers in the R-JS interactions
+- See how JS can set a Shiny input
+- See how cookies could provide a persistent browser-based store of values (that JS can fetch)
 
-## SLIDE 1
+## JS library
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+`js-cookie` provides tools to interact with browser cookies:
+
+```{js, eval=FALSE}
+// set
+Cookies.set('name', 'value')
+
+// get
+Cookies.get('name') // => 'value'
+Cookies.get() // => { name: 'value' }
+
+// delete
+Cookies.remove('name')
+```
+
+Adapted from the l[ibrary's npm repo](https://www.npmjs.com/package/js-cookie).
+
+## Shiny setup
+
+### Requirements
+
+Interaction:
+
+- When save name, update UI to show name in UI
+- When delete name, update UI to ask for name
+- When reload/reconnect to app, show UI that reflects last state
+
+Functionality:
+
+- User interface:
+  - Text input: Write name
+  - Button: Save name (as cookie)
+  - Button: Delete cookie
+- Server
+  - When save button pressed, pass text input field's value to JS via custom message handler
+  - When delete button pressed, delete last value
+  - Update UI after each save/delete event
+- JS
+  - Handle R-JS interactions through custom message handler
+  - Store/manage values passed from UI as browser cookies
+
+### Implementation
+
+```{r, eval=FALSE}
+library(shiny)
+
+addResourcePath("www", "www")
+
+ui <- fluidPage(
+  # load JS dependencies
+  tags$head(
+    # fetch js-cookie from CDN
+    tags$script(
+      src = paste0(
+        "https://cdn.jsdelivr.net/npm/js-cookie@rc/",
+        "dist/js.cookie.min.js"
+      )
+    ),
+    # add local script
+    tags$script(src = "www/script.js")
+  ),
+  textInput("name_set", "What is your name?"),
+  actionButton("save", "Save cookie"),
+  actionButton("remove", "remove cookie"),
+  uiOutput("name_get")
+)
+
+server <- function(input, output, session){
+
+  # save
+  observeEvent(input$save, {
+    msg <- list(
+      name = "name", value = input$name_set
+    )
+
+    if(input$name_set != "")
+      session$sendCustomMessage("cookie-set", msg)
+  })
+
+  # delete
+  observeEvent(input$remove, {
+    msg <- list(name = "name")
+    session$sendCustomMessage("cookie-remove", msg)
+  })
+
+  # output if cookie is specified
+  output$name_get <- renderUI({
+    if(!is.null(input$cookies$name))
+      h3("Hello,", input$cookies$name)
+    else
+      h3("Who are you?")
+  })
+
+}
+
+shinyApp(ui, server)
+
+```
+
+## JS bindings
+
+### Requirements
+
+Mange values passed from Shiny by:
+
+- Saving as cookies
+- Deleting cookies
+- Initializing cookies
+- Getting values stored in cookie value for each operation above
+
+### Implementation
+
+```{js, eval=FALSE}
+// js-cookies on npm here: https://www.npmjs.com/package/js-cookie
+
+/*
+UPDATE SHINY INPUT
+- Define Shiny input
+- Fetch value of cookie
+- Pass value to Shiny
+*/
+
+function getCookies(){
+  // for visible cookie(s), returns: { name: 'value' }
+  var res = Cookies.get();
+  // pass result to Shiny input$cookies
+  // note: input$cookies$name contains the value
+  Shiny.setInputValue('cookies', res);
+}
+
+
+/*
+SET VALUE OF COOKIE
+
+When intput$save changes in Shiny:
+
+- Receive value from Shiny
+- Set value in cookie
+- Update Shiny cookie input
+
+*/
+
+Shiny.addCustomMessageHandler('cookie-set', function(msg){
+  Cookies.set(msg.name, msg.value);
+  console.log(msg);
+  getCookies();
+})
+
+
+/*
+REMOVE COOKIE
+
+When input$remove changes in Shiny:
+- Receive from Shiny the name of cookie to delete
+- Delete the cookie
+- Update Shiny cookie input
+
+*/
+
+Shiny.addCustomMessageHandler('cookie-remove', function(msg){
+  Cookies.remove(msg.name);
+  console.log(msg.name)
+  getCookies();
+})
+
+
+/*
+INITIALIZE COOKIE
+
+When Shiny session connects:
+
+- Update Shiny cookie input (i.e. draw from last value)
+*/
+
+$(document).on('shiny:connected', function(ev){
+  getCookies();
+})
+
+```
 
 ## Meeting Videos
 
