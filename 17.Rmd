@@ -2,23 +2,312 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Subtleties when writing htmlwidgets for use in Shiny apps
 
-## SLIDE 1
+## `input$input_name` in Shiny
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+A common pattern in Shiny:
+
+```r
+# ui.R
+# ... snip ...
+
+actionButton("get_answer", "Get the answer to it all", class = "btn-result"),
+h2(textOutput("answer")),
+
+# ... snip ...
+```
+
+With this, your server function can refer to `input$get_answer` (and `output$answer`).
+The `input$...` variables correspond to an HTML element defined in the UI.
+
+But, you can define `input$...` variables without needing an HTML element to hook onto.
+
+Visualisation widgets are usually 'output's.
+But we can pass data back from them to R and use that data as an 'input'.
+
+## Widgets to R
+
+When interacting with a widget, events are fired. Functions can be called in response to those
+events.
+
+In an early chapter - when the user picks a country on GIO visualisation, the following callback is
+[fired](https://giojs.org/html/docs/callbackPicked.html).
+
+```js
+// js
+function callback (selectedCountry, relatedCountries) {
+  sel_handle.set([selectedCountry.ISOCode]);
+}
+
+controller.onCountryPicked(callback);
+```
+
+Idea: use callbacks & browser events to set shiny input values.
+
+```js
+function callback (selectedCountry, relatedCountries) {
+  sel_handle.set([selectedCountry.ISOCode]);
+  Shiny.setInputValue("my_selected_country", selectedCountry);
+  Shiny.setInputValue("the_related_countries", relatedCountries);
+}
+
+controller.onCountryPicked(callback);
+```
+
+This example is for GIO visualisations.
+There might be > 1 visualisation on the same app.
+
+We want to make input variable(s) for each GIO visualisation
+
+- e.g., where we have `output$globe`
+- ... we should also have `input$globe_selected` and `input$globe_related`
+
+That can be done in the `renderValue` function:
+
+```js
+// ... snip ...
+renderValue: function(x) {
+  
+  // ... snip ...
+  function callback (selectedCountry, relatedCountries) {
+    // ... blah ...
+    Shiny.setInputValue(`${el.id}_selected`, selectedCountry);
+    Shiny.setInputValue(`${el.id}_related`, relatedCountries);
+  }
+
+  if(x.capture_events) {
+    controller.onCountryPicked(callback);
+  }
+}
+```
+
+That `x.capture_events` code was there so that the callback is only called if the user wants it.
+You might not want to use that callback outside of a shiny app, for example.
+
+## Input Handlers for Widgets
+
+We have data transferring JS --> R
+
+- make sure it transfers correctly!
+
+- the "related_countries" will be a list of rows
+
+- we saw this for the `ml5` data-transfer...
+
+- remember you can only register input-handlers once
+
+```r
+# handler
+related_countries_handler <- function(x, session, inputname) {
+  purrr::map_dfr(x, as.data.frame)
+}
+
+.onLoad <- function(libname, pkgname) {
+  shiny::registerInputHandler(
+    "gio.related.countries",
+    related_countries_handler
+  )
+}
+```
+
+Example app:
+
+```r
+arcs <- ... snip ...
+
+ui <- fluidPage(
+  # this output also binds an input$globe_related variable
+  gioOutput("globe"),
+  # ... which we can present as a data-table
+  DTOutput("relatedCountries")
+)
+
+server <- function(input, output) {
+  output$globe <- renderGio({
+    gio(arcs, i, e, v)
+  })
+  
+  output$relatedCountries <- renderDT({
+    datatable(input$globe_related)
+  })
+}
+
+shinyapp(ui, server)
+```
+
+## R to Widgets
+
+The GIO widget that we've built has a renderValue function.
+That's called whenever the shiny-input to the widget changes.
+But that's pretty inefficient:
+
+- if you have an app where globe is already in view
+
+- and you only want to change the style, or some of the arcs on that globe
+
+- you don't want to have to remake the visualisation from scratch
+
+How do we transfer data from shiny to the widget, and bypass building the vis anew?
+
+### A slight bug
+
+The renderValue function for GIO looks something like this:
+
+```js
+// `el` is in scope when this function is defined
+
+renderValue: function(x) {
+  var controller = new GIO.Controller(el);
+  controller.addData(x.data);
+  controller.configure(x.configs);
+  controller.init();
+}
+```
+
+The values `x` are sent to this function whenever the shiny inputs change
+
+But, `controller.init();` causes a visualisation to be appended to some HTML element....
+
+So if you call this function twice with the same HTML `el`ement, you'll get two GIO visualisations
+in that element.
+
+Cue Russ' digression on introducing precisely the same bug into some client code...
+
+Solution:
+
+```js
+renderValue: function(x) {
+  el.innerHTML = "";
+  
+  var controller = new GIO.Controller(el);
+  // ... snip ...
+}
+```
+
+But, if we have a GIO visualisation / object inside `el` we might prefer to update the data /
+configs that are attached to that
+
+### Send Data to (?) Widgets
+
+We are going to add a function to the {gio} package that updates data:
+
+```r
+gio_send_data <- function(
+    id,
+    data,
+    source, target, value,
+    session = shiny::getDefaultReactiveDomain()
+) {
+  data <- dplyr::select(data, i = {{ source }}, e = {{ target }}, v = {{ value }})
+  message = list(
+    id = id,
+    data = apply(data, 1, as.list)
+  )
+  
+  session$sendCustomMessage("send-data", message)
+}
+```
+
+The line `data = apply(data, 1, as.list)` is there to ensure _shiny_ serialises the data correctly.
+
+"shiny" ... not "htmlwidgets". The serialiser for shiny can't be configured as easily as that for
+htmlwidgets.
+
+### Retrieve Widget Instance
+
+The "controller.addData()" method for a GIO object:
+
+"Loads data to the controller of Gio and overrides previous data synchronously."
+
+We should be able to use that to change the arcs on a pre-existing GIO visualisation.
+
+But ... we need access to the 'controller' (not the widget that it is associated with)
+
+Assume the `renderValue` method looks like this:
+
+```js
+// gio.js
+  factory: function(el, width, height) {
+
+    var controller;
+    
+    return {
+
+      renderValue: function(x) {
+        el.innerHTML = "";
+        controller = new GIO.Controller(el);
+        controller.addData(x.data);
+        controller.configure(x.configs);
+        controller.init();
+      },
+      resize: function(width, height) {...},
+      // new code
+      getGlobe: function() {
+        return controller;
+      }
+    // ... snip ...
+    }
+  // ... snip ...
+  }
+```
+
+We have added a method (inside that factory method) that returns the 'controller' for a given widget
+instance.
+
+Now we add:
+
+- a custom message handler
+- that updates the data for a 'controller'
+- when a 'send-data' message is received ...
+
+But
+
+- (R) Shiny would know the HTML ID for the widget it wants to work with
+- and know how to access the 'controller' for a given GIO widget
+- so it needs to be able to get the widget associated with an HTML ID
+
+To get the widget object, use HTMLWidgets.find():
+
+```js
+// gio.js
+function get_gio(id) {
+  const widget = HTMLWidgets.find(`#${id}`);
+  const globe = widget.getGlobe();
+  return globe;
+}
+```
+
+### Handle the transferred data
+
+In `gio.js` we can handle the "send-data" message received from Shiny:
+
+```js
+// This code wouldn't make sense outside of shiny ...
+if (HTMLWidgets.shinyMode) {
+  // update the data for the GIO object in a given element
+  Shiny.addCustomMessageHandler(
+    type = "send-data",
+    // the message has an HTML 'id' and the 'data' 
+    function(message) {
+      // get the controller for the matching HTMLWidget
+      const controller = get_gio(message.id);
+      // and update it's data
+      controller.addData(message.data);
+    };
+  );
+}
+```
+
+## Further sections
+
+The chapter had further sections to clean up the above code, to clear the data in a widget and to
+update the style for a visualisation.
+We haven't covered them here, because the chapter was pretty long anyway, and they involve some very
+similar ideas.
 
 ## Meeting Videos
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
-
-<details>
-<summary> Meeting chat log </summary>
-
-```
-LOG
-```
-</details>
+`r knitr::include_url("https://www.youtube.com/embed/dibCIf9Gymw")`
