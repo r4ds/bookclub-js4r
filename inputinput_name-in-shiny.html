@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>13.2 Table buttons | JavaScript for R Book Club</title>
+  <title>17.1 input$input_name in Shiny | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="13.2 Table buttons | JavaScript for R Book Club" />
+  <meta property="og:title" content="17.1 input$input_name in Shiny | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="13.2 Table buttons | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="17.1 input$input_name in Shiny | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="shiny-events.html"/>
-<link rel="next" href="jquery.html"/>
+<link rel="prev" href="widgets-with-shiny.html"/>
+<link rel="next" href="widgets-to-r.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -513,121 +513,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="table-buttons" class="section level2 hasAnchor" number="13.2">
-<h2><span class="header-section-number">13.2</span> Table buttons<a href="table-buttons.html#table-buttons" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p><strong>GOAL</strong>: Add to a table a column of
-one button per row.</p></li>
-<li><p>Code for new Shiny app (<code>app.R</code>):</p></li>
-</ul>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="table-buttons.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb111-2"><a href="table-buttons.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb111-3"><a href="table-buttons.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="table-buttons.html#cb111-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb111-5"><a href="table-buttons.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>)</span>
-<span id="cb111-6"><a href="table-buttons.html#cb111-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb111-7"><a href="table-buttons.html#cb111-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-8"><a href="table-buttons.html#cb111-8" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb111-9"><a href="table-buttons.html#cb111-9" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb111-10"><a href="table-buttons.html#cb111-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
-<span id="cb111-11"><a href="table-buttons.html#cb111-11" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
-<span id="cb111-12"><a href="table-buttons.html#cb111-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb111-13"><a href="table-buttons.html#cb111-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb111-14"><a href="table-buttons.html#cb111-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb111-15"><a href="table-buttons.html#cb111-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
-<span id="cb111-16"><a href="table-buttons.html#cb111-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb111-17"><a href="table-buttons.html#cb111-17" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb111-18"><a href="table-buttons.html#cb111-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-19"><a href="table-buttons.html#cb111-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb111-20"><a href="table-buttons.html#cb111-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-21"><a href="table-buttons.html#cb111-21" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>Only the <code>escape = FALSE</code> is necessary.
-It will allow us to insert <strong>HTML</strong> code into
-the table, and have it <strong>appear as is</strong>,
-instead of as a string.</p>
-<p>The HTML code we will insert is of the form:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb112-1"><a href="table-buttons.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;btn btn-primary&quot;</span> <span class="er">onclick</span><span class="ot">=</span><span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;Mazda RX4&#39;)&quot;</span><span class="kw">&gt;</span>Click me<span class="kw">&lt;/a&gt;</span></span></code></pre></div>
-<ul>
-<li>The book uses the <code>sprintf</code> function to create
-each of those buttons, changing the row name value,
-but the app did not work properly, due to an issue
-with the ‘“’ symbols.<br />
-An alternative solution will be presented,
-when necessary.</li>
-</ul>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="table-buttons.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On click function</span></span>
-<span id="cb113-2"><a href="table-buttons.html#cb113-2" aria-hidden="true" tabindex="-1"></a>onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb113-3"><a href="table-buttons.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
-<span id="cb113-4"><a href="table-buttons.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(mtcars)</span>
-<span id="cb113-5"><a href="table-buttons.html#cb113-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="table-buttons.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Button with onClick function</span></span>
-<span id="cb114-2"><a href="table-buttons.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="table-buttons.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Book version</span></span>
-<span id="cb114-4"><a href="table-buttons.html#cb114-4" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb114-5"><a href="table-buttons.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;&lt;a class=&#39;btn btn-primary&#39; onClick=&#39;%s&#39;&gt;Click me&lt;/a&gt;&quot;</span>,</span>
-<span id="cb114-6"><a href="table-buttons.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  onclick</span>
-<span id="cb114-7"><a href="table-buttons.html#cb114-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb114-8"><a href="table-buttons.html#cb114-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-9"><a href="table-buttons.html#cb114-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative version</span></span>
-<span id="cb114-10"><a href="table-buttons.html#cb114-10" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb114-11"><a href="table-buttons.html#cb114-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
-<span id="cb114-12"><a href="table-buttons.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  onclick,</span>
-<span id="cb114-13"><a href="table-buttons.html#cb114-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
-<span id="cb114-14"><a href="table-buttons.html#cb114-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Finally, we add a column of <em>buttons</em> and show the
-value of the <code>click</code> input.</p>
-<p>Final code (<code>app.R</code>):</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="table-buttons.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb115-2"><a href="table-buttons.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb115-3"><a href="table-buttons.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-4"><a href="table-buttons.html#cb115-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb115-5"><a href="table-buttons.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">br</span>(),</span>
-<span id="cb115-6"><a href="table-buttons.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>),</span>
-<span id="cb115-7"><a href="table-buttons.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strong</span>(<span class="st">&quot;Clicked Model:&quot;</span>),</span>
-<span id="cb115-8"><a href="table-buttons.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;model&quot;</span>)</span>
-<span id="cb115-9"><a href="table-buttons.html#cb115-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb115-10"><a href="table-buttons.html#cb115-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-11"><a href="table-buttons.html#cb115-11" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb115-12"><a href="table-buttons.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb115-13"><a href="table-buttons.html#cb115-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># On click function</span></span>
-<span id="cb115-14"><a href="table-buttons.html#cb115-14" aria-hidden="true" tabindex="-1"></a>    onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb115-15"><a href="table-buttons.html#cb115-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
-<span id="cb115-16"><a href="table-buttons.html#cb115-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rownames</span>(mtcars)</span>
-<span id="cb115-17"><a href="table-buttons.html#cb115-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-18"><a href="table-buttons.html#cb115-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-19"><a href="table-buttons.html#cb115-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;Button&#39; with onClick function</span></span>
-<span id="cb115-20"><a href="table-buttons.html#cb115-20" aria-hidden="true" tabindex="-1"></a>    button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb115-21"><a href="table-buttons.html#cb115-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
-<span id="cb115-22"><a href="table-buttons.html#cb115-22" aria-hidden="true" tabindex="-1"></a>      onclick,</span>
-<span id="cb115-23"><a href="table-buttons.html#cb115-23" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
-<span id="cb115-24"><a href="table-buttons.html#cb115-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-25"><a href="table-buttons.html#cb115-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-26"><a href="table-buttons.html#cb115-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add &#39;buttons&#39; to data.frame</span></span>
-<span id="cb115-27"><a href="table-buttons.html#cb115-27" aria-hidden="true" tabindex="-1"></a>    mtcars<span class="sc">$</span>button <span class="ot">&lt;-</span> button</span>
-<span id="cb115-28"><a href="table-buttons.html#cb115-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-29"><a href="table-buttons.html#cb115-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
-<span id="cb115-30"><a href="table-buttons.html#cb115-30" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
-<span id="cb115-31"><a href="table-buttons.html#cb115-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb115-32"><a href="table-buttons.html#cb115-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb115-33"><a href="table-buttons.html#cb115-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb115-34"><a href="table-buttons.html#cb115-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
-<span id="cb115-35"><a href="table-buttons.html#cb115-35" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-36"><a href="table-buttons.html#cb115-36" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb115-37"><a href="table-buttons.html#cb115-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-38"><a href="table-buttons.html#cb115-38" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb115-39"><a href="table-buttons.html#cb115-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(input<span class="sc">$</span>click)</span>
-<span id="cb115-40"><a href="table-buttons.html#cb115-40" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb115-41"><a href="table-buttons.html#cb115-41" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb115-42"><a href="table-buttons.html#cb115-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-43"><a href="table-buttons.html#cb115-43" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div id="inputinput_name-in-shiny" class="section level2 hasAnchor" number="17.1">
+<h2><span class="header-section-number">17.1</span> <code>input$input_name</code> in Shiny<a href="inputinput_name-in-shiny.html#inputinput_name-in-shiny" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A common pattern in Shiny:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="inputinput_name-in-shiny.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ui.R</span></span>
+<span id="cb180-2"><a href="inputinput_name-in-shiny.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span>
+<span id="cb180-3"><a href="inputinput_name-in-shiny.html#cb180-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-4"><a href="inputinput_name-in-shiny.html#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="fu">actionButton</span>(<span class="st">&quot;get_answer&quot;</span>, <span class="st">&quot;Get the answer to it all&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-result&quot;</span>),</span>
+<span id="cb180-5"><a href="inputinput_name-in-shiny.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="fu">h2</span>(<span class="fu">textOutput</span>(<span class="st">&quot;answer&quot;</span>)),</span>
+<span id="cb180-6"><a href="inputinput_name-in-shiny.html#cb180-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-7"><a href="inputinput_name-in-shiny.html#cb180-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span></code></pre></div>
+<p>With this, your server function can refer to <code>input$get_answer</code> (and <code>output$answer</code>).
+The <code>input$...</code> variables correspond to an HTML element defined in the UI.</p>
+<p>But, you can define <code>input$...</code> variables without needing an HTML element to hook onto.</p>
+<p>Visualisation widgets are usually ‘output’s.
+But we can pass data back from them to R and use that data as an ’input’.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="shiny-events.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="jquery.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="widgets-with-shiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="widgets-to-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -658,7 +566,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/13.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/17.Rmd",
 "text": "Edit"
 },
 "history": {

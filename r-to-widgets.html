@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>13.2 Table buttons | JavaScript for R Book Club</title>
+  <title>17.4 R to Widgets | JavaScript for R Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="13.2 Table buttons | JavaScript for R Book Club" />
+  <meta property="og:title" content="17.4 R to Widgets | JavaScript for R Book Club" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   <meta name="github-repo" content="r4ds/bookclub-js4r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="13.2 Table buttons | JavaScript for R Book Club" />
+  <meta name="twitter:title" content="17.4 R to Widgets | JavaScript for R Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s JavaScript for R Book Club." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="shiny-events.html"/>
-<link rel="next" href="jquery.html"/>
+<link rel="prev" href="input-handlers-for-widgets.html"/>
+<link rel="next" href="further-sections.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -513,121 +513,144 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="table-buttons" class="section level2 hasAnchor" number="13.2">
-<h2><span class="header-section-number">13.2</span> Table buttons<a href="table-buttons.html#table-buttons" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="r-to-widgets" class="section level2 hasAnchor" number="17.4">
+<h2><span class="header-section-number">17.4</span> R to Widgets<a href="r-to-widgets.html#r-to-widgets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The GIO widget that we’ve built has a renderValue function.
+That’s called whenever the shiny-input to the widget changes.
+But that’s pretty inefficient:</p>
 <ul>
-<li><p><strong>GOAL</strong>: Add to a table a column of
-one button per row.</p></li>
-<li><p>Code for new Shiny app (<code>app.R</code>):</p></li>
+<li><p>if you have an app where globe is already in view</p></li>
+<li><p>and you only want to change the style, or some of the arcs on that globe</p></li>
+<li><p>you don’t want to have to remake the visualisation from scratch</p></li>
 </ul>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="table-buttons.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb111-2"><a href="table-buttons.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb111-3"><a href="table-buttons.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="table-buttons.html#cb111-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb111-5"><a href="table-buttons.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>)</span>
-<span id="cb111-6"><a href="table-buttons.html#cb111-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb111-7"><a href="table-buttons.html#cb111-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-8"><a href="table-buttons.html#cb111-8" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb111-9"><a href="table-buttons.html#cb111-9" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb111-10"><a href="table-buttons.html#cb111-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
-<span id="cb111-11"><a href="table-buttons.html#cb111-11" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
-<span id="cb111-12"><a href="table-buttons.html#cb111-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb111-13"><a href="table-buttons.html#cb111-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb111-14"><a href="table-buttons.html#cb111-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb111-15"><a href="table-buttons.html#cb111-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
-<span id="cb111-16"><a href="table-buttons.html#cb111-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb111-17"><a href="table-buttons.html#cb111-17" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb111-18"><a href="table-buttons.html#cb111-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-19"><a href="table-buttons.html#cb111-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb111-20"><a href="table-buttons.html#cb111-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-21"><a href="table-buttons.html#cb111-21" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>Only the <code>escape = FALSE</code> is necessary.
-It will allow us to insert <strong>HTML</strong> code into
-the table, and have it <strong>appear as is</strong>,
-instead of as a string.</p>
-<p>The HTML code we will insert is of the form:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb112-1"><a href="table-buttons.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;btn btn-primary&quot;</span> <span class="er">onclick</span><span class="ot">=</span><span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;Mazda RX4&#39;)&quot;</span><span class="kw">&gt;</span>Click me<span class="kw">&lt;/a&gt;</span></span></code></pre></div>
+<p>How do we transfer data from shiny to the widget, and bypass building the vis anew?</p>
+<div id="a-slight-bug" class="section level3 hasAnchor" number="17.4.1">
+<h3><span class="header-section-number">17.4.1</span> A slight bug<a href="r-to-widgets.html#a-slight-bug" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The renderValue function for GIO looks something like this:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb186-1"><a href="r-to-widgets.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co">// `el` is in scope when this function is defined</span></span>
+<span id="cb186-2"><a href="r-to-widgets.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-3"><a href="r-to-widgets.html#cb186-3" aria-hidden="true" tabindex="-1"></a>renderValue<span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb186-4"><a href="r-to-widgets.html#cb186-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb186-5"><a href="r-to-widgets.html#cb186-5" aria-hidden="true" tabindex="-1"></a>  controller<span class="op">.</span><span class="fu">addData</span>(x<span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
+<span id="cb186-6"><a href="r-to-widgets.html#cb186-6" aria-hidden="true" tabindex="-1"></a>  controller<span class="op">.</span><span class="fu">configure</span>(x<span class="op">.</span><span class="at">configs</span>)<span class="op">;</span></span>
+<span id="cb186-7"><a href="r-to-widgets.html#cb186-7" aria-hidden="true" tabindex="-1"></a>  controller<span class="op">.</span><span class="fu">init</span>()<span class="op">;</span></span>
+<span id="cb186-8"><a href="r-to-widgets.html#cb186-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The values <code>x</code> are sent to this function whenever the shiny inputs change</p>
+<p>But, <code>controller.init();</code> causes a visualisation to be appended to some HTML element….</p>
+<p>So if you call this function twice with the same HTML <code>el</code>ement, you’ll get two GIO visualisations
+in that element.</p>
+<p>Cue Russ’ digression on introducing precisely the same bug into some client code…</p>
+<p>Solution:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb187-1"><a href="r-to-widgets.html#cb187-1" aria-hidden="true" tabindex="-1"></a>renderValue<span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb187-2"><a href="r-to-widgets.html#cb187-2" aria-hidden="true" tabindex="-1"></a>  el<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
+<span id="cb187-3"><a href="r-to-widgets.html#cb187-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb187-4"><a href="r-to-widgets.html#cb187-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb187-5"><a href="r-to-widgets.html#cb187-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
+<span id="cb187-6"><a href="r-to-widgets.html#cb187-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>But, if we have a GIO visualisation / object inside <code>el</code> we might prefer to update the data /
+configs that are attached to that</p>
+</div>
+<div id="send-data-to-widgets" class="section level3 hasAnchor" number="17.4.2">
+<h3><span class="header-section-number">17.4.2</span> Send Data to (?) Widgets<a href="r-to-widgets.html#send-data-to-widgets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We are going to add a function to the {gio} package that updates data:</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="r-to-widgets.html#cb188-1" aria-hidden="true" tabindex="-1"></a>gio_send_data <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb188-2"><a href="r-to-widgets.html#cb188-2" aria-hidden="true" tabindex="-1"></a>    id,</span>
+<span id="cb188-3"><a href="r-to-widgets.html#cb188-3" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb188-4"><a href="r-to-widgets.html#cb188-4" aria-hidden="true" tabindex="-1"></a>    source, target, value,</span>
+<span id="cb188-5"><a href="r-to-widgets.html#cb188-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">session =</span> shiny<span class="sc">::</span><span class="fu">getDefaultReactiveDomain</span>()</span>
+<span id="cb188-6"><a href="r-to-widgets.html#cb188-6" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb188-7"><a href="r-to-widgets.html#cb188-7" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(data, <span class="at">i =</span> {{ source }}, <span class="at">e =</span> {{ target }}, <span class="at">v =</span> {{ value }})</span>
+<span id="cb188-8"><a href="r-to-widgets.html#cb188-8" aria-hidden="true" tabindex="-1"></a>  message <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb188-9"><a href="r-to-widgets.html#cb188-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> id,</span>
+<span id="cb188-10"><a href="r-to-widgets.html#cb188-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">apply</span>(data, <span class="dv">1</span>, as.list)</span>
+<span id="cb188-11"><a href="r-to-widgets.html#cb188-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb188-12"><a href="r-to-widgets.html#cb188-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb188-13"><a href="r-to-widgets.html#cb188-13" aria-hidden="true" tabindex="-1"></a>  session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(<span class="st">&quot;send-data&quot;</span>, message)</span>
+<span id="cb188-14"><a href="r-to-widgets.html#cb188-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The line <code>data = apply(data, 1, as.list)</code> is there to ensure <em>shiny</em> serialises the data correctly.</p>
+<p>“shiny” … not “htmlwidgets”. The serialiser for shiny can’t be configured as easily as that for
+htmlwidgets.</p>
+</div>
+<div id="retrieve-widget-instance" class="section level3 hasAnchor" number="17.4.3">
+<h3><span class="header-section-number">17.4.3</span> Retrieve Widget Instance<a href="r-to-widgets.html#retrieve-widget-instance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The “controller.addData()” method for a GIO object:</p>
+<p>“Loads data to the controller of Gio and overrides previous data synchronously.”</p>
+<p>We should be able to use that to change the arcs on a pre-existing GIO visualisation.</p>
+<p>But … we need access to the ‘controller’ (not the widget that it is associated with)</p>
+<p>Assume the <code>renderValue</code> method looks like this:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb189-1"><a href="r-to-widgets.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="co">// gio.js</span></span>
+<span id="cb189-2"><a href="r-to-widgets.html#cb189-2" aria-hidden="true" tabindex="-1"></a>  factory<span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
+<span id="cb189-3"><a href="r-to-widgets.html#cb189-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb189-4"><a href="r-to-widgets.html#cb189-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> controller<span class="op">;</span></span>
+<span id="cb189-5"><a href="r-to-widgets.html#cb189-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb189-6"><a href="r-to-widgets.html#cb189-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb189-7"><a href="r-to-widgets.html#cb189-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb189-8"><a href="r-to-widgets.html#cb189-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb189-9"><a href="r-to-widgets.html#cb189-9" aria-hidden="true" tabindex="-1"></a>        el<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
+<span id="cb189-10"><a href="r-to-widgets.html#cb189-10" aria-hidden="true" tabindex="-1"></a>        controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb189-11"><a href="r-to-widgets.html#cb189-11" aria-hidden="true" tabindex="-1"></a>        controller<span class="op">.</span><span class="fu">addData</span>(x<span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
+<span id="cb189-12"><a href="r-to-widgets.html#cb189-12" aria-hidden="true" tabindex="-1"></a>        controller<span class="op">.</span><span class="fu">configure</span>(x<span class="op">.</span><span class="at">configs</span>)<span class="op">;</span></span>
+<span id="cb189-13"><a href="r-to-widgets.html#cb189-13" aria-hidden="true" tabindex="-1"></a>        controller<span class="op">.</span><span class="fu">init</span>()<span class="op">;</span></span>
+<span id="cb189-14"><a href="r-to-widgets.html#cb189-14" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb189-15"><a href="r-to-widgets.html#cb189-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">resize</span><span class="op">:</span> <span class="kw">function</span>(width<span class="op">,</span> height) {<span class="op">...</span>}<span class="op">,</span></span>
+<span id="cb189-16"><a href="r-to-widgets.html#cb189-16" aria-hidden="true" tabindex="-1"></a>      <span class="co">// new code</span></span>
+<span id="cb189-17"><a href="r-to-widgets.html#cb189-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">getGlobe</span><span class="op">:</span> <span class="kw">function</span>() {</span>
+<span id="cb189-18"><a href="r-to-widgets.html#cb189-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> controller<span class="op">;</span></span>
+<span id="cb189-19"><a href="r-to-widgets.html#cb189-19" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb189-20"><a href="r-to-widgets.html#cb189-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ... snip ...</span></span>
+<span id="cb189-21"><a href="r-to-widgets.html#cb189-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb189-22"><a href="r-to-widgets.html#cb189-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... snip ...</span></span>
+<span id="cb189-23"><a href="r-to-widgets.html#cb189-23" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>We have added a method (inside that factory method) that returns the ‘controller’ for a given widget
+instance.</p>
+<p>Now we add:</p>
 <ul>
-<li>The book uses the <code>sprintf</code> function to create
-each of those buttons, changing the row name value,
-but the app did not work properly, due to an issue
-with the ‘“’ symbols.<br />
-An alternative solution will be presented,
-when necessary.</li>
+<li>a custom message handler</li>
+<li>that updates the data for a ‘controller’</li>
+<li>when a ‘send-data’ message is received …</li>
 </ul>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="table-buttons.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On click function</span></span>
-<span id="cb113-2"><a href="table-buttons.html#cb113-2" aria-hidden="true" tabindex="-1"></a>onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb113-3"><a href="table-buttons.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
-<span id="cb113-4"><a href="table-buttons.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(mtcars)</span>
-<span id="cb113-5"><a href="table-buttons.html#cb113-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="table-buttons.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Button with onClick function</span></span>
-<span id="cb114-2"><a href="table-buttons.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="table-buttons.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Book version</span></span>
-<span id="cb114-4"><a href="table-buttons.html#cb114-4" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb114-5"><a href="table-buttons.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;&lt;a class=&#39;btn btn-primary&#39; onClick=&#39;%s&#39;&gt;Click me&lt;/a&gt;&quot;</span>,</span>
-<span id="cb114-6"><a href="table-buttons.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  onclick</span>
-<span id="cb114-7"><a href="table-buttons.html#cb114-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb114-8"><a href="table-buttons.html#cb114-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-9"><a href="table-buttons.html#cb114-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative version</span></span>
-<span id="cb114-10"><a href="table-buttons.html#cb114-10" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb114-11"><a href="table-buttons.html#cb114-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
-<span id="cb114-12"><a href="table-buttons.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  onclick,</span>
-<span id="cb114-13"><a href="table-buttons.html#cb114-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
-<span id="cb114-14"><a href="table-buttons.html#cb114-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Finally, we add a column of <em>buttons</em> and show the
-value of the <code>click</code> input.</p>
-<p>Final code (<code>app.R</code>):</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="table-buttons.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb115-2"><a href="table-buttons.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb115-3"><a href="table-buttons.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-4"><a href="table-buttons.html#cb115-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb115-5"><a href="table-buttons.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">br</span>(),</span>
-<span id="cb115-6"><a href="table-buttons.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>),</span>
-<span id="cb115-7"><a href="table-buttons.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strong</span>(<span class="st">&quot;Clicked Model:&quot;</span>),</span>
-<span id="cb115-8"><a href="table-buttons.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;model&quot;</span>)</span>
-<span id="cb115-9"><a href="table-buttons.html#cb115-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb115-10"><a href="table-buttons.html#cb115-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-11"><a href="table-buttons.html#cb115-11" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb115-12"><a href="table-buttons.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb115-13"><a href="table-buttons.html#cb115-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># On click function</span></span>
-<span id="cb115-14"><a href="table-buttons.html#cb115-14" aria-hidden="true" tabindex="-1"></a>    onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb115-15"><a href="table-buttons.html#cb115-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
-<span id="cb115-16"><a href="table-buttons.html#cb115-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rownames</span>(mtcars)</span>
-<span id="cb115-17"><a href="table-buttons.html#cb115-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-18"><a href="table-buttons.html#cb115-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-19"><a href="table-buttons.html#cb115-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;Button&#39; with onClick function</span></span>
-<span id="cb115-20"><a href="table-buttons.html#cb115-20" aria-hidden="true" tabindex="-1"></a>    button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb115-21"><a href="table-buttons.html#cb115-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
-<span id="cb115-22"><a href="table-buttons.html#cb115-22" aria-hidden="true" tabindex="-1"></a>      onclick,</span>
-<span id="cb115-23"><a href="table-buttons.html#cb115-23" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
-<span id="cb115-24"><a href="table-buttons.html#cb115-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-25"><a href="table-buttons.html#cb115-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-26"><a href="table-buttons.html#cb115-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add &#39;buttons&#39; to data.frame</span></span>
-<span id="cb115-27"><a href="table-buttons.html#cb115-27" aria-hidden="true" tabindex="-1"></a>    mtcars<span class="sc">$</span>button <span class="ot">&lt;-</span> button</span>
-<span id="cb115-28"><a href="table-buttons.html#cb115-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-29"><a href="table-buttons.html#cb115-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
-<span id="cb115-30"><a href="table-buttons.html#cb115-30" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
-<span id="cb115-31"><a href="table-buttons.html#cb115-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb115-32"><a href="table-buttons.html#cb115-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb115-33"><a href="table-buttons.html#cb115-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb115-34"><a href="table-buttons.html#cb115-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
-<span id="cb115-35"><a href="table-buttons.html#cb115-35" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-36"><a href="table-buttons.html#cb115-36" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb115-37"><a href="table-buttons.html#cb115-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-38"><a href="table-buttons.html#cb115-38" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb115-39"><a href="table-buttons.html#cb115-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(input<span class="sc">$</span>click)</span>
-<span id="cb115-40"><a href="table-buttons.html#cb115-40" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb115-41"><a href="table-buttons.html#cb115-41" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb115-42"><a href="table-buttons.html#cb115-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-43"><a href="table-buttons.html#cb115-43" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>But</p>
+<ul>
+<li><ol start="18" style="list-style-type: upper-alpha">
+<li>Shiny would know the HTML ID for the widget it wants to work with</li>
+</ol></li>
+<li>and know how to access the ‘controller’ for a given GIO widget</li>
+<li>so it needs to be able to get the widget associated with an HTML ID</li>
+</ul>
+<p>To get the widget object, use HTMLWidgets.find():</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb190-1"><a href="r-to-widgets.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co">// gio.js</span></span>
+<span id="cb190-2"><a href="r-to-widgets.html#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">get_gio</span>(id) {</span>
+<span id="cb190-3"><a href="r-to-widgets.html#cb190-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> widget <span class="op">=</span> HTMLWidgets<span class="op">.</span><span class="fu">find</span>(<span class="vs">`#</span><span class="sc">${</span>id<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb190-4"><a href="r-to-widgets.html#cb190-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> globe <span class="op">=</span> widget<span class="op">.</span><span class="fu">getGlobe</span>()<span class="op">;</span></span>
+<span id="cb190-5"><a href="r-to-widgets.html#cb190-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> globe<span class="op">;</span></span>
+<span id="cb190-6"><a href="r-to-widgets.html#cb190-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="handle-the-transferred-data" class="section level3 hasAnchor" number="17.4.4">
+<h3><span class="header-section-number">17.4.4</span> Handle the transferred data<a href="r-to-widgets.html#handle-the-transferred-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In <code>gio.js</code> we can handle the “send-data” message received from Shiny:</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb191-1"><a href="r-to-widgets.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="co">// This code wouldn&#39;t make sense outside of shiny ...</span></span>
+<span id="cb191-2"><a href="r-to-widgets.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (HTMLWidgets<span class="op">.</span><span class="at">shinyMode</span>) {</span>
+<span id="cb191-3"><a href="r-to-widgets.html#cb191-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// update the data for the GIO object in a given element</span></span>
+<span id="cb191-4"><a href="r-to-widgets.html#cb191-4" aria-hidden="true" tabindex="-1"></a>  Shiny<span class="op">.</span><span class="fu">addCustomMessageHandler</span>(</span>
+<span id="cb191-5"><a href="r-to-widgets.html#cb191-5" aria-hidden="true" tabindex="-1"></a>    type <span class="op">=</span> <span class="st">&quot;send-data&quot;</span><span class="op">,</span></span>
+<span id="cb191-6"><a href="r-to-widgets.html#cb191-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the message has an HTML &#39;id&#39; and the &#39;data&#39; </span></span>
+<span id="cb191-7"><a href="r-to-widgets.html#cb191-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span>(message) {</span>
+<span id="cb191-8"><a href="r-to-widgets.html#cb191-8" aria-hidden="true" tabindex="-1"></a>      <span class="co">// get the controller for the matching HTMLWidget</span></span>
+<span id="cb191-9"><a href="r-to-widgets.html#cb191-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> controller <span class="op">=</span> <span class="fu">get_gio</span>(message<span class="op">.</span><span class="at">id</span>)<span class="op">;</span></span>
+<span id="cb191-10"><a href="r-to-widgets.html#cb191-10" aria-hidden="true" tabindex="-1"></a>      <span class="co">// and update it&#39;s data</span></span>
+<span id="cb191-11"><a href="r-to-widgets.html#cb191-11" aria-hidden="true" tabindex="-1"></a>      controller<span class="op">.</span><span class="fu">addData</span>(message<span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
+<span id="cb191-12"><a href="r-to-widgets.html#cb191-12" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb191-13"><a href="r-to-widgets.html#cb191-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb191-14"><a href="r-to-widgets.html#cb191-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="shiny-events.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="jquery.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="input-handlers-for-widgets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="further-sections.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -658,7 +681,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-js4r/edit/main/13.Rmd",
+"link": "https://github.com/r4ds/bookclub-js4r/edit/main/17.Rmd",
 "text": "Edit"
 },
 "history": {
