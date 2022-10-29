@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -519,15 +519,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>declare them in <code>myWidget.yaml</code></li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb59-1"><a href="dependencies-1.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
-<span id="cb59-2"><a href="dependencies-1.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> three</span></span>
-<span id="cb59-3"><a href="dependencies-1.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">110</span></span>
-<span id="cb59-4"><a href="dependencies-1.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/three</span></span>
-<span id="cb59-5"><a href="dependencies-1.html#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> three.min.js</span></span>
-<span id="cb59-6"><a href="dependencies-1.html#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> gio</span></span>
-<span id="cb59-7"><a href="dependencies-1.html#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.0</span></span>
-<span id="cb59-8"><a href="dependencies-1.html#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/gio</span></span>
-<span id="cb59-9"><a href="dependencies-1.html#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> gio.min.js</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb58-1"><a href="dependencies-1.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb58-2"><a href="dependencies-1.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> three</span></span>
+<span id="cb58-3"><a href="dependencies-1.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">110</span></span>
+<span id="cb58-4"><a href="dependencies-1.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/three</span></span>
+<span id="cb58-5"><a href="dependencies-1.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> three.min.js</span></span>
+<span id="cb58-6"><a href="dependencies-1.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> gio</span></span>
+<span id="cb58-7"><a href="dependencies-1.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.0</span></span>
+<span id="cb58-8"><a href="dependencies-1.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> htmlwidgets/gio</span></span>
+<span id="cb58-9"><a href="dependencies-1.html#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span><span class="at"> gio.min.js</span></span></code></pre></div>
 <p>But …</p>
 <ul>
 <li>Can we load only the small part of a JS library that our widget needs?</li>
@@ -559,18 +559,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.4.1</span> Optional dependencies &amp; htmltools::htmlDependency<a href="dependencies-1.html#optional-dependencies-htmltoolshtmldependency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Example: adding <code>stats.js</code> as an optional dependency for our GIO widget</p>
 <p>In JavaScript:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb60-1"><a href="dependencies-1.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ... snip ...</span></span>
-<span id="cb60-2"><a href="dependencies-1.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
-<span id="cb60-3"><a href="dependencies-1.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
-<span id="cb60-4"><a href="dependencies-1.html#cb60-4" aria-hidden="true" tabindex="-1"></a>controller<span class="op">.</span><span class="fu">enableStats</span>()<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb59-1"><a href="dependencies-1.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ... snip ...</span></span>
+<span id="cb59-2"><a href="dependencies-1.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb59-3"><a href="dependencies-1.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb59-4"><a href="dependencies-1.html#cb59-4" aria-hidden="true" tabindex="-1"></a>controller<span class="op">.</span><span class="fu">enableStats</span>()<span class="op">;</span></span></code></pre></div>
 <p>We only want to enable <code>stats.js</code> when the user requests it. The library should not be loaded by
 the browser otherwise.</p>
 <p>For the user, the syntax should look like:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="dependencies-1.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a GIO visualisation without performance monitoring by `stats.js`</span></span>
-<span id="cb61-2"><a href="dependencies-1.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gio</span>(some_data)</span>
-<span id="cb61-3"><a href="dependencies-1.html#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-4"><a href="dependencies-1.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a GIO visualisation with performance monitoring by `stats.js`</span></span>
-<span id="cb61-5"><a href="dependencies-1.html#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gio_stats</span>(<span class="fu">gio</span>(some_data))</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="dependencies-1.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a GIO visualisation without performance monitoring by `stats.js`</span></span>
+<span id="cb60-2"><a href="dependencies-1.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gio</span>(some_data)</span>
+<span id="cb60-3"><a href="dependencies-1.html#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="dependencies-1.html#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a GIO visualisation with performance monitoring by `stats.js`</span></span>
+<span id="cb60-5"><a href="dependencies-1.html#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gio_stats</span>(<span class="fu">gio</span>(some_data))</span></code></pre></div>
 <p>To make this work:</p>
 <ul>
 <li>Download <code>stats.js</code> to <code>inst/htmlwidgets/stats/</code></li>

@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -516,13 +516,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="inputinput_name-in-shiny" class="section level2 hasAnchor" number="17.1">
 <h2><span class="header-section-number">17.1</span> <code>input$input_name</code> in Shiny<a href="inputinput_name-in-shiny.html#inputinput_name-in-shiny" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A common pattern in Shiny:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="inputinput_name-in-shiny.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ui.R</span></span>
-<span id="cb180-2"><a href="inputinput_name-in-shiny.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span>
-<span id="cb180-3"><a href="inputinput_name-in-shiny.html#cb180-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-4"><a href="inputinput_name-in-shiny.html#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="fu">actionButton</span>(<span class="st">&quot;get_answer&quot;</span>, <span class="st">&quot;Get the answer to it all&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-result&quot;</span>),</span>
-<span id="cb180-5"><a href="inputinput_name-in-shiny.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="fu">h2</span>(<span class="fu">textOutput</span>(<span class="st">&quot;answer&quot;</span>)),</span>
-<span id="cb180-6"><a href="inputinput_name-in-shiny.html#cb180-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-7"><a href="inputinput_name-in-shiny.html#cb180-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="inputinput_name-in-shiny.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ui.R</span></span>
+<span id="cb177-2"><a href="inputinput_name-in-shiny.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span>
+<span id="cb177-3"><a href="inputinput_name-in-shiny.html#cb177-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-4"><a href="inputinput_name-in-shiny.html#cb177-4" aria-hidden="true" tabindex="-1"></a><span class="fu">actionButton</span>(<span class="st">&quot;get_answer&quot;</span>, <span class="st">&quot;Get the answer to it all&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-result&quot;</span>),</span>
+<span id="cb177-5"><a href="inputinput_name-in-shiny.html#cb177-5" aria-hidden="true" tabindex="-1"></a><span class="fu">h2</span>(<span class="fu">textOutput</span>(<span class="st">&quot;answer&quot;</span>)),</span>
+<span id="cb177-6"><a href="inputinput_name-in-shiny.html#cb177-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-7"><a href="inputinput_name-in-shiny.html#cb177-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span></code></pre></div>
 <p>With this, your server function can refer to <code>input$get_answer</code> (and <code>output$answer</code>).
 The <code>input$...</code> variables correspond to an HTML element defined in the UI.</p>
 <p>But, you can define <code>input$...</code> variables without needing an HTML element to hook onto.</p>

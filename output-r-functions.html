@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -536,44 +536,44 @@ and color.</p>
 displayed inside the app.</p>
 <p>If you’ve used shiny before, you should be used to the naming conventions.</p>
 <p>The functions will be called like this:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="output-r-functions.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In the shiny UI:</span></span>
-<span id="cb132-2"><a href="output-r-functions.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxxyOutput</span>(<span class="st">&quot;boxxyID&quot;</span>)</span>
-<span id="cb132-3"><a href="output-r-functions.html#cb132-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb132-4"><a href="output-r-functions.html#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span>
-<span id="cb132-5"><a href="output-r-functions.html#cb132-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb132-6"><a href="output-r-functions.html#cb132-6" aria-hidden="true" tabindex="-1"></a><span class="co"># In the shiny server:</span></span>
-<span id="cb132-7"><a href="output-r-functions.html#cb132-7" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>boxxyID <span class="ot">&lt;-</span> <span class="fu">renderBoxxy</span>({</span>
-<span id="cb132-8"><a href="output-r-functions.html#cb132-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxxy</span>(title, value, color)</span>
-<span id="cb132-9"><a href="output-r-functions.html#cb132-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="output-r-functions.html#cb133-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">&quot;boxxy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="output-r-functions.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In the shiny UI:</span></span>
+<span id="cb131-2"><a href="output-r-functions.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxxyOutput</span>(<span class="st">&quot;boxxyID&quot;</span>)</span>
+<span id="cb131-3"><a href="output-r-functions.html#cb131-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-4"><a href="output-r-functions.html#cb131-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ... snip ...</span></span>
+<span id="cb131-5"><a href="output-r-functions.html#cb131-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-6"><a href="output-r-functions.html#cb131-6" aria-hidden="true" tabindex="-1"></a><span class="co"># In the shiny server:</span></span>
+<span id="cb131-7"><a href="output-r-functions.html#cb131-7" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>boxxyID <span class="ot">&lt;-</span> <span class="fu">renderBoxxy</span>({</span>
+<span id="cb131-8"><a href="output-r-functions.html#cb131-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxxy</span>(title, value, color)</span>
+<span id="cb131-9"><a href="output-r-functions.html#cb131-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="output-r-functions.html#cb132-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">&quot;boxxy&quot;</span>)</span></code></pre></div>
 <p>The skeleton for the R functions:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="output-r-functions.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Stores data for creating an animated, counted, box</span></span>
-<span id="cb134-2"><a href="output-r-functions.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb134-3"><a href="output-r-functions.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   title,value,color   title, value and color for the box</span></span>
-<span id="cb134-4"><a href="output-r-functions.html#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb134-5"><a href="output-r-functions.html#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-6"><a href="output-r-functions.html#cb134-6" aria-hidden="true" tabindex="-1"></a>boxxy <span class="ot">&lt;-</span> <span class="cf">function</span>(title, value, <span class="at">color =</span> <span class="st">&quot;#ef476f&quot;</span>) {</span>
-<span id="cb134-7"><a href="output-r-functions.html#cb134-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">title =</span> title, <span class="at">value =</span> value, <span class="at">color =</span> color)</span>
-<span id="cb134-8"><a href="output-r-functions.html#cb134-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb134-9"><a href="output-r-functions.html#cb134-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-10"><a href="output-r-functions.html#cb134-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Create the HTML skeleton within which a boxxy element sits</span></span>
-<span id="cb134-11"><a href="output-r-functions.html#cb134-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb134-12"><a href="output-r-functions.html#cb134-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   id   A shiny identifier</span></span>
-<span id="cb134-13"><a href="output-r-functions.html#cb134-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb134-14"><a href="output-r-functions.html#cb134-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-15"><a href="output-r-functions.html#cb134-15" aria-hidden="true" tabindex="-1"></a>boxxyOutput <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb134-16"><a href="output-r-functions.html#cb134-16" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">div</span>(<span class="at">id =</span> id, <span class="at">class =</span> <span class="st">&quot;boxxy&quot;</span>)</span>
-<span id="cb134-17"><a href="output-r-functions.html#cb134-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb134-18"><a href="output-r-functions.html#cb134-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-19"><a href="output-r-functions.html#cb134-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Render a &#39;boxxy&#39; object for output in a shiny app</span></span>
-<span id="cb134-20"><a href="output-r-functions.html#cb134-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb134-21"><a href="output-r-functions.html#cb134-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   expr   a shiny expression for creating a &#39;boxxy&#39; object.</span></span>
-<span id="cb134-22"><a href="output-r-functions.html#cb134-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   env   the environment in which to evaluate \code{expr}.</span></span>
-<span id="cb134-23"><a href="output-r-functions.html#cb134-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb134-24"><a href="output-r-functions.html#cb134-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-25"><a href="output-r-functions.html#cb134-25" aria-hidden="true" tabindex="-1"></a>renderBoxxy <span class="ot">&lt;-</span> <span class="cf">function</span>(expr, <span class="at">env =</span> <span class="fu">parent.frame</span>()) {</span>
-<span id="cb134-26"><a href="output-r-functions.html#cb134-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>() {}</span>
-<span id="cb134-27"><a href="output-r-functions.html#cb134-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="output-r-functions.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Stores data for creating an animated, counted, box</span></span>
+<span id="cb133-2"><a href="output-r-functions.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb133-3"><a href="output-r-functions.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   title,value,color   title, value and color for the box</span></span>
+<span id="cb133-4"><a href="output-r-functions.html#cb133-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb133-5"><a href="output-r-functions.html#cb133-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-6"><a href="output-r-functions.html#cb133-6" aria-hidden="true" tabindex="-1"></a>boxxy <span class="ot">&lt;-</span> <span class="cf">function</span>(title, value, <span class="at">color =</span> <span class="st">&quot;#ef476f&quot;</span>) {</span>
+<span id="cb133-7"><a href="output-r-functions.html#cb133-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">title =</span> title, <span class="at">value =</span> value, <span class="at">color =</span> color)</span>
+<span id="cb133-8"><a href="output-r-functions.html#cb133-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb133-9"><a href="output-r-functions.html#cb133-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-10"><a href="output-r-functions.html#cb133-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Create the HTML skeleton within which a boxxy element sits</span></span>
+<span id="cb133-11"><a href="output-r-functions.html#cb133-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb133-12"><a href="output-r-functions.html#cb133-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   id   A shiny identifier</span></span>
+<span id="cb133-13"><a href="output-r-functions.html#cb133-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb133-14"><a href="output-r-functions.html#cb133-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-15"><a href="output-r-functions.html#cb133-15" aria-hidden="true" tabindex="-1"></a>boxxyOutput <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb133-16"><a href="output-r-functions.html#cb133-16" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">div</span>(<span class="at">id =</span> id, <span class="at">class =</span> <span class="st">&quot;boxxy&quot;</span>)</span>
+<span id="cb133-17"><a href="output-r-functions.html#cb133-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb133-18"><a href="output-r-functions.html#cb133-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-19"><a href="output-r-functions.html#cb133-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Render a &#39;boxxy&#39; object for output in a shiny app</span></span>
+<span id="cb133-20"><a href="output-r-functions.html#cb133-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb133-21"><a href="output-r-functions.html#cb133-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   expr   a shiny expression for creating a &#39;boxxy&#39; object.</span></span>
+<span id="cb133-22"><a href="output-r-functions.html#cb133-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param   env   the environment in which to evaluate \code{expr}.</span></span>
+<span id="cb133-23"><a href="output-r-functions.html#cb133-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb133-24"><a href="output-r-functions.html#cb133-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-25"><a href="output-r-functions.html#cb133-25" aria-hidden="true" tabindex="-1"></a>renderBoxxy <span class="ot">&lt;-</span> <span class="cf">function</span>(expr, <span class="at">env =</span> <span class="fu">parent.frame</span>()) {</span>
+<span id="cb133-26"><a href="output-r-functions.html#cb133-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>() {}</span>
+<span id="cb133-27"><a href="output-r-functions.html#cb133-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
             </section>
 

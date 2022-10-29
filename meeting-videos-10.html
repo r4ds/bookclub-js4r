@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -517,13 +517,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.4</span> Meeting Videos<a href="meeting-videos-10.html#meeting-videos-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="cohort-1-10" class="section level3 hasAnchor" number="11.4.1">
 <h3><span class="header-section-number">11.4.1</span> Cohort 1<a href="meeting-videos-10.html#cohort-1-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<iframe src="https://www.youtube.com/embed/URL" width="100%" height="400px" data-external="1">
+<iframe src="https://www.youtube.com/embed/EmjihW5HT7U" width="100%" height="400px" data-external="1">
 </iframe>
 <details>
 <summary>
 Meeting chat log
 </summary>
-<pre><code>LOG</code></pre>
+<pre><code>00:11:03    russ:   Hi everyone, welcome to a new section of &quot;JavaScript for R&quot;
+00:19:32    Ryan Metcalf:   Quick citations…..I&#39;m not claiming this is the ONLY reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSock
+00:23:21    Ryan Metcalf:   And for those Engineering-minded person: https://www.rfc-editor.org/rfc/rfc6455
+00:33:56    Ryan Metcalf:   To inspect WebSocket traffic (in Chrome/Chromium): open Developer Mode, select Network, Highlight/Filter to &quot;WS&quot; for WebSocket, and refresh the page. Other browsers may define this option differently.
+00:36:28    Ryan Metcalf:   https://shiny.rstudio.com/reference/shiny/0.13.1/NS.html
+00:36:36    russ:   https://github.com/rstudio/shiny/blob/ac84be956a1417a613e0b6ebeea75b08f9302df2/R/shiny.R#L1427
+00:36:47    Ryan Metcalf:   I can&#39;t recall if we’ve discussed Namespace in this book club, or in others.
+00:38:00    Arthur Shaw:    In mastering Shiny: https://mastering-shiny.org/scaling-modules.html
+00:38:36    Arthur Shaw:    Does anyone have a good reference for the contents/methods of Shiny&#39;s session object?
+00:39:14    Ryan Metcalf:   Russ&#39;s reference to MShiny, Chapter 19.2: Module Basics: https://mastering-shiny.org/scaling-modules.html?q=NameSpace#module-basics
+00:40:20    russ:   https://shiny.rstudio.com/reference/shiny/1.7.0/session.html
+00:40:22    Arthur Shaw:    An aside: here&#39;s another tool for translating between JSON and R: https://symbolixau.github.io/jsonify/index.html. I heard about this during a Shiny workshop at rstudio::conf
+00:47:00    Ryan Metcalf:   Tagging Lucio in a comment from couple of days ago: https://youtu.be/a_umFne86K8. Maya Gans presenting to R-Ladies:Tunisia, June 28, 2021. “A little JS goes a long way”.
+01:03:13    Arthur Shaw:    A supplemental resource that now seems even more relevant: https://js4shiny.com/
+01:04:16    LUCIO ENRIQUE CORNEJO RAM REZ:  Thanks :)
+01:05:09    LUCIO ENRIQUE CORNEJO RAM REZ:  Bye, thanks
+01:05:14    russ:   THanks Lucio</code></pre>
 </details>
 
 </div>

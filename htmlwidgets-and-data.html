@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -516,39 +516,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="htmlwidgets-and-data" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Htmlwidgets and data<a href="htmlwidgets-and-data.html#htmlwidgets-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The different ways to call (visualisation) functions:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="htmlwidgets-and-data.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(x, price, <span class="at">data =</span> diamonds)</span>
-<span id="cb76-2"><a href="htmlwidgets-and-data.html#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-3"><a href="htmlwidgets-and-data.html#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot2</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> price)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb76-4"><a href="htmlwidgets-and-data.html#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-5"><a href="htmlwidgets-and-data.html#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(price <span class="sc">~</span> x, <span class="at">data =</span> diamonds)</span>
-<span id="cb76-6"><a href="htmlwidgets-and-data.html#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-7"><a href="htmlwidgets-and-data.html#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(diamonds<span class="sc">$</span>x, diamonds<span class="sc">$</span>price)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="htmlwidgets-and-data.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(x, price, <span class="at">data =</span> diamonds)</span>
+<span id="cb75-2"><a href="htmlwidgets-and-data.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="htmlwidgets-and-data.html#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot2</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> price)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb75-4"><a href="htmlwidgets-and-data.html#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="htmlwidgets-and-data.html#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(price <span class="sc">~</span> x, <span class="at">data =</span> diamonds)</span>
+<span id="cb75-6"><a href="htmlwidgets-and-data.html#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="htmlwidgets-and-data.html#cb75-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(diamonds<span class="sc">$</span>x, diamonds<span class="sc">$</span>price)</span></code></pre></div>
 <p>We have built a function <code>gio(data, width, height, elementId)</code>.</p>
 <p>But:</p>
 <ul>
 <li><code>data</code> <em>must</em> be in a specific form (columns = e, i, v).</li>
 </ul>
 <p>User should be able to tell <code>gio</code> what columns to use</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="htmlwidgets-and-data.html#cb77-1" aria-hidden="true" tabindex="-1"></a>gio <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb77-2"><a href="htmlwidgets-and-data.html#cb77-2" aria-hidden="true" tabindex="-1"></a>                source, <span class="co"># new</span></span>
-<span id="cb77-3"><a href="htmlwidgets-and-data.html#cb77-3" aria-hidden="true" tabindex="-1"></a>                target, <span class="co"># new</span></span>
-<span id="cb77-4"><a href="htmlwidgets-and-data.html#cb77-4" aria-hidden="true" tabindex="-1"></a>                value, <span class="co"># new</span></span>
-<span id="cb77-5"><a href="htmlwidgets-and-data.html#cb77-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb77-6"><a href="htmlwidgets-and-data.html#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... snip ... #</span></span>
-<span id="cb77-7"><a href="htmlwidgets-and-data.html#cb77-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb77-8"><a href="htmlwidgets-and-data.html#cb77-8" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
-<span id="cb77-9"><a href="htmlwidgets-and-data.html#cb77-9" aria-hidden="true" tabindex="-1"></a>    data,</span>
-<span id="cb77-10"><a href="htmlwidgets-and-data.html#cb77-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">i =</span> {{ source }},</span>
-<span id="cb77-11"><a href="htmlwidgets-and-data.html#cb77-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">e =</span> {{ target }},</span>
-<span id="cb77-12"><a href="htmlwidgets-and-data.html#cb77-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">v =</span> {{ value }}</span>
-<span id="cb77-13"><a href="htmlwidgets-and-data.html#cb77-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb77-14"><a href="htmlwidgets-and-data.html#cb77-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb77-15"><a href="htmlwidgets-and-data.html#cb77-15" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb77-16"><a href="htmlwidgets-and-data.html#cb77-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
-<span id="cb77-17"><a href="htmlwidgets-and-data.html#cb77-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb77-18"><a href="htmlwidgets-and-data.html#cb77-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb77-19"><a href="htmlwidgets-and-data.html#cb77-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... snip .... #</span></span>
-<span id="cb77-20"><a href="htmlwidgets-and-data.html#cb77-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="htmlwidgets-and-data.html#cb76-1" aria-hidden="true" tabindex="-1"></a>gio <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb76-2"><a href="htmlwidgets-and-data.html#cb76-2" aria-hidden="true" tabindex="-1"></a>                source, <span class="co"># new</span></span>
+<span id="cb76-3"><a href="htmlwidgets-and-data.html#cb76-3" aria-hidden="true" tabindex="-1"></a>                target, <span class="co"># new</span></span>
+<span id="cb76-4"><a href="htmlwidgets-and-data.html#cb76-4" aria-hidden="true" tabindex="-1"></a>                value, <span class="co"># new</span></span>
+<span id="cb76-5"><a href="htmlwidgets-and-data.html#cb76-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="cn">NULL</span>, <span class="at">elementId =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb76-6"><a href="htmlwidgets-and-data.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... snip ... #</span></span>
+<span id="cb76-7"><a href="htmlwidgets-and-data.html#cb76-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-8"><a href="htmlwidgets-and-data.html#cb76-8" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb76-9"><a href="htmlwidgets-and-data.html#cb76-9" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb76-10"><a href="htmlwidgets-and-data.html#cb76-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">i =</span> {{ source }},</span>
+<span id="cb76-11"><a href="htmlwidgets-and-data.html#cb76-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">e =</span> {{ target }},</span>
+<span id="cb76-12"><a href="htmlwidgets-and-data.html#cb76-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">v =</span> {{ value }}</span>
+<span id="cb76-13"><a href="htmlwidgets-and-data.html#cb76-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb76-14"><a href="htmlwidgets-and-data.html#cb76-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-15"><a href="htmlwidgets-and-data.html#cb76-15" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb76-16"><a href="htmlwidgets-and-data.html#cb76-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
+<span id="cb76-17"><a href="htmlwidgets-and-data.html#cb76-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb76-18"><a href="htmlwidgets-and-data.html#cb76-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-19"><a href="htmlwidgets-and-data.html#cb76-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... snip .... #</span></span>
+<span id="cb76-20"><a href="htmlwidgets-and-data.html#cb76-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>User can now use</p>
 <pre><code>gio(data, source = from, target = to, value = amount)</code></pre>
 <p>where ‘data’ has column names ‘from’, ‘to’, and ‘amount’.</p>

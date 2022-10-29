@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -519,61 +519,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="images/switch_input.png" /></p>
 <p><a href="https://www.w3schools.com/howto/howto_css_switch.asp">Template from w3 schools</a></p>
 <p>HTML:</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb168-1"><a href="desired-checkbox.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;label</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;switch&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb168-2"><a href="desired-checkbox.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">type</span><span class="ot">=</span><span class="st">&quot;checkbox&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb168-3"><a href="desired-checkbox.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;span</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slider&quot;</span><span class="kw">&gt;&lt;/span&gt;</span></span>
-<span id="cb168-4"><a href="desired-checkbox.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/label&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb167-1"><a href="desired-checkbox.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;label</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;switch&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb167-2"><a href="desired-checkbox.html#cb167-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">type</span><span class="ot">=</span><span class="st">&quot;checkbox&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb167-3"><a href="desired-checkbox.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;span</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slider&quot;</span><span class="kw">&gt;&lt;/span&gt;</span></span>
+<span id="cb167-4"><a href="desired-checkbox.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/label&gt;</span></span></code></pre></div>
 <p>CSS:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb169-1"><a href="desired-checkbox.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.switch</span> {</span>
-<span id="cb169-2"><a href="desired-checkbox.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></span>
-<span id="cb169-3"><a href="desired-checkbox.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">inline-block</span><span class="op">;</span></span>
-<span id="cb169-4"><a href="desired-checkbox.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">60</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb169-5"><a href="desired-checkbox.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span>: <span class="dv">34</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb169-6"><a href="desired-checkbox.html#cb169-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb169-7"><a href="desired-checkbox.html#cb169-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-8"><a href="desired-checkbox.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="fu">.switch</span> input { </span>
-<span id="cb169-9"><a href="desired-checkbox.html#cb169-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-10"><a href="desired-checkbox.html#cb169-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-11"><a href="desired-checkbox.html#cb169-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-12"><a href="desired-checkbox.html#cb169-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb169-13"><a href="desired-checkbox.html#cb169-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-14"><a href="desired-checkbox.html#cb169-14" aria-hidden="true" tabindex="-1"></a><span class="fu">.slider</span> {</span>
-<span id="cb169-15"><a href="desired-checkbox.html#cb169-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></span>
-<span id="cb169-16"><a href="desired-checkbox.html#cb169-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">cursor</span>: <span class="dv">pointer</span><span class="op">;</span></span>
-<span id="cb169-17"><a href="desired-checkbox.html#cb169-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-18"><a href="desired-checkbox.html#cb169-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">left</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-19"><a href="desired-checkbox.html#cb169-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-20"><a href="desired-checkbox.html#cb169-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">bottom</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb169-21"><a href="desired-checkbox.html#cb169-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#ccc</span><span class="op">;</span></span>
-<span id="cb169-22"><a href="desired-checkbox.html#cb169-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-webkit-transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
-<span id="cb169-23"><a href="desired-checkbox.html#cb169-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
-<span id="cb169-24"><a href="desired-checkbox.html#cb169-24" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb169-25"><a href="desired-checkbox.html#cb169-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-26"><a href="desired-checkbox.html#cb169-26" aria-hidden="true" tabindex="-1"></a><span class="fu">.slider:before</span> {</span>
-<span id="cb169-27"><a href="desired-checkbox.html#cb169-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></span>
-<span id="cb169-28"><a href="desired-checkbox.html#cb169-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">content</span>: <span class="st">&quot;&quot;</span><span class="op">;</span></span>
-<span id="cb169-29"><a href="desired-checkbox.html#cb169-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span>: <span class="dv">26</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb169-30"><a href="desired-checkbox.html#cb169-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">26</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb169-31"><a href="desired-checkbox.html#cb169-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">left</span>: <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb169-32"><a href="desired-checkbox.html#cb169-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">bottom</span>: <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb169-33"><a href="desired-checkbox.html#cb169-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">white</span><span class="op">;</span></span>
-<span id="cb169-34"><a href="desired-checkbox.html#cb169-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-webkit-transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
-<span id="cb169-35"><a href="desired-checkbox.html#cb169-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
-<span id="cb169-36"><a href="desired-checkbox.html#cb169-36" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb169-37"><a href="desired-checkbox.html#cb169-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-38"><a href="desired-checkbox.html#cb169-38" aria-hidden="true" tabindex="-1"></a>input<span class="in">:checked</span> <span class="op">+</span> <span class="fu">.slider</span> {</span>
-<span id="cb169-39"><a href="desired-checkbox.html#cb169-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#0462a1</span><span class="op">;</span></span>
-<span id="cb169-40"><a href="desired-checkbox.html#cb169-40" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb169-41"><a href="desired-checkbox.html#cb169-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-42"><a href="desired-checkbox.html#cb169-42" aria-hidden="true" tabindex="-1"></a>input<span class="in">:focus</span> <span class="op">+</span> <span class="fu">.slider</span> {</span>
-<span id="cb169-43"><a href="desired-checkbox.html#cb169-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span><span class="dt">px</span> <span class="cn">#0462a1</span><span class="op">;</span></span>
-<span id="cb169-44"><a href="desired-checkbox.html#cb169-44" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb169-45"><a href="desired-checkbox.html#cb169-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-46"><a href="desired-checkbox.html#cb169-46" aria-hidden="true" tabindex="-1"></a>input<span class="in">:checked</span> <span class="op">+</span> <span class="fu">.slider:before</span> {</span>
-<span id="cb169-47"><a href="desired-checkbox.html#cb169-47" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-webkit-transform</span>: translateX(<span class="dv">26</span><span class="dt">px</span>)<span class="op">;</span></span>
-<span id="cb169-48"><a href="desired-checkbox.html#cb169-48" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-ms-transform</span>: translateX(<span class="dv">26</span><span class="dt">px</span>)<span class="op">;</span></span>
-<span id="cb169-49"><a href="desired-checkbox.html#cb169-49" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transform</span>: translateX(<span class="dv">26</span><span class="dt">px</span>)<span class="op">;</span></span>
-<span id="cb169-50"><a href="desired-checkbox.html#cb169-50" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb168-1"><a href="desired-checkbox.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.switch</span> {</span>
+<span id="cb168-2"><a href="desired-checkbox.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></span>
+<span id="cb168-3"><a href="desired-checkbox.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">inline-block</span><span class="op">;</span></span>
+<span id="cb168-4"><a href="desired-checkbox.html#cb168-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">60</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb168-5"><a href="desired-checkbox.html#cb168-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span>: <span class="dv">34</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb168-6"><a href="desired-checkbox.html#cb168-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-7"><a href="desired-checkbox.html#cb168-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-8"><a href="desired-checkbox.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="fu">.switch</span> input { </span>
+<span id="cb168-9"><a href="desired-checkbox.html#cb168-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-10"><a href="desired-checkbox.html#cb168-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-11"><a href="desired-checkbox.html#cb168-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-12"><a href="desired-checkbox.html#cb168-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-13"><a href="desired-checkbox.html#cb168-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-14"><a href="desired-checkbox.html#cb168-14" aria-hidden="true" tabindex="-1"></a><span class="fu">.slider</span> {</span>
+<span id="cb168-15"><a href="desired-checkbox.html#cb168-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></span>
+<span id="cb168-16"><a href="desired-checkbox.html#cb168-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">cursor</span>: <span class="dv">pointer</span><span class="op">;</span></span>
+<span id="cb168-17"><a href="desired-checkbox.html#cb168-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-18"><a href="desired-checkbox.html#cb168-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">left</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-19"><a href="desired-checkbox.html#cb168-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-20"><a href="desired-checkbox.html#cb168-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">bottom</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb168-21"><a href="desired-checkbox.html#cb168-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#ccc</span><span class="op">;</span></span>
+<span id="cb168-22"><a href="desired-checkbox.html#cb168-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-webkit-transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
+<span id="cb168-23"><a href="desired-checkbox.html#cb168-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
+<span id="cb168-24"><a href="desired-checkbox.html#cb168-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-25"><a href="desired-checkbox.html#cb168-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-26"><a href="desired-checkbox.html#cb168-26" aria-hidden="true" tabindex="-1"></a><span class="fu">.slider</span><span class="in">:before</span> {</span>
+<span id="cb168-27"><a href="desired-checkbox.html#cb168-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></span>
+<span id="cb168-28"><a href="desired-checkbox.html#cb168-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">content</span>: <span class="st">&quot;&quot;</span><span class="op">;</span></span>
+<span id="cb168-29"><a href="desired-checkbox.html#cb168-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span>: <span class="dv">26</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb168-30"><a href="desired-checkbox.html#cb168-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">26</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb168-31"><a href="desired-checkbox.html#cb168-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">left</span>: <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb168-32"><a href="desired-checkbox.html#cb168-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">bottom</span>: <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb168-33"><a href="desired-checkbox.html#cb168-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb168-34"><a href="desired-checkbox.html#cb168-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-webkit-transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
+<span id="cb168-35"><a href="desired-checkbox.html#cb168-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transition</span>: <span class="dv">.4</span><span class="dt">s</span><span class="op">;</span></span>
+<span id="cb168-36"><a href="desired-checkbox.html#cb168-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-37"><a href="desired-checkbox.html#cb168-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-38"><a href="desired-checkbox.html#cb168-38" aria-hidden="true" tabindex="-1"></a>input<span class="in">:checked</span> <span class="op">+</span> <span class="fu">.slider</span> {</span>
+<span id="cb168-39"><a href="desired-checkbox.html#cb168-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#0462a1</span><span class="op">;</span></span>
+<span id="cb168-40"><a href="desired-checkbox.html#cb168-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-41"><a href="desired-checkbox.html#cb168-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-42"><a href="desired-checkbox.html#cb168-42" aria-hidden="true" tabindex="-1"></a>input<span class="in">:focus</span> <span class="op">+</span> <span class="fu">.slider</span> {</span>
+<span id="cb168-43"><a href="desired-checkbox.html#cb168-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span><span class="dt">px</span> <span class="cn">#0462a1</span><span class="op">;</span></span>
+<span id="cb168-44"><a href="desired-checkbox.html#cb168-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-45"><a href="desired-checkbox.html#cb168-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-46"><a href="desired-checkbox.html#cb168-46" aria-hidden="true" tabindex="-1"></a>input<span class="in">:checked</span> <span class="op">+</span> <span class="fu">.slider</span><span class="in">:before</span> {</span>
+<span id="cb168-47"><a href="desired-checkbox.html#cb168-47" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-webkit-transform</span>: translateX(<span class="dv">26</span><span class="dt">px</span>)<span class="op">;</span></span>
+<span id="cb168-48"><a href="desired-checkbox.html#cb168-48" aria-hidden="true" tabindex="-1"></a>  <span class="kw">-ms-transform</span>: translateX(<span class="dv">26</span><span class="dt">px</span>)<span class="op">;</span></span>
+<span id="cb168-49"><a href="desired-checkbox.html#cb168-49" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transform</span>: translateX(<span class="dv">26</span><span class="dt">px</span>)<span class="op">;</span></span>
+<span id="cb168-50"><a href="desired-checkbox.html#cb168-50" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
             </section>
 

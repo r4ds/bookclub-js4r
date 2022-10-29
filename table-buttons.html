@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -520,33 +520,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 one button per row.</p></li>
 <li><p>Code for new Shiny app (<code>app.R</code>):</p></li>
 </ul>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="table-buttons.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb111-2"><a href="table-buttons.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb111-3"><a href="table-buttons.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="table-buttons.html#cb111-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb111-5"><a href="table-buttons.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>)</span>
-<span id="cb111-6"><a href="table-buttons.html#cb111-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb111-7"><a href="table-buttons.html#cb111-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-8"><a href="table-buttons.html#cb111-8" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb111-9"><a href="table-buttons.html#cb111-9" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb111-10"><a href="table-buttons.html#cb111-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
-<span id="cb111-11"><a href="table-buttons.html#cb111-11" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
-<span id="cb111-12"><a href="table-buttons.html#cb111-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb111-13"><a href="table-buttons.html#cb111-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb111-14"><a href="table-buttons.html#cb111-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb111-15"><a href="table-buttons.html#cb111-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
-<span id="cb111-16"><a href="table-buttons.html#cb111-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb111-17"><a href="table-buttons.html#cb111-17" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb111-18"><a href="table-buttons.html#cb111-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-19"><a href="table-buttons.html#cb111-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb111-20"><a href="table-buttons.html#cb111-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-21"><a href="table-buttons.html#cb111-21" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="table-buttons.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb110-2"><a href="table-buttons.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb110-3"><a href="table-buttons.html#cb110-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-4"><a href="table-buttons.html#cb110-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb110-5"><a href="table-buttons.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>)</span>
+<span id="cb110-6"><a href="table-buttons.html#cb110-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb110-7"><a href="table-buttons.html#cb110-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-8"><a href="table-buttons.html#cb110-8" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb110-9"><a href="table-buttons.html#cb110-9" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
+<span id="cb110-10"><a href="table-buttons.html#cb110-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
+<span id="cb110-11"><a href="table-buttons.html#cb110-11" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
+<span id="cb110-12"><a href="table-buttons.html#cb110-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb110-13"><a href="table-buttons.html#cb110-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb110-14"><a href="table-buttons.html#cb110-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb110-15"><a href="table-buttons.html#cb110-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
+<span id="cb110-16"><a href="table-buttons.html#cb110-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb110-17"><a href="table-buttons.html#cb110-17" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb110-18"><a href="table-buttons.html#cb110-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-19"><a href="table-buttons.html#cb110-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb110-20"><a href="table-buttons.html#cb110-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-21"><a href="table-buttons.html#cb110-21" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 <p>Only the <code>escape = FALSE</code> is necessary.
 It will allow us to insert <strong>HTML</strong> code into
 the table, and have it <strong>appear as is</strong>,
 instead of as a string.</p>
 <p>The HTML code we will insert is of the form:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb112-1"><a href="table-buttons.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;btn btn-primary&quot;</span> <span class="er">onclick</span><span class="ot">=</span><span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;Mazda RX4&#39;)&quot;</span><span class="kw">&gt;</span>Click me<span class="kw">&lt;/a&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb111-1"><a href="table-buttons.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;btn btn-primary&quot;</span> <span class="er">onclick</span><span class="ot">=</span><span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;Mazda RX4&#39;)&quot;</span><span class="kw">&gt;</span>Click me<span class="kw">&lt;/a&gt;</span></span></code></pre></div>
 <ul>
 <li>The book uses the <code>sprintf</code> function to create
 each of those buttons, changing the row name value,
@@ -555,71 +555,71 @@ with the ‘“’ symbols.<br />
 An alternative solution will be presented,
 when necessary.</li>
 </ul>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="table-buttons.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On click function</span></span>
-<span id="cb113-2"><a href="table-buttons.html#cb113-2" aria-hidden="true" tabindex="-1"></a>onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb113-3"><a href="table-buttons.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
-<span id="cb113-4"><a href="table-buttons.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(mtcars)</span>
-<span id="cb113-5"><a href="table-buttons.html#cb113-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="table-buttons.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Button with onClick function</span></span>
-<span id="cb114-2"><a href="table-buttons.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="table-buttons.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Book version</span></span>
-<span id="cb114-4"><a href="table-buttons.html#cb114-4" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb114-5"><a href="table-buttons.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;&lt;a class=&#39;btn btn-primary&#39; onClick=&#39;%s&#39;&gt;Click me&lt;/a&gt;&quot;</span>,</span>
-<span id="cb114-6"><a href="table-buttons.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  onclick</span>
-<span id="cb114-7"><a href="table-buttons.html#cb114-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb114-8"><a href="table-buttons.html#cb114-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-9"><a href="table-buttons.html#cb114-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative version</span></span>
-<span id="cb114-10"><a href="table-buttons.html#cb114-10" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb114-11"><a href="table-buttons.html#cb114-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
-<span id="cb114-12"><a href="table-buttons.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  onclick,</span>
-<span id="cb114-13"><a href="table-buttons.html#cb114-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
-<span id="cb114-14"><a href="table-buttons.html#cb114-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="table-buttons.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On click function</span></span>
+<span id="cb112-2"><a href="table-buttons.html#cb112-2" aria-hidden="true" tabindex="-1"></a>onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb112-3"><a href="table-buttons.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
+<span id="cb112-4"><a href="table-buttons.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(mtcars)</span>
+<span id="cb112-5"><a href="table-buttons.html#cb112-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="table-buttons.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Button with onClick function</span></span>
+<span id="cb113-2"><a href="table-buttons.html#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="table-buttons.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Book version</span></span>
+<span id="cb113-4"><a href="table-buttons.html#cb113-4" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb113-5"><a href="table-buttons.html#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;&lt;a class=&#39;btn btn-primary&#39; onClick=&#39;%s&#39;&gt;Click me&lt;/a&gt;&quot;</span>,</span>
+<span id="cb113-6"><a href="table-buttons.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  onclick</span>
+<span id="cb113-7"><a href="table-buttons.html#cb113-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb113-8"><a href="table-buttons.html#cb113-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-9"><a href="table-buttons.html#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative version</span></span>
+<span id="cb113-10"><a href="table-buttons.html#cb113-10" aria-hidden="true" tabindex="-1"></a>button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb113-11"><a href="table-buttons.html#cb113-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
+<span id="cb113-12"><a href="table-buttons.html#cb113-12" aria-hidden="true" tabindex="-1"></a>  onclick,</span>
+<span id="cb113-13"><a href="table-buttons.html#cb113-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
+<span id="cb113-14"><a href="table-buttons.html#cb113-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Finally, we add a column of <em>buttons</em> and show the
 value of the <code>click</code> input.</p>
 <p>Final code (<code>app.R</code>):</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="table-buttons.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb115-2"><a href="table-buttons.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb115-3"><a href="table-buttons.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-4"><a href="table-buttons.html#cb115-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb115-5"><a href="table-buttons.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">br</span>(),</span>
-<span id="cb115-6"><a href="table-buttons.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>),</span>
-<span id="cb115-7"><a href="table-buttons.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strong</span>(<span class="st">&quot;Clicked Model:&quot;</span>),</span>
-<span id="cb115-8"><a href="table-buttons.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;model&quot;</span>)</span>
-<span id="cb115-9"><a href="table-buttons.html#cb115-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb115-10"><a href="table-buttons.html#cb115-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-11"><a href="table-buttons.html#cb115-11" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb115-12"><a href="table-buttons.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb115-13"><a href="table-buttons.html#cb115-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># On click function</span></span>
-<span id="cb115-14"><a href="table-buttons.html#cb115-14" aria-hidden="true" tabindex="-1"></a>    onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb115-15"><a href="table-buttons.html#cb115-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
-<span id="cb115-16"><a href="table-buttons.html#cb115-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rownames</span>(mtcars)</span>
-<span id="cb115-17"><a href="table-buttons.html#cb115-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-18"><a href="table-buttons.html#cb115-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-19"><a href="table-buttons.html#cb115-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;Button&#39; with onClick function</span></span>
-<span id="cb115-20"><a href="table-buttons.html#cb115-20" aria-hidden="true" tabindex="-1"></a>    button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb115-21"><a href="table-buttons.html#cb115-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
-<span id="cb115-22"><a href="table-buttons.html#cb115-22" aria-hidden="true" tabindex="-1"></a>      onclick,</span>
-<span id="cb115-23"><a href="table-buttons.html#cb115-23" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
-<span id="cb115-24"><a href="table-buttons.html#cb115-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-25"><a href="table-buttons.html#cb115-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-26"><a href="table-buttons.html#cb115-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add &#39;buttons&#39; to data.frame</span></span>
-<span id="cb115-27"><a href="table-buttons.html#cb115-27" aria-hidden="true" tabindex="-1"></a>    mtcars<span class="sc">$</span>button <span class="ot">&lt;-</span> button</span>
-<span id="cb115-28"><a href="table-buttons.html#cb115-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-29"><a href="table-buttons.html#cb115-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
-<span id="cb115-30"><a href="table-buttons.html#cb115-30" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
-<span id="cb115-31"><a href="table-buttons.html#cb115-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb115-32"><a href="table-buttons.html#cb115-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb115-33"><a href="table-buttons.html#cb115-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb115-34"><a href="table-buttons.html#cb115-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
-<span id="cb115-35"><a href="table-buttons.html#cb115-35" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb115-36"><a href="table-buttons.html#cb115-36" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb115-37"><a href="table-buttons.html#cb115-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-38"><a href="table-buttons.html#cb115-38" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb115-39"><a href="table-buttons.html#cb115-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(input<span class="sc">$</span>click)</span>
-<span id="cb115-40"><a href="table-buttons.html#cb115-40" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb115-41"><a href="table-buttons.html#cb115-41" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb115-42"><a href="table-buttons.html#cb115-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-43"><a href="table-buttons.html#cb115-43" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="table-buttons.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb114-2"><a href="table-buttons.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb114-3"><a href="table-buttons.html#cb114-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-4"><a href="table-buttons.html#cb114-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb114-5"><a href="table-buttons.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">br</span>(),</span>
+<span id="cb114-6"><a href="table-buttons.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>),</span>
+<span id="cb114-7"><a href="table-buttons.html#cb114-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strong</span>(<span class="st">&quot;Clicked Model:&quot;</span>),</span>
+<span id="cb114-8"><a href="table-buttons.html#cb114-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;model&quot;</span>)</span>
+<span id="cb114-9"><a href="table-buttons.html#cb114-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb114-10"><a href="table-buttons.html#cb114-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-11"><a href="table-buttons.html#cb114-11" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb114-12"><a href="table-buttons.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
+<span id="cb114-13"><a href="table-buttons.html#cb114-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># On click function</span></span>
+<span id="cb114-14"><a href="table-buttons.html#cb114-14" aria-hidden="true" tabindex="-1"></a>    onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb114-15"><a href="table-buttons.html#cb114-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Shiny.setInputValue(&#39;click&#39;, &#39;%s&#39;)&quot;</span>,</span>
+<span id="cb114-16"><a href="table-buttons.html#cb114-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rownames</span>(mtcars)</span>
+<span id="cb114-17"><a href="table-buttons.html#cb114-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb114-18"><a href="table-buttons.html#cb114-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-19"><a href="table-buttons.html#cb114-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;Button&#39; with onClick function</span></span>
+<span id="cb114-20"><a href="table-buttons.html#cb114-20" aria-hidden="true" tabindex="-1"></a>    button <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb114-21"><a href="table-buttons.html#cb114-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&lt;a class=&quot;btn btn-primary&quot; onClick=&quot;&#39;</span>,</span>
+<span id="cb114-22"><a href="table-buttons.html#cb114-22" aria-hidden="true" tabindex="-1"></a>      onclick,</span>
+<span id="cb114-23"><a href="table-buttons.html#cb114-23" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;&quot;&gt;Click me&lt;/a&gt;&#39;</span></span>
+<span id="cb114-24"><a href="table-buttons.html#cb114-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb114-25"><a href="table-buttons.html#cb114-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-26"><a href="table-buttons.html#cb114-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add &#39;buttons&#39; to data.frame</span></span>
+<span id="cb114-27"><a href="table-buttons.html#cb114-27" aria-hidden="true" tabindex="-1"></a>    mtcars<span class="sc">$</span>button <span class="ot">&lt;-</span> button</span>
+<span id="cb114-28"><a href="table-buttons.html#cb114-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-29"><a href="table-buttons.html#cb114-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(</span>
+<span id="cb114-30"><a href="table-buttons.html#cb114-30" aria-hidden="true" tabindex="-1"></a>      mtcars, </span>
+<span id="cb114-31"><a href="table-buttons.html#cb114-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb114-32"><a href="table-buttons.html#cb114-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">selection =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb114-33"><a href="table-buttons.html#cb114-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb114-34"><a href="table-buttons.html#cb114-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;bootstrap&quot;</span></span>
+<span id="cb114-35"><a href="table-buttons.html#cb114-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb114-36"><a href="table-buttons.html#cb114-36" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb114-37"><a href="table-buttons.html#cb114-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-38"><a href="table-buttons.html#cb114-38" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
+<span id="cb114-39"><a href="table-buttons.html#cb114-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(input<span class="sc">$</span>click)</span>
+<span id="cb114-40"><a href="table-buttons.html#cb114-40" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb114-41"><a href="table-buttons.html#cb114-41" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb114-42"><a href="table-buttons.html#cb114-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-43"><a href="table-buttons.html#cb114-43" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 </div>
             </section>
 

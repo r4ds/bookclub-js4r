@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -546,58 +546,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="implementation-1" class="section level3 hasAnchor" number="16.2.2">
 <h3><span class="header-section-number">16.2.2</span> Implementation<a href="shiny-setup.html#implementation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="shiny-setup.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb177-2"><a href="shiny-setup.html#cb177-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-3"><a href="shiny-setup.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="fu">addResourcePath</span>(<span class="st">&quot;www&quot;</span>, <span class="st">&quot;www&quot;</span>)</span>
-<span id="cb177-4"><a href="shiny-setup.html#cb177-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-5"><a href="shiny-setup.html#cb177-5" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb177-6"><a href="shiny-setup.html#cb177-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load JS dependencies</span></span>
-<span id="cb177-7"><a href="shiny-setup.html#cb177-7" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
-<span id="cb177-8"><a href="shiny-setup.html#cb177-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fetch js-cookie from CDN</span></span>
-<span id="cb177-9"><a href="shiny-setup.html#cb177-9" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
-<span id="cb177-10"><a href="shiny-setup.html#cb177-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">paste0</span>(</span>
-<span id="cb177-11"><a href="shiny-setup.html#cb177-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/npm/js-cookie@rc/&quot;</span>,</span>
-<span id="cb177-12"><a href="shiny-setup.html#cb177-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;dist/js.cookie.min.js&quot;</span></span>
-<span id="cb177-13"><a href="shiny-setup.html#cb177-13" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb177-14"><a href="shiny-setup.html#cb177-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb177-15"><a href="shiny-setup.html#cb177-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add local script</span></span>
-<span id="cb177-16"><a href="shiny-setup.html#cb177-16" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(<span class="at">src =</span> <span class="st">&quot;www/script.js&quot;</span>)</span>
-<span id="cb177-17"><a href="shiny-setup.html#cb177-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb177-18"><a href="shiny-setup.html#cb177-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name_set&quot;</span>, <span class="st">&quot;What is your name?&quot;</span>),</span>
-<span id="cb177-19"><a href="shiny-setup.html#cb177-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;save&quot;</span>, <span class="st">&quot;Save cookie&quot;</span>),</span>
-<span id="cb177-20"><a href="shiny-setup.html#cb177-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;remove&quot;</span>, <span class="st">&quot;remove cookie&quot;</span>),</span>
-<span id="cb177-21"><a href="shiny-setup.html#cb177-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uiOutput</span>(<span class="st">&quot;name_get&quot;</span>)</span>
-<span id="cb177-22"><a href="shiny-setup.html#cb177-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb177-23"><a href="shiny-setup.html#cb177-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-24"><a href="shiny-setup.html#cb177-24" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session){</span>
-<span id="cb177-25"><a href="shiny-setup.html#cb177-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-26"><a href="shiny-setup.html#cb177-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save</span></span>
-<span id="cb177-27"><a href="shiny-setup.html#cb177-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>save, {</span>
-<span id="cb177-28"><a href="shiny-setup.html#cb177-28" aria-hidden="true" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb177-29"><a href="shiny-setup.html#cb177-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">&quot;name&quot;</span>, <span class="at">value =</span> input<span class="sc">$</span>name_set</span>
-<span id="cb177-30"><a href="shiny-setup.html#cb177-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb177-31"><a href="shiny-setup.html#cb177-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-32"><a href="shiny-setup.html#cb177-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(input<span class="sc">$</span>name_set <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb177-33"><a href="shiny-setup.html#cb177-33" aria-hidden="true" tabindex="-1"></a>      session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(<span class="st">&quot;cookie-set&quot;</span>, msg)</span>
-<span id="cb177-34"><a href="shiny-setup.html#cb177-34" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb177-35"><a href="shiny-setup.html#cb177-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-36"><a href="shiny-setup.html#cb177-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># delete</span></span>
-<span id="cb177-37"><a href="shiny-setup.html#cb177-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>remove, {</span>
-<span id="cb177-38"><a href="shiny-setup.html#cb177-38" aria-hidden="true" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">&quot;name&quot;</span>)</span>
-<span id="cb177-39"><a href="shiny-setup.html#cb177-39" aria-hidden="true" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(<span class="st">&quot;cookie-remove&quot;</span>, msg)</span>
-<span id="cb177-40"><a href="shiny-setup.html#cb177-40" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb177-41"><a href="shiny-setup.html#cb177-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-42"><a href="shiny-setup.html#cb177-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output if cookie is specified</span></span>
-<span id="cb177-43"><a href="shiny-setup.html#cb177-43" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>name_get <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb177-44"><a href="shiny-setup.html#cb177-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>cookies<span class="sc">$</span>name))</span>
-<span id="cb177-45"><a href="shiny-setup.html#cb177-45" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h3</span>(<span class="st">&quot;Hello,&quot;</span>, input<span class="sc">$</span>cookies<span class="sc">$</span>name)</span>
-<span id="cb177-46"><a href="shiny-setup.html#cb177-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb177-47"><a href="shiny-setup.html#cb177-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h3</span>(<span class="st">&quot;Who are you?&quot;</span>)</span>
-<span id="cb177-48"><a href="shiny-setup.html#cb177-48" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb177-49"><a href="shiny-setup.html#cb177-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-50"><a href="shiny-setup.html#cb177-50" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb177-51"><a href="shiny-setup.html#cb177-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-52"><a href="shiny-setup.html#cb177-52" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="shiny-setup.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb175-2"><a href="shiny-setup.html#cb175-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-3"><a href="shiny-setup.html#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="fu">addResourcePath</span>(<span class="st">&quot;www&quot;</span>, <span class="st">&quot;www&quot;</span>)</span>
+<span id="cb175-4"><a href="shiny-setup.html#cb175-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-5"><a href="shiny-setup.html#cb175-5" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb175-6"><a href="shiny-setup.html#cb175-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load JS dependencies</span></span>
+<span id="cb175-7"><a href="shiny-setup.html#cb175-7" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb175-8"><a href="shiny-setup.html#cb175-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fetch js-cookie from CDN</span></span>
+<span id="cb175-9"><a href="shiny-setup.html#cb175-9" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(</span>
+<span id="cb175-10"><a href="shiny-setup.html#cb175-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">paste0</span>(</span>
+<span id="cb175-11"><a href="shiny-setup.html#cb175-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;https://cdn.jsdelivr.net/npm/js-cookie@rc/&quot;</span>,</span>
+<span id="cb175-12"><a href="shiny-setup.html#cb175-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;dist/js.cookie.min.js&quot;</span></span>
+<span id="cb175-13"><a href="shiny-setup.html#cb175-13" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb175-14"><a href="shiny-setup.html#cb175-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb175-15"><a href="shiny-setup.html#cb175-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add local script</span></span>
+<span id="cb175-16"><a href="shiny-setup.html#cb175-16" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(<span class="at">src =</span> <span class="st">&quot;www/script.js&quot;</span>)</span>
+<span id="cb175-17"><a href="shiny-setup.html#cb175-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb175-18"><a href="shiny-setup.html#cb175-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name_set&quot;</span>, <span class="st">&quot;What is your name?&quot;</span>),</span>
+<span id="cb175-19"><a href="shiny-setup.html#cb175-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;save&quot;</span>, <span class="st">&quot;Save cookie&quot;</span>),</span>
+<span id="cb175-20"><a href="shiny-setup.html#cb175-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;remove&quot;</span>, <span class="st">&quot;remove cookie&quot;</span>),</span>
+<span id="cb175-21"><a href="shiny-setup.html#cb175-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uiOutput</span>(<span class="st">&quot;name_get&quot;</span>)</span>
+<span id="cb175-22"><a href="shiny-setup.html#cb175-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb175-23"><a href="shiny-setup.html#cb175-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-24"><a href="shiny-setup.html#cb175-24" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session){</span>
+<span id="cb175-25"><a href="shiny-setup.html#cb175-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-26"><a href="shiny-setup.html#cb175-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save</span></span>
+<span id="cb175-27"><a href="shiny-setup.html#cb175-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>save, {</span>
+<span id="cb175-28"><a href="shiny-setup.html#cb175-28" aria-hidden="true" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb175-29"><a href="shiny-setup.html#cb175-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">&quot;name&quot;</span>, <span class="at">value =</span> input<span class="sc">$</span>name_set</span>
+<span id="cb175-30"><a href="shiny-setup.html#cb175-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb175-31"><a href="shiny-setup.html#cb175-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-32"><a href="shiny-setup.html#cb175-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(input<span class="sc">$</span>name_set <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb175-33"><a href="shiny-setup.html#cb175-33" aria-hidden="true" tabindex="-1"></a>      session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(<span class="st">&quot;cookie-set&quot;</span>, msg)</span>
+<span id="cb175-34"><a href="shiny-setup.html#cb175-34" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb175-35"><a href="shiny-setup.html#cb175-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-36"><a href="shiny-setup.html#cb175-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># delete</span></span>
+<span id="cb175-37"><a href="shiny-setup.html#cb175-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>remove, {</span>
+<span id="cb175-38"><a href="shiny-setup.html#cb175-38" aria-hidden="true" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">&quot;name&quot;</span>)</span>
+<span id="cb175-39"><a href="shiny-setup.html#cb175-39" aria-hidden="true" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">sendCustomMessage</span>(<span class="st">&quot;cookie-remove&quot;</span>, msg)</span>
+<span id="cb175-40"><a href="shiny-setup.html#cb175-40" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb175-41"><a href="shiny-setup.html#cb175-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-42"><a href="shiny-setup.html#cb175-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output if cookie is specified</span></span>
+<span id="cb175-43"><a href="shiny-setup.html#cb175-43" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>name_get <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb175-44"><a href="shiny-setup.html#cb175-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>cookies<span class="sc">$</span>name))</span>
+<span id="cb175-45"><a href="shiny-setup.html#cb175-45" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h3</span>(<span class="st">&quot;Hello,&quot;</span>, input<span class="sc">$</span>cookies<span class="sc">$</span>name)</span>
+<span id="cb175-46"><a href="shiny-setup.html#cb175-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb175-47"><a href="shiny-setup.html#cb175-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h3</span>(<span class="st">&quot;Who are you?&quot;</span>)</span>
+<span id="cb175-48"><a href="shiny-setup.html#cb175-48" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb175-49"><a href="shiny-setup.html#cb175-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-50"><a href="shiny-setup.html#cb175-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb175-51"><a href="shiny-setup.html#cb175-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-52"><a href="shiny-setup.html#cb175-52" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 </div>
 </div>
             </section>

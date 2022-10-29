@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -516,55 +516,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sharing-variables-between-rendervalue-and-resize" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Sharing variables between <code>renderValue</code> and <code>resize</code><a href="sharing-variables-between-rendervalue-and-resize.html#sharing-variables-between-rendervalue-and-resize" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>newGio.js</code> looks like this:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb53-1"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-1" aria-hidden="true" tabindex="-1"></a>HTMLWidgets<span class="op">.</span><span class="fu">widget</span>({</span>
-<span id="cb53-2"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;newGio&quot;</span><span class="op">,</span></span>
-<span id="cb53-3"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;output&quot;</span><span class="op">,</span></span>
-<span id="cb53-4"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">factory</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
-<span id="cb53-5"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb53-6"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
-<span id="cb53-7"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// I, the controller, am only available inside this function</span></span>
-<span id="cb53-8"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
-<span id="cb53-9"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// etc //</span></span>
-<span id="cb53-10"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-10" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
-<span id="cb53-11"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">resize</span><span class="op">:</span> <span class="kw">function</span>(width<span class="op">,</span> height) {</span>
-<span id="cb53-12"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// code to re-render the widget with a new size</span></span>
-<span id="cb53-13"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ... ARG! I need to access the controller!</span></span>
-<span id="cb53-14"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-14" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb53-15"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-15" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
-<span id="cb53-16"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-16" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb53-17"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-17" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb52-1"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-1" aria-hidden="true" tabindex="-1"></a>HTMLWidgets<span class="op">.</span><span class="fu">widget</span>({</span>
+<span id="cb52-2"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;newGio&quot;</span><span class="op">,</span></span>
+<span id="cb52-3"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;output&quot;</span><span class="op">,</span></span>
+<span id="cb52-4"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">factory</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
+<span id="cb52-5"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb52-6"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb52-7"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// I, the controller, am only available inside this function</span></span>
+<span id="cb52-8"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb52-9"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// etc //</span></span>
+<span id="cb52-10"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-10" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb52-11"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">resize</span><span class="op">:</span> <span class="kw">function</span>(width<span class="op">,</span> height) {</span>
+<span id="cb52-12"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// code to re-render the widget with a new size</span></span>
+<span id="cb52-13"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ... ARG! I need to access the controller!</span></span>
+<span id="cb52-14"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-14" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb52-15"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-15" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb52-16"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-16" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb52-17"><a href="sharing-variables-between-rendervalue-and-resize.html#cb52-17" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Three scoping rules in JavaScript: Block, Function and Global scope.</p>
 <p>Function scope is similar to R (for data access)</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-1" aria-hidden="true" tabindex="-1"></a>make_adder <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
-<span id="cb54-2"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  adder <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb54-3"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-3" aria-hidden="true" tabindex="-1"></a>    x <span class="sc">+</span> y</span>
-<span id="cb54-4"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb54-5"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The returned function can access `y` even after `make_adder` has ran</span></span>
-<span id="cb54-6"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  adder</span>
-<span id="cb54-7"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb54-8"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-9"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-9" aria-hidden="true" tabindex="-1"></a>add_10 <span class="ot">&lt;-</span> <span class="fu">make_adder</span>(<span class="dv">10</span>)</span>
-<span id="cb54-10"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-11"><a href="sharing-variables-between-rendervalue-and-resize.html#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="fu">add_10</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-1" aria-hidden="true" tabindex="-1"></a>make_adder <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb53-2"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  adder <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb53-3"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-3" aria-hidden="true" tabindex="-1"></a>    x <span class="sc">+</span> y</span>
+<span id="cb53-4"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb53-5"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The returned function can access `y` even after `make_adder` has ran</span></span>
+<span id="cb53-6"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  adder</span>
+<span id="cb53-7"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb53-8"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-9" aria-hidden="true" tabindex="-1"></a>add_10 <span class="ot">&lt;-</span> <span class="fu">make_adder</span>(<span class="dv">10</span>)</span>
+<span id="cb53-10"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="sharing-variables-between-rendervalue-and-resize.html#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="fu">add_10</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 <p>So if you need to access the same variable in <code>renderValue</code> and <code>resize</code>, define that variable
 in a scope that they both can find:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb56-1"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-1" aria-hidden="true" tabindex="-1"></a>HTMLWidgets<span class="op">.</span><span class="fu">widget</span>({</span>
-<span id="cb56-2"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;newGio&quot;</span><span class="op">,</span></span>
-<span id="cb56-3"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;output&quot;</span><span class="op">,</span></span>
-<span id="cb56-4"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">factory</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
-<span id="cb56-5"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
-<span id="cb56-6"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb56-7"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb56-8"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
-<span id="cb56-9"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// `controller` is accessible here</span></span>
-<span id="cb56-10"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-10" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
-<span id="cb56-11"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">resize</span><span class="op">:</span> <span class="kw">function</span>(width<span class="op">,</span> height) {</span>
-<span id="cb56-12"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ... and also here :0)</span></span>
-<span id="cb56-13"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-13" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb56-14"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-14" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
-<span id="cb56-15"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-15" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb56-16"><a href="sharing-variables-between-rendervalue-and-resize.html#cb56-16" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb55-1"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-1" aria-hidden="true" tabindex="-1"></a>HTMLWidgets<span class="op">.</span><span class="fu">widget</span>({</span>
+<span id="cb55-2"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;newGio&quot;</span><span class="op">,</span></span>
+<span id="cb55-3"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;output&quot;</span><span class="op">,</span></span>
+<span id="cb55-4"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">factory</span><span class="op">:</span> <span class="kw">function</span>(el<span class="op">,</span> width<span class="op">,</span> height) {</span>
+<span id="cb55-5"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> controller <span class="op">=</span> <span class="kw">new</span> GIO<span class="op">.</span><span class="fu">Controller</span>(el)<span class="op">;</span></span>
+<span id="cb55-6"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb55-7"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb55-8"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">renderValue</span><span class="op">:</span> <span class="kw">function</span>(x) {</span>
+<span id="cb55-9"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// `controller` is accessible here</span></span>
+<span id="cb55-10"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-10" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb55-11"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">resize</span><span class="op">:</span> <span class="kw">function</span>(width<span class="op">,</span> height) {</span>
+<span id="cb55-12"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ... and also here :0)</span></span>
+<span id="cb55-13"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-13" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb55-14"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-14" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb55-15"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-15" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb55-16"><a href="sharing-variables-between-rendervalue-and-resize.html#cb55-16" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 </div>
             </section>
 

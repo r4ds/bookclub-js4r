@@ -23,7 +23,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2022-10-12" />
+<meta name="date" content="2022-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,10 +60,10 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.25/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="libs/d3-3.5.9/d3.min.js"></script>
 <link href="libs/d3scatter-0.0.0/d3scatter.css" rel="stylesheet" />
 <script src="libs/d3scatter-0.0.0/d3scatter.js"></script>
@@ -118,7 +118,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -131,7 +131,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -522,38 +522,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>we saw this for the <code>ml5</code> data-transfer…</p></li>
 <li><p>remember you can only register input-handlers once</p></li>
 </ul>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="input-handlers-for-widgets.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># handler</span></span>
-<span id="cb184-2"><a href="input-handlers-for-widgets.html#cb184-2" aria-hidden="true" tabindex="-1"></a>related_countries_handler <span class="ot">&lt;-</span> <span class="cf">function</span>(x, session, inputname) {</span>
-<span id="cb184-3"><a href="input-handlers-for-widgets.html#cb184-3" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map_dfr</span>(x, as.data.frame)</span>
-<span id="cb184-4"><a href="input-handlers-for-widgets.html#cb184-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb184-5"><a href="input-handlers-for-widgets.html#cb184-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb184-6"><a href="input-handlers-for-widgets.html#cb184-6" aria-hidden="true" tabindex="-1"></a>.onLoad <span class="ot">&lt;-</span> <span class="cf">function</span>(libname, pkgname) {</span>
-<span id="cb184-7"><a href="input-handlers-for-widgets.html#cb184-7" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">registerInputHandler</span>(</span>
-<span id="cb184-8"><a href="input-handlers-for-widgets.html#cb184-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gio.related.countries&quot;</span>,</span>
-<span id="cb184-9"><a href="input-handlers-for-widgets.html#cb184-9" aria-hidden="true" tabindex="-1"></a>    related_countries_handler</span>
-<span id="cb184-10"><a href="input-handlers-for-widgets.html#cb184-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb184-11"><a href="input-handlers-for-widgets.html#cb184-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="input-handlers-for-widgets.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># handler</span></span>
+<span id="cb181-2"><a href="input-handlers-for-widgets.html#cb181-2" aria-hidden="true" tabindex="-1"></a>related_countries_handler <span class="ot">&lt;-</span> <span class="cf">function</span>(x, session, inputname) {</span>
+<span id="cb181-3"><a href="input-handlers-for-widgets.html#cb181-3" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map_dfr</span>(x, as.data.frame)</span>
+<span id="cb181-4"><a href="input-handlers-for-widgets.html#cb181-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb181-5"><a href="input-handlers-for-widgets.html#cb181-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-6"><a href="input-handlers-for-widgets.html#cb181-6" aria-hidden="true" tabindex="-1"></a>.onLoad <span class="ot">&lt;-</span> <span class="cf">function</span>(libname, pkgname) {</span>
+<span id="cb181-7"><a href="input-handlers-for-widgets.html#cb181-7" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">registerInputHandler</span>(</span>
+<span id="cb181-8"><a href="input-handlers-for-widgets.html#cb181-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gio.related.countries&quot;</span>,</span>
+<span id="cb181-9"><a href="input-handlers-for-widgets.html#cb181-9" aria-hidden="true" tabindex="-1"></a>    related_countries_handler</span>
+<span id="cb181-10"><a href="input-handlers-for-widgets.html#cb181-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb181-11"><a href="input-handlers-for-widgets.html#cb181-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Example app:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="input-handlers-for-widgets.html#cb185-1" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> ... snip ...</span>
-<span id="cb185-2"><a href="input-handlers-for-widgets.html#cb185-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb185-3"><a href="input-handlers-for-widgets.html#cb185-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb185-4"><a href="input-handlers-for-widgets.html#cb185-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this output also binds an input$globe_related variable</span></span>
-<span id="cb185-5"><a href="input-handlers-for-widgets.html#cb185-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gioOutput</span>(<span class="st">&quot;globe&quot;</span>),</span>
-<span id="cb185-6"><a href="input-handlers-for-widgets.html#cb185-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... which we can present as a data-table</span></span>
-<span id="cb185-7"><a href="input-handlers-for-widgets.html#cb185-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;relatedCountries&quot;</span>)</span>
-<span id="cb185-8"><a href="input-handlers-for-widgets.html#cb185-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb185-9"><a href="input-handlers-for-widgets.html#cb185-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb185-10"><a href="input-handlers-for-widgets.html#cb185-10" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb185-11"><a href="input-handlers-for-widgets.html#cb185-11" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>globe <span class="ot">&lt;-</span> <span class="fu">renderGio</span>({</span>
-<span id="cb185-12"><a href="input-handlers-for-widgets.html#cb185-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gio</span>(arcs, i, e, v)</span>
-<span id="cb185-13"><a href="input-handlers-for-widgets.html#cb185-13" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb185-14"><a href="input-handlers-for-widgets.html#cb185-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb185-15"><a href="input-handlers-for-widgets.html#cb185-15" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>relatedCountries <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb185-16"><a href="input-handlers-for-widgets.html#cb185-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(input<span class="sc">$</span>globe_related)</span>
-<span id="cb185-17"><a href="input-handlers-for-widgets.html#cb185-17" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb185-18"><a href="input-handlers-for-widgets.html#cb185-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb185-19"><a href="input-handlers-for-widgets.html#cb185-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb185-20"><a href="input-handlers-for-widgets.html#cb185-20" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyapp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="input-handlers-for-widgets.html#cb182-1" aria-hidden="true" tabindex="-1"></a>arcs <span class="ot">&lt;-</span> ... snip ...</span>
+<span id="cb182-2"><a href="input-handlers-for-widgets.html#cb182-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-3"><a href="input-handlers-for-widgets.html#cb182-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb182-4"><a href="input-handlers-for-widgets.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this output also binds an input$globe_related variable</span></span>
+<span id="cb182-5"><a href="input-handlers-for-widgets.html#cb182-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gioOutput</span>(<span class="st">&quot;globe&quot;</span>),</span>
+<span id="cb182-6"><a href="input-handlers-for-widgets.html#cb182-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... which we can present as a data-table</span></span>
+<span id="cb182-7"><a href="input-handlers-for-widgets.html#cb182-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DTOutput</span>(<span class="st">&quot;relatedCountries&quot;</span>)</span>
+<span id="cb182-8"><a href="input-handlers-for-widgets.html#cb182-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb182-9"><a href="input-handlers-for-widgets.html#cb182-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-10"><a href="input-handlers-for-widgets.html#cb182-10" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb182-11"><a href="input-handlers-for-widgets.html#cb182-11" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>globe <span class="ot">&lt;-</span> <span class="fu">renderGio</span>({</span>
+<span id="cb182-12"><a href="input-handlers-for-widgets.html#cb182-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gio</span>(arcs, i, e, v)</span>
+<span id="cb182-13"><a href="input-handlers-for-widgets.html#cb182-13" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb182-14"><a href="input-handlers-for-widgets.html#cb182-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb182-15"><a href="input-handlers-for-widgets.html#cb182-15" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>relatedCountries <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
+<span id="cb182-16"><a href="input-handlers-for-widgets.html#cb182-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">datatable</span>(input<span class="sc">$</span>globe_related)</span>
+<span id="cb182-17"><a href="input-handlers-for-widgets.html#cb182-17" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb182-18"><a href="input-handlers-for-widgets.html#cb182-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb182-19"><a href="input-handlers-for-widgets.html#cb182-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-20"><a href="input-handlers-for-widgets.html#cb182-20" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyapp</span>(ui, server)</span></code></pre></div>
 </div>
             </section>
 
