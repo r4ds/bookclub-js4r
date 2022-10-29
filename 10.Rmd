@@ -149,12 +149,16 @@ Design for R Users (who are also humans)!
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/BQsNQljOujM")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:05:44	russ:	Hi
+00:45:40	Arthur Shaw:	https://github.com/vue-r/vueR
+00:58:25	John Coene:	https://github.com/JohnCoene/javascript-for-r/tree/master/code
+00:58:37	LUCIO ENRIQUE CORNEJO RAM REZ:	thanks!
+00:58:38	Arthur Shaw:	Thanks!
 ```
 </details>

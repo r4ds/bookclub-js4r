@@ -361,12 +361,16 @@ $(document).on('shiny:inputchanged', function(event) {
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/ybThzM8NCV0")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:01:12	LUCIO ENRIQUE CORNEJO RAM REZ:	hello
+00:48:37	Arthur Shaw:	https://rstudio.github.io/reactlog/
+00:57:05	LUCIO ENRIQUE CORNEJO RAM REZ:	https://shiny.rstudio.com/articles/js-events.html
+00:59:14	LUCIO ENRIQUE CORNEJO RAM REZ:	thank you
+00:59:16	LUCIO ENRIQUE CORNEJO RAM REZ:	bye
 ```
 </details>

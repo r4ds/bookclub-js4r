@@ -526,12 +526,28 @@ digraph{
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/EmjihW5HT7U")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:11:03	russ:	Hi everyone, welcome to a new section of "JavaScript for R"
+00:19:32	Ryan Metcalf:	Quick citations…..I'm not claiming this is the ONLY reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSock
+00:23:21	Ryan Metcalf:	And for those Engineering-minded person: https://www.rfc-editor.org/rfc/rfc6455
+00:33:56	Ryan Metcalf:	To inspect WebSocket traffic (in Chrome/Chromium): open Developer Mode, select Network, Highlight/Filter to "WS" for WebSocket, and refresh the page. Other browsers may define this option differently.
+00:36:28	Ryan Metcalf:	https://shiny.rstudio.com/reference/shiny/0.13.1/NS.html
+00:36:36	russ:	https://github.com/rstudio/shiny/blob/ac84be956a1417a613e0b6ebeea75b08f9302df2/R/shiny.R#L1427
+00:36:47	Ryan Metcalf:	I can't recall if we’ve discussed Namespace in this book club, or in others.
+00:38:00	Arthur Shaw:	In mastering Shiny: https://mastering-shiny.org/scaling-modules.html
+00:38:36	Arthur Shaw:	Does anyone have a good reference for the contents/methods of Shiny's session object?
+00:39:14	Ryan Metcalf:	Russ's reference to MShiny, Chapter 19.2: Module Basics: https://mastering-shiny.org/scaling-modules.html?q=NameSpace#module-basics
+00:40:20	russ:	https://shiny.rstudio.com/reference/shiny/1.7.0/session.html
+00:40:22	Arthur Shaw:	An aside: here's another tool for translating between JSON and R: https://symbolixau.github.io/jsonify/index.html. I heard about this during a Shiny workshop at rstudio::conf
+00:47:00	Ryan Metcalf:	Tagging Lucio in a comment from couple of days ago: https://youtu.be/a_umFne86K8. Maya Gans presenting to R-Ladies:Tunisia, June 28, 2021. “A little JS goes a long way”.
+01:03:13	Arthur Shaw:	A supplemental resource that now seems even more relevant: https://js4shiny.com/
+01:04:16	LUCIO ENRIQUE CORNEJO RAM REZ:	Thanks :)
+01:05:09	LUCIO ENRIQUE CORNEJO RAM REZ:	Bye, thanks
+01:05:14	russ:	THanks Lucio
 ```
 </details>

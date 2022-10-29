@@ -619,6 +619,10 @@ Week 1 video:
 
 `r knitr::include_url("https://www.youtube.com/embed/pPau7AzQAww")`
 
+Week 2 video:
+
+`r knitr::include_url("https://www.youtube.com/embed/wFin9zsH2f8")`
+
 <details>
 <summary> Meeting chat log </summary>
 
