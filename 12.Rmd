@@ -13,12 +13,17 @@
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/-8ZJJdXpfSw")`
+
+`r knitr::include_url("https://www.youtube.com/embed/RjW8rfwGS6g")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:50:03	Arthur Shaw:	The docs: https://shiny.rstudio.com/reference/shiny/latest/domains.html
+01:08:46	Ryan Metcalf:	Reference to Testing in Shiny: https://engineering-shiny.org/build-yourself-safety-net.html?q=Testing#testing-the-business-logic
+01:10:35	Ryan Metcalf:	The reference I made to “cannon" was `shinycannon()`
+01:13:03	Ryan Metcalf:	I started here with my V8 Memory Management quest. Thus far, fascinating! https://deepu.tech/memory-management-in-v8/
 ```
 </details>

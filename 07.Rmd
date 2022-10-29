@@ -188,7 +188,7 @@ Widget changes:
 - include this as `x.data` in the object passed to JS
 - Use `x.data` in the `controller.addData()` call
 
-```js
+``` js
 // ... snip ...
 factory: function(el, width, height) {
   return {
@@ -214,7 +214,7 @@ newGio <- function(data, width = NULL, height = NULL, elementId = NULL) {
 
 Look in devtools at the contents of the dataset:
 
-```js
+``` js
 <script type="application/json" data-for="htmlwidget-b97f43c69fa089f58c24">
 {
   "x": {
@@ -318,11 +318,3 @@ The object created can be subsequently modified before visualisation ('print'ing
 ### Cohort 1
 
 `r knitr::include_url("https://www.youtube.com/embed/qajHhpZWlAQ")`
-
-<details>
-<summary> Meeting chat log </summary>
-
-```
-LOG
-```
-</details>
